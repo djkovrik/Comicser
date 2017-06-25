@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
   compileSdkVersion 25
@@ -17,13 +18,80 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+  // App
+  final SUPPORT_LIBRARY_VERSION = "25.3.1"
+  final RX_ANDROID_VERSION = "2.0.1"
+  final RX_JAVA_VERSION = "2.1.1"
+  final RX_RELAY_VERSION = "2.0.0"
+  final DAGGER_VERSION = "2.11"
+  final RETROFIT_VERSION = "2.3.0"
+  final OKHTTP_VERSION = "3.8.1"
+  final MOSHI_VERSION = "1.5.0"
+  final AUTO_VALUE_VERSION = "1.4"
+  final AUTO_VALUE_MOSHI_VERSION = "0.4.3"
+  final BUTTER_KNIFE_VERSION = "8.6.0"
+  final GLIDE_VERSION = "3.8.0"
+  final SHOWCASE_VIEW_VERSION = "5.4.3"
+  final MATERIAL_VALUES_VERSION = "1.1.1"
+  final STETHO_VERSION = "1.5.0"
+  final TIMBER_VERSION = "4.5.1"
+  final LEAK_CANARY_VERSION = "1.5.1"
+
+  // Testing
+  final ESPRESSO_VERSION = "2.2.2"
+  final JUNIT_VERSION = "4.12"
+
+  def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+  def junit = "junit:junit:${JUNIT_VERSION}"
+
+
+  // App dependencies
+  compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+
+  compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
+  compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
+  compile "com.jakewharton.rxrelay2:rxrelay:${RX_RELAY_VERSION}"
+  compile "com.google.dagger:dagger:${DAGGER_VERSION}"
+  compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+  compile "com.squareup.retrofit2:converter-moshi:${RETROFIT_VERSION}"
+  compile "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
+  compile "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
+  compile "com.squareup.moshi:moshi:${MOSHI_VERSION}"
+  compile "com.jakewharton:butterknife:${BUTTER_KNIFE_VERSION}"
+  compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+  compile "com.github.amlcurran.showcaseview:library:${SHOWCASE_VIEW_VERSION}"
+  compile "blue.aodev:material-values:${MATERIAL_VALUES_VERSION}"
+
+  provided "com.jakewharton.auto.value:auto-value-annotations:${AUTO_VALUE_VERSION}"
+  provided "com.ryanharter.auto.value:auto-value-moshi-annotations:${AUTO_VALUE_MOSHI_VERSION}"
+  annotationProcessor "com.google.auto.value:auto-value:${AUTO_VALUE_VERSION}"
+  annotationProcessor "com.ryanharter.auto.value:auto-value-moshi:${AUTO_VALUE_MOSHI_VERSION}"
+  annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_VERSION}"
+
+  annotationProcessor daggerCompiler
+  testAnnotationProcessor daggerCompiler
+  androidTestAnnotationProcessor daggerCompiler
+
+  // Debugging tools dependencies
+  compile "com.facebook.stetho:stetho:${STETHO_VERSION}"
+  compile "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
+  compile "com.jakewharton.timber:timber:${TIMBER_VERSION}"
+  debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
+  releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
+  testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
+
+  // Instrumentation tests dependencies
+  androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}", {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile 'com.android.support:appcompat-v7:25.3.1'
-  testCompile 'junit:junit:4.12'
+
+  // Unit tests dependencies
+  testCompile junit
 }
