@@ -29,7 +29,8 @@ public interface ComicVineService {
   // Request issue details
   @GET("/issue/" + ISSUE_TYPE_CODE + "-{id}")
   Observable<ServerResponse<ComicIssueInfo>> getIssueDetails(
-      @Path("id") long issueId, @QueryMap Map<String, String> options);
+      @Path("id") long issueId,
+      @QueryMap Map<String, String> options);
 
   // Request volumes list
   @GET("/volumes")
@@ -39,7 +40,8 @@ public interface ComicVineService {
   // Request volume details
   @GET("/volume/" + VOLUME_TYPE_CODE + "-{id}")
   Observable<ServerResponse<ComicVolumeInfo>> getVolumeDetails(
-      @Path("id") long volumeId, @QueryMap Map<String, String> options);
+      @Path("id") long volumeId,
+      @QueryMap Map<String, String> options);
 
   // Request characters list
   @GET("/characters")
@@ -49,6 +51,7 @@ public interface ComicVineService {
   // Request character details
   @GET("/character/" + CHARACTER_TYPE_CODE + "-{id}")
   Observable<ServerResponse<ComicCharacterInfo>> getCharacterDetails(
-      @Path("id") long characterId, @QueryMap Map<String, String> options);
+      @Path("id") long characterId,
+      @QueryMap Map<String, String> options);
 
 }
