@@ -10,7 +10,6 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ComicCharacterInfoShort {
-  public abstract String api_detail_url();
   public abstract long id();
   public abstract String name();
 

@@ -10,12 +10,12 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ComicIssueInfoList {
-  public abstract String api_detail_url();
   public abstract long id();
   public abstract ComicImages image();
   public abstract int issue_number();
   public abstract String name();
   public abstract String store_date();
+  public abstract ComicVolumeInfoShort volume();
 
   public static TypeAdapter<ComicIssueInfoList> typeAdapter(Gson gson) {
     return new AutoValue_ComicIssueInfoList.GsonTypeAdapter(gson);

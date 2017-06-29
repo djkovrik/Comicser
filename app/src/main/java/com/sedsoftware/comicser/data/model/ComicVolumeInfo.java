@@ -19,7 +19,6 @@ import java.util.List;
 
 @AutoValue
 public abstract class ComicVolumeInfo {
-  public abstract String api_detail_url();
   public abstract List<ComicCharacterInfoShort> characters();
   public abstract int count_of_issues();
   public abstract String deck();

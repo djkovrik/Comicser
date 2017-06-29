@@ -10,7 +10,6 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ComicVolumeInfoList {
-  public abstract String api_detail_url();
   public abstract int count_of_issues();
   public abstract long id();
   public abstract ComicImages image();

@@ -20,7 +20,6 @@ import java.util.List;
 @AutoValue
 public abstract class ComicCharacterInfo {
   public abstract String aliases();
-  public abstract String api_detail_url();
   public abstract String birth();
   public abstract List<ComicCharacterInfoShort> character_enemies();
   public abstract List<ComicCharacterInfoShort> character_friends();

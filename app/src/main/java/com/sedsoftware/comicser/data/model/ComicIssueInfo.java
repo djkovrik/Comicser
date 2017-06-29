@@ -19,7 +19,6 @@ import java.util.List;
 
 @AutoValue
 public abstract class ComicIssueInfo {
-  public abstract String api_detail_url();
   public abstract List<ComicCharacterInfoShort> character_credits();
   public abstract String cover_date();
   public abstract String deck();
