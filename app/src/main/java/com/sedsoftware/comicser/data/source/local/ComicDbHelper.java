@@ -24,9 +24,9 @@ public class ComicDbHelper extends SQLiteOpenHelper {
           IssueEntry.COLUMN_ISSUE_NUMBER + INTEGER_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_NAME + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_STORE_DATE + TEXT_TYPE + SEPARATOR +
-          IssueEntry.COLUMN_ISSUE_SMALL_URL + TEXT_TYPE + SEPARATOR +
-          IssueEntry.COLUMN_ISSUE_MEDIUM_URL + TEXT_TYPE + SEPARATOR +
-          IssueEntry.COLUMN_ISSUE_SUPER_URL + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_SMALL_IMAGE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_HD_IMAGE + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_VOLUME_ID + LONG_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_VOLUME_NAME + TEXT_TYPE + SEPARATOR +
           " UNIQUE (" + IssueEntry.COLUMN_ISSUE_ID + ") ON CONFLICT REPLACE);";
@@ -37,6 +37,7 @@ public class ComicDbHelper extends SQLiteOpenHelper {
           OwnedIssueEntry.COLUMN_ISSUE_ID + LONG_TYPE + SEPARATOR +
           OwnedIssueEntry.COLUMN_ISSUE_NUMBER + INTEGER_TYPE + SEPARATOR +
           OwnedIssueEntry.COLUMN_ISSUE_NAME + TEXT_TYPE + SEPARATOR +
+          OwnedIssueEntry.COLUMN_ISSUE_IMAGE + TEXT_TYPE + SEPARATOR +
           " UNIQUE (" + OwnedIssueEntry.COLUMN_ISSUE_ID + ") ON CONFLICT REPLACE);";
 
   private static final String SQL_CREATE_TRACKED_VOLUMES_TABLE =
@@ -44,6 +45,8 @@ public class ComicDbHelper extends SQLiteOpenHelper {
           TrackedVolumeEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
           TrackedVolumeEntry.COLUMN_VOLUME_ID + LONG_TYPE + SEPARATOR +
           TrackedVolumeEntry.COLUMN_VOLUME_NAME + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_IMAGE + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_PUBLISHER + TEXT_TYPE + SEPARATOR +
           " UNIQUE (" + TrackedVolumeEntry.COLUMN_VOLUME_ID + ") ON CONFLICT REPLACE);";
 
   public ComicDbHelper(Context context) {
