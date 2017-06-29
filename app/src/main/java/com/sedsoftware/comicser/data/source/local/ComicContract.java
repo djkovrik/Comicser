@@ -22,8 +22,8 @@ public class ComicContract {
 
     public static final String TABLE_NAME_TODAY_ISSUES = "today_issues";
     public static final String COLUMN_ISSUE_ID = "issue_id";
+    public static final String COLUMN_ISSUE_NAME = "issue_name";
     public static final String COLUMN_ISSUE_NUMBER = "issue_number";
-    public static final String COLUMN_ISSUE_NAME = "name";
     public static final String COLUMN_ISSUE_STORE_DATE = "store_date";
     public static final String COLUMN_ISSUE_SMALL_IMAGE = "small_url";
     public static final String COLUMN_ISSUE_MEDIUM_IMAGE = "medium_url";
@@ -41,9 +41,8 @@ public class ComicContract {
 
     public static final String TABLE_NAME_OWNED_ISSUES = "owned_issues";
     public static final String COLUMN_ISSUE_ID = "issue_id";
-    public static final String COLUMN_ISSUE_NUMBER = "issue_number";
     public static final String COLUMN_ISSUE_NAME = "issue_name";
-    public static final String COLUMN_ISSUE_IMAGE = "issue_image";
+    public static final String COLUMN_ISSUE_NUMBER = "issue_number";
   }
 
   // Tracked volume info record
@@ -56,7 +55,5 @@ public class ComicContract {
     public static final String TABLE_NAME_TRACKED_VOLUMES = "tracked_volumes";
     public static final String COLUMN_VOLUME_ID = "volume_id";
     public static final String COLUMN_VOLUME_NAME = "volume_name";
-    public static final String COLUMN_VOLUME_IMAGE = "volume_image";
-    public static final String COLUMN_VOLUME_PUBLISHER = "volume_publisher";
   }
 }
