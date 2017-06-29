@@ -9,9 +9,9 @@ public class ComicContract {
   static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
   // Data paths
-  private static final String PATH_TODAY_ISSUES = "today_issues";
-  private static final String PATH_OWNED_ISSUES = "owned_issues";
-  private static final String PATH_TRACKED_VOLUMES = "tracked_volumes";
+  public static final String PATH_TODAY_ISSUES = "today_issues";
+  public static final String PATH_OWNED_ISSUES = "owned_issues";
+  public static final String PATH_TRACKED_VOLUMES = "tracked_volumes";
 
   // Issue info record
   public static final class IssueEntry implements BaseColumns {
