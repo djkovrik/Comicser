@@ -30,6 +30,6 @@
 - [ ] All app dependencies are managed by Gradle.
 
 #### Data Persistence
-- [ ] App stores data locally either by implementing a ContentProvider OR using Firebase Realtime Database. No third party frameworks nor Room Persistence Library may be used.
+- [x] App stores data locally either by implementing a ContentProvider OR using Firebase Realtime Database. No third party frameworks nor Room Persistence Library may be used.
 - [ ] If it regularly pulls or sends data to/from a web service or API, app updates data in its cache at regular intervals using a SyncAdapter or JobDispacter.
 - [ ] App uses a Loader to move its data to its views.
