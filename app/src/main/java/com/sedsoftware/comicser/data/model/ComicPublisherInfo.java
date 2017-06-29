@@ -16,4 +16,16 @@ public abstract class ComicPublisherInfo {
   public static TypeAdapter<ComicPublisherInfo> typeAdapter(Gson gson) {
     return new AutoValue_ComicPublisherInfo.GsonTypeAdapter(gson);
   }
+
+  public static Builder builder() {
+    return new AutoValue_ComicPublisherInfo.Builder();
+  }
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder id(long id);
+    public abstract Builder name(String name);
+
+    public abstract ComicPublisherInfo build();
+  }
 }

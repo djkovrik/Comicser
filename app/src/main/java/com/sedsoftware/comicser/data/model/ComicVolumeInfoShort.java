@@ -16,4 +16,16 @@ public abstract class ComicVolumeInfoShort {
   public static TypeAdapter<ComicVolumeInfoShort> typeAdapter(Gson gson) {
     return new AutoValue_ComicVolumeInfoShort.GsonTypeAdapter(gson);
   }
+
+  public static Builder builder() {
+    return new AutoValue_ComicVolumeInfoShort.Builder();
+  }
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder id(long id);
+    public abstract Builder name(String name);
+
+    public abstract ComicVolumeInfoShort build();
+  }
 }

@@ -17,4 +17,18 @@ public abstract class ComicIssueInfoShort {
   public static TypeAdapter<ComicIssueInfoShort> typeAdapter(Gson gson) {
     return new AutoValue_ComicIssueInfoShort.GsonTypeAdapter(gson);
   }
+
+  public static Builder builder() {
+    return new AutoValue_ComicIssueInfoShort.Builder();
+  }
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder id(long id);
+    public abstract Builder name(String name);
+    public abstract Builder issue_number(int issue_number);
+
+    public abstract ComicIssueInfoShort build();
+  }
 }
