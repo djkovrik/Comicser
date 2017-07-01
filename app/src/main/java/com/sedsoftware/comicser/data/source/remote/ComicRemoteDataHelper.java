@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ComicVineDataSource {
+public class ComicRemoteDataHelper {
 
   private static final String API_KEY = "API_KEY";
   ComicVineService comicVineService;
 
-  public ComicVineDataSource() {
+  public ComicRemoteDataHelper() {
     comicVineService = ComicVineServiceFactory
         .createFrom(ComicVineService.class, ComicVineService.ENDPOINT);
   }
