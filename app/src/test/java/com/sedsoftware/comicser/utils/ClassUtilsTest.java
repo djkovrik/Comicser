@@ -3,7 +3,7 @@ package com.sedsoftware.comicser.utils;
 
 import static org.junit.Assert.assertEquals;
 
-import com.sedsoftware.comicser.data.model.ComicCharacterInfoShort;
+import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import org.junit.Test;
 
 public class ClassUtilsTest {
@@ -12,8 +12,8 @@ public class ClassUtilsTest {
   public void testGetFieldsReturnsCorrectString_forAutoValueClass() {
 
     // Arrange
-    String detectedAVFields = ClassUtils.getMethodsList(ComicCharacterInfoShort.class);
-    String actualFields = "api_detail_url,id,name";
+    String detectedAVFields = ClassUtils.getMethodsList(ComicVolumeInfoList.class);
+    String actualFields = "count_of_issues,id,image,name,publisher";
 
     // Assert
     assertEquals("getMethodsList method returned incorrect list!",

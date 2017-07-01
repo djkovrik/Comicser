@@ -9,7 +9,7 @@ import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEnt
 
 public class ComicDbHelper extends SQLiteOpenHelper {
 
-  private static final String DATABASE_NAME = "comics.db";
+  public static final String DATABASE_NAME = "comics.db";
   private static final int DATABASE_VERSION = 1;
 
   private static final String TEXT_TYPE = " TEXT";
