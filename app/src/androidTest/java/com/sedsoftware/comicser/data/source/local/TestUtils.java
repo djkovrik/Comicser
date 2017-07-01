@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.data.source.local;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -53,6 +54,12 @@ class TestUtils {
         .id(123)
         .name("name")
         .build();
+  }
+
+  static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
+    assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());
+    validateCurrentRecord(error, valueCursor, expectedValues);
+    valueCursor.close();
   }
 
   static void validateCurrentRecord(String error, Cursor valueCursor,

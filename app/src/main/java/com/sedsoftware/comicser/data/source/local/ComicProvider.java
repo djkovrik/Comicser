@@ -16,11 +16,11 @@ import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEnt
 
 public class ComicProvider extends ContentProvider {
 
-  private static final int CODE_TODAY_ISSUES = 100;
-  private static final int CODE_OWNED_ISSUES = 200;
-  private static final int CODE_OWNED_ISSUES_WITH_ID = 201;
-  private static final int CODE_TRACKED_VOLUMES = 300;
-  private static final int CODE_TRACKED_VOLUMES_WITH_ID = 301;
+  public static final int CODE_TODAY_ISSUES = 100;
+  public static final int CODE_OWNED_ISSUES = 200;
+  public static final int CODE_OWNED_ISSUES_WITH_ID = 201;
+  public static final int CODE_TRACKED_VOLUMES = 300;
+  public static final int CODE_TRACKED_VOLUMES_WITH_ID = 301;
 
   private static final UriMatcher uriMatcher = buildMatcher();
 
