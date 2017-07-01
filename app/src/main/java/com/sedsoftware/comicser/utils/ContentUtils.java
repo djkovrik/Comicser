@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
@@ -105,6 +106,12 @@ public class ContentUtils {
     return ComicVolumeInfoShort.builder()
         .id(id)
         .name(name)
+        .build();
+  }
+
+  public static Uri buildDetailsUri(Uri baseUri, long recordId) {
+    return baseUri.buildUpon()
+        .appendPath(String.valueOf(recordId))
         .build();
   }
 }
