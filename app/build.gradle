@@ -47,9 +47,13 @@ dependencies {
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
   final JUNIT_VERSION = "4.12"
+  final MOCKITO_VERSION = "2.8.47"
+  final RUNNER_VERSION = "0.4"
 
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def junit = "junit:junit:${JUNIT_VERSION}"
+  def mockito = "org.mockito:mockito-core:${MOCKITO_VERSION}"
+  def mockitoAndroid = "org.mockito:mockito-android:${MOCKITO_VERSION}"
 
 
   // App dependencies
@@ -79,6 +83,19 @@ dependencies {
   testAnnotationProcessor daggerCompiler
   androidTestAnnotationProcessor daggerCompiler
 
+  // Instrumentation tests dependencies
+  androidTestCompile junit
+  androidTestCompile mockito
+  androidTestCompile mockitoAndroid
+  androidTestCompile "com.android.support:support-annotations:${SUPPORT_LIBRARY_VERSION}"
+  androidTestCompile "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+  androidTestCompile "com.android.support.test:runner:${RUNNER_VERSION}"
+  androidTestCompile "com.android.support.test:rules:${RUNNER_VERSION}"
+
+  // Unit tests dependencies
+  testCompile junit
+  testCompile mockito
+
   // Debugging tools dependencies
   compile "com.facebook.stetho:stetho:${STETHO_VERSION}"
   compile "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
@@ -86,12 +103,4 @@ dependencies {
   debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}"
   releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
   testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}"
-
-  // Instrumentation tests dependencies
-  androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}", {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
-
-  // Unit tests dependencies
-  testCompile junit
 }
