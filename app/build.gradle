@@ -55,9 +55,10 @@ dependencies {
   def mockito = "org.mockito:mockito-core:${MOCKITO_VERSION}"
   def mockitoAndroid = "org.mockito:mockito-android:${MOCKITO_VERSION}"
 
-
   // App dependencies
   compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+  compile "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
+  compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
   compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
   compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
