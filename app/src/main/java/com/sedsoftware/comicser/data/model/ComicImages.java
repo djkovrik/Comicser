@@ -1,5 +1,6 @@
 package com.sedsoftware.comicser.data.model;
 
+import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -10,13 +11,13 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class ComicImages {
-  public abstract String icon_url();
-  public abstract String medium_url();
-  public abstract String screen_url();
-  public abstract String small_url();
-  public abstract String super_url();
-  public abstract String thumb_url();
-  public abstract String tiny_url();
+  @Nullable public abstract String icon_url();
+  @Nullable public abstract String medium_url();
+  @Nullable public abstract String screen_url();
+  @Nullable public abstract String small_url();
+  @Nullable public abstract String super_url();
+  @Nullable public abstract String thumb_url();
+  @Nullable public abstract String tiny_url();
 
   public static TypeAdapter<ComicImages> typeAdapter(Gson gson) {
     return new AutoValue_ComicImages.GsonTypeAdapter(gson);
