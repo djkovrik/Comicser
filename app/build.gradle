@@ -43,6 +43,9 @@ dependencies {
   final STETHO_VERSION = "1.5.0"
   final TIMBER_VERSION = "4.5.1"
   final LEAK_CANARY_VERSION = "1.5.1"
+  final ANDROID_STATE_VERSION = "1.1.1"
+  final MOSBY_VERSION = "3.0.4"
+  final FRAGMENTARGS_VERSION = "3.0.2"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -55,11 +58,12 @@ dependencies {
   def mockito = "org.mockito:mockito-core:${MOCKITO_VERSION}"
   def mockitoAndroid = "org.mockito:mockito-android:${MOCKITO_VERSION}"
 
-  // App dependencies
+  // Android libs
   compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
   compile "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
   compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
+  // App dependencies
   compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
   compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
   compile "com.jakewharton.rxrelay2:rxrelay:${RX_RELAY_VERSION}"
@@ -73,12 +77,19 @@ dependencies {
   compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
   compile "com.github.amlcurran.showcaseview:library:${SHOWCASE_VIEW_VERSION}"
   compile "blue.aodev:material-values:${MATERIAL_VALUES_VERSION}"
+  compile "com.evernote:android-state:${ANDROID_STATE_VERSION}"
+  compile "com.hannesdorfmann.mosby3:viewstate:${MOSBY_VERSION}"
+  compile "com.hannesdorfmann.mosby3:mvp-lce:${MOSBY_VERSION}"
+  compile "com.hannesdorfmann.fragmentargs:annotation:${FRAGMENTARGS_VERSION}"
 
   provided "com.jakewharton.auto.value:auto-value-annotations:${AUTO_VALUE_VERSION}"
   provided "com.ryanharter.auto.value:auto-value-gson:${AUTO_VALUE_GSON_VERSION}"
+
   annotationProcessor "com.google.auto.value:auto-value:${AUTO_VALUE_VERSION}"
   annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${AUTO_VALUE_GSON_VERSION}"
   annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_VERSION}"
+  annotationProcessor "com.evernote:android-state-processor:${ANDROID_STATE_VERSION}"
+  annotationProcessor "com.hannesdorfmann.fragmentargs:processor:${FRAGMENTARGS_VERSION}"
 
   annotationProcessor daggerCompiler
   testAnnotationProcessor daggerCompiler
