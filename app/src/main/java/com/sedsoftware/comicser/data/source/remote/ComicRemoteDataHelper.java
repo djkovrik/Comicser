@@ -49,31 +49,6 @@ public class ComicRemoteDataHelper {
   }
 
   /**
-   * Request issues list (search by: specified date period).
-   *
-   * @param date1 Start date string in YYYY-MM-DD format.
-   * @param date2 End date string in YYYY-MM-DD format.
-   * @return Issue info list.
-   */
-  public Observable<List<ComicIssueInfoList>> getIssuesListByPeriod(String date1, String date2) {
-
-    String fields = ClassUtils.getMethodsList(ComicIssueInfoList.class);
-
-    Map<String, String> options = new HashMap<>();
-    options.put("api_key", API_KEY);
-    options.put("field_list", fields);
-    options.put("filter", "store_date:" + date1 + "|" + date2);
-    options.put("sort", "store_date:asc");
-    options.put("format", "json");
-
-    return comicVineService
-        .getIssuesList(options)
-        .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
-
-  }
-
-  /**
    * Request issues list (search by: specified name).
    *
    * @param name Target issue name.
