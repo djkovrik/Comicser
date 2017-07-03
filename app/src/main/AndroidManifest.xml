@@ -18,7 +18,7 @@
       android:name=".data.source.local.ComicProvider"/>
 
     <activity
-      android:name=".features.navigationview.NavigationViewActivity"
+      android:name=".features.navigation.NavigationActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
