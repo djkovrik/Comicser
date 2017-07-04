@@ -13,15 +13,16 @@ import io.reactivex.Observable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 
 public class ComicRemoteDataHelper {
 
   private static final String API_KEY = "API_KEY";
   ComicVineService comicVineService;
 
-  public ComicRemoteDataHelper() {
-    comicVineService = ComicVineServiceFactory
-        .createFrom(ComicVineService.class, ComicVineService.ENDPOINT);
+  @Inject
+  public ComicRemoteDataHelper(ComicVineService comicVineService) {
+    this.comicVineService = comicVineService;
   }
 
   /**

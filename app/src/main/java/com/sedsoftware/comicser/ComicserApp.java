@@ -1,11 +1,25 @@
 package com.sedsoftware.comicser;
 
 import android.app.Application;
+import android.content.Context;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import timber.log.Timber;
 
 public class ComicserApp extends Application {
+
+  private static ComicserAppComponent comicserAppComponent;
+
+  @Override
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+
+    if (comicserAppComponent == null) {
+      comicserAppComponent = DaggerComicserAppComponent.builder()
+          .comicserAppModule(new ComicserAppModule(this))
+          .build();
+    }
+  }
 
   @Override
   public void onCreate() {
@@ -25,5 +39,9 @@ public class ComicserApp extends Application {
 
       Stetho.initializeWithDefaults(this);
     }
+  }
+
+  public static ComicserAppComponent getAppComponent() {
+    return comicserAppComponent;
   }
 }

@@ -10,9 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
+import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicDbHelperModule;
+import javax.inject.Inject;
 
 public class ComicProvider extends ContentProvider {
 
@@ -24,7 +27,8 @@ public class ComicProvider extends ContentProvider {
 
   private static final UriMatcher uriMatcher = buildMatcher();
 
-  private ComicDbHelper comicDbHelper;
+  @Inject
+  ComicDbHelper comicDbHelper;
 
   public static UriMatcher buildMatcher() {
     final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -41,7 +45,12 @@ public class ComicProvider extends ContentProvider {
 
   @Override
   public boolean onCreate() {
-    comicDbHelper = new ComicDbHelper(getContext());
+
+    ComicserApp
+        .getAppComponent()
+        .plusDbHelperComponent(new ComicDbHelperModule())
+        .inject(this);
+
     return true;
   }
 

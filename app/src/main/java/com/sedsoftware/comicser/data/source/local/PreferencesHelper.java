@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.data.source.local.prefs;
+package com.sedsoftware.comicser.data.source.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

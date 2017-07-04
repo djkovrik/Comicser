@@ -1,7 +1,6 @@
 package com.sedsoftware.comicser.data.source.local;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
@@ -12,13 +11,15 @@ import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.utils.ContentUtils;
 import java.util.List;
+import javax.inject.Inject;
 
 public class ComicLocalDataHelper {
 
   private final ContentResolver contentResolver;
 
-  public ComicLocalDataHelper(Context context) {
-    contentResolver = context.getContentResolver();
+  @Inject
+  public ComicLocalDataHelper(ContentResolver contentResolver) {
+    this.contentResolver = contentResolver;
   }
 
   public void saveTodaysIssuesToDb(@NonNull List<ComicIssueInfoList> issues) {
