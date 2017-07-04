@@ -1,5 +1,6 @@
 package com.sedsoftware.comicser.data.source.remote;
 
+import com.sedsoftware.comicser.BuildConfig;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfo;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
@@ -17,7 +18,8 @@ import javax.inject.Inject;
 
 public class ComicRemoteDataHelper {
 
-  private static final String API_KEY = "API_KEY";
+  private static final String API_KEY = BuildConfig.COMICVINE_API_KEY;
+
   ComicVineService comicVineService;
 
   @Inject
