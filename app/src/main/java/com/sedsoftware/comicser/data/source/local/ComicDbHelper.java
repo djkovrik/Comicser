@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
-import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 
 public class ComicDbHelper extends SQLiteOpenHelper {
@@ -24,6 +23,7 @@ public class ComicDbHelper extends SQLiteOpenHelper {
           IssueEntry.COLUMN_ISSUE_NUMBER + INTEGER_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_NAME + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_STORE_DATE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_COVER_DATE + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_SMALL_IMAGE + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE + TEXT_TYPE + SEPARATOR +
           IssueEntry.COLUMN_ISSUE_HD_IMAGE + TEXT_TYPE + SEPARATOR +
@@ -32,19 +32,33 @@ public class ComicDbHelper extends SQLiteOpenHelper {
           " UNIQUE (" + IssueEntry.COLUMN_ISSUE_ID + ") ON CONFLICT REPLACE);";
 
   private static final String SQL_CREATE_OWNED_ISSUES_TABLE =
-      "CREATE TABLE " + OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES + " (" +
-          OwnedIssueEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-          OwnedIssueEntry.COLUMN_ISSUE_ID + LONG_TYPE + SEPARATOR +
-          OwnedIssueEntry.COLUMN_ISSUE_NUMBER + INTEGER_TYPE + SEPARATOR +
-          OwnedIssueEntry.COLUMN_ISSUE_NAME + TEXT_TYPE + SEPARATOR +
-          " UNIQUE (" + OwnedIssueEntry.COLUMN_ISSUE_ID + ") ON CONFLICT REPLACE);";
+      "CREATE TABLE " + IssueEntry.TABLE_NAME_OWNED_ISSUES + " (" +
+          IssueEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+          IssueEntry.COLUMN_ISSUE_ID + LONG_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_NUMBER + INTEGER_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_NAME + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_STORE_DATE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_COVER_DATE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_SMALL_IMAGE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_HD_IMAGE + TEXT_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_VOLUME_ID + LONG_TYPE + SEPARATOR +
+          IssueEntry.COLUMN_ISSUE_VOLUME_NAME + TEXT_TYPE + SEPARATOR +
+          " UNIQUE (" + IssueEntry.COLUMN_ISSUE_ID + ") ON CONFLICT REPLACE);";
 
   private static final String SQL_CREATE_TRACKED_VOLUMES_TABLE =
       "CREATE TABLE " + TrackedVolumeEntry.TABLE_NAME_TRACKED_VOLUMES + " (" +
           TrackedVolumeEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
           TrackedVolumeEntry.COLUMN_VOLUME_ID + LONG_TYPE + SEPARATOR +
           TrackedVolumeEntry.COLUMN_VOLUME_NAME + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_ISSUES_COUNT + INTEGER_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_PUBLISHER_NAME + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_START_YEAR + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_SMALL_IMAGE + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_MEDIUM_IMAGE + TEXT_TYPE + SEPARATOR +
+          TrackedVolumeEntry.COLUMN_VOLUME_HD_IMAGE + TEXT_TYPE + SEPARATOR +
           " UNIQUE (" + TrackedVolumeEntry.COLUMN_VOLUME_ID + ") ON CONFLICT REPLACE);";
+
 
   public ComicDbHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,7 +74,7 @@ public class ComicDbHelper extends SQLiteOpenHelper {
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     db.execSQL("DROP TABLE IF EXISTS " + TrackedVolumeEntry.TABLE_NAME_TRACKED_VOLUMES);
-    db.execSQL("DROP TABLE IF EXISTS " + OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES);
+    db.execSQL("DROP TABLE IF EXISTS " + IssueEntry.TABLE_NAME_OWNED_ISSUES);
     db.execSQL("DROP TABLE IF EXISTS " + IssueEntry.TABLE_NAME_TODAY_ISSUES);
     onCreate(db);
   }

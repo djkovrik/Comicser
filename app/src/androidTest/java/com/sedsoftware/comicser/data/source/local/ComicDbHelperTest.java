@@ -1,10 +1,7 @@
 package com.sedsoftware.comicser.data.source.local;
 
+
 import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static com.sedsoftware.comicser.data.source.local.TestUtils.getDummyIssueInfo;
-import static com.sedsoftware.comicser.data.source.local.TestUtils.getDummyIssueInfoShort;
-import static com.sedsoftware.comicser.data.source.local.TestUtils.getDummyVolumeInfoShort;
-import static com.sedsoftware.comicser.data.source.local.TestUtils.validateCurrentRecord;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -13,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.runner.AndroidJUnit4;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
-import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.utils.ContentUtils;
 import java.util.HashSet;
@@ -40,7 +36,7 @@ public class ComicDbHelperTest {
 
     final HashSet<String> tables = new HashSet<>();
     tables.add(IssueEntry.TABLE_NAME_TODAY_ISSUES);
-    tables.add(OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES);
+    tables.add(IssueEntry.TABLE_NAME_OWNED_ISSUES);
     tables.add(TrackedVolumeEntry.TABLE_NAME_TRACKED_VOLUMES);
 
     SQLiteDatabase database = comicDbHelper.getReadableDatabase();
@@ -69,27 +65,28 @@ public class ComicDbHelperTest {
     assertTrue("Error: Unable to query the database for table information.",
         queryCursor.moveToFirst());
 
-    final HashSet<String> todaysIssuesTableColumns = new HashSet<>();
-    todaysIssuesTableColumns.add(IssueEntry._ID);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_ID);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NAME);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NUMBER);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_STORE_DATE);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_SMALL_IMAGE);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_HD_IMAGE);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_ID);
-    todaysIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_NAME);
+    final HashSet<String> todayIssuesTableColumns = new HashSet<>();
+    todayIssuesTableColumns.add(IssueEntry._ID);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_ID);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NAME);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NUMBER);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_STORE_DATE);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_COVER_DATE);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_SMALL_IMAGE);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_HD_IMAGE);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_ID);
+    todayIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_NAME);
 
     int columnNameIndex = queryCursor.getColumnIndex("name");
 
     do {
       String columnName = queryCursor.getString(columnNameIndex);
-      todaysIssuesTableColumns.remove(columnName);
+      todayIssuesTableColumns.remove(columnName);
     } while (queryCursor.moveToNext());
 
     assertTrue("Error: The table doesn't contain all required columns",
-        todaysIssuesTableColumns.isEmpty());
+        todayIssuesTableColumns.isEmpty());
 
     queryCursor.close();
   }
@@ -98,15 +95,22 @@ public class ComicDbHelperTest {
   public void testOwnedIssuesTableColumnsCreation() {
 
     Cursor queryCursor = database
-        .rawQuery("PRAGMA table_info(" + OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES + ")", null);
+        .rawQuery("PRAGMA table_info(" + IssueEntry.TABLE_NAME_OWNED_ISSUES + ")", null);
     assertTrue("Error: Unable to query the database for table information.",
         queryCursor.moveToFirst());
 
     final HashSet<String> ownedIssuesTableColumns = new HashSet<>();
-    ownedIssuesTableColumns.add(OwnedIssueEntry._ID);
-    ownedIssuesTableColumns.add(OwnedIssueEntry.COLUMN_ISSUE_ID);
-    ownedIssuesTableColumns.add(OwnedIssueEntry.COLUMN_ISSUE_NAME);
-    ownedIssuesTableColumns.add(OwnedIssueEntry.COLUMN_ISSUE_NUMBER);
+    ownedIssuesTableColumns.add(IssueEntry._ID);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_ID);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NAME);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_NUMBER);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_STORE_DATE);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_COVER_DATE);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_SMALL_IMAGE);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_HD_IMAGE);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_ID);
+    ownedIssuesTableColumns.add(IssueEntry.COLUMN_ISSUE_VOLUME_NAME);
 
     int columnNameIndex = queryCursor.getColumnIndex("name");
 
@@ -133,6 +137,12 @@ public class ComicDbHelperTest {
     trackedVolumesTableColumns.add(TrackedVolumeEntry._ID);
     trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_ID);
     trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_NAME);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_ISSUES_COUNT);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_PUBLISHER_NAME);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_START_YEAR);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_SMALL_IMAGE);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_MEDIUM_IMAGE);
+    trackedVolumesTableColumns.add(TrackedVolumeEntry.COLUMN_VOLUME_HD_IMAGE);
 
     int columnNameIndex = queryCursor.getColumnIndex("name");
 
@@ -150,7 +160,7 @@ public class ComicDbHelperTest {
   @Test
   public void testInsertTodayIssueRecord() {
 
-    ContentValues testValues = ContentUtils.issueInfoToContentValues(getDummyIssueInfo());
+    ContentValues testValues = ContentUtils.issueInfoToContentValues(TestUtils.getDummyIssueInfo());
     long inserted = database.insert(IssueEntry.TABLE_NAME_TODAY_ISSUES, null, testValues);
     assertTrue(inserted != -1);
 
@@ -165,7 +175,7 @@ public class ComicDbHelperTest {
 
     assertTrue("Error: No Records returned from the query", queryCursor.moveToFirst());
 
-    validateCurrentRecord("Error: Today's issue query validation failed",
+    TestUtils.validateCurrentRecord("Error: Today's issue query validation failed",
         queryCursor, testValues);
 
     queryCursor.close();
@@ -174,12 +184,12 @@ public class ComicDbHelperTest {
   @Test
   public void testInsertOwnedIssueRecord() {
 
-    ContentValues testValues = ContentUtils.ownedIssueToContentValues(getDummyIssueInfoShort());
-    long inserted = database.insert(OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES, null, testValues);
+    ContentValues testValues = ContentUtils.issueInfoToContentValues(TestUtils.getDummyIssueInfo());
+    long inserted = database.insert(IssueEntry.TABLE_NAME_OWNED_ISSUES, null, testValues);
     assertTrue(inserted != -1);
 
     Cursor queryCursor = database.query(
-        OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES,
+        IssueEntry.TABLE_NAME_OWNED_ISSUES,
         null,
         null,
         null,
@@ -189,7 +199,7 @@ public class ComicDbHelperTest {
 
     assertTrue("Error: No Records returned from the query", queryCursor.moveToFirst());
 
-    validateCurrentRecord("Error: Owned issue query validation failed",
+    TestUtils.validateCurrentRecord("Error: Owned issue query validation failed",
         queryCursor, testValues);
 
     queryCursor.close();
@@ -198,7 +208,7 @@ public class ComicDbHelperTest {
   @Test
   public void testInsertTrackedVolumeRecord() {
 
-    ContentValues testValues = ContentUtils.trackedVolumeToContentValues(getDummyVolumeInfoShort());
+    ContentValues testValues = ContentUtils.volumeInfoToContentValues(TestUtils.getDummyVolumeInfo());
     long inserted = database
         .insert(TrackedVolumeEntry.TABLE_NAME_TRACKED_VOLUMES, null, testValues);
     assertTrue(inserted != -1);
@@ -214,7 +224,7 @@ public class ComicDbHelperTest {
 
     assertTrue("Error: No records returned from the query", queryCursor.moveToFirst());
 
-    validateCurrentRecord("Error: Tracked volume query validation failed",
+    TestUtils.validateCurrentRecord("Error: Tracked volume query validation failed",
         queryCursor, testValues);
 
     queryCursor.close();

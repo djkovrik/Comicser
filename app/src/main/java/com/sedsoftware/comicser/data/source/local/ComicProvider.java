@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
-import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicDbHelperModule;
 import javax.inject.Inject;
@@ -77,7 +76,7 @@ public class ComicProvider extends ContentProvider {
 
       case CODE_OWNED_ISSUES:
         cursor = comicDbHelper.getReadableDatabase().query(
-            OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES,
+            IssueEntry.TABLE_NAME_OWNED_ISSUES,
             projection,
             selection,
             selectionArgs,
@@ -100,9 +99,9 @@ public class ComicProvider extends ContentProvider {
       case CODE_OWNED_ISSUES_WITH_ID:
         recordId = uri.getLastPathSegment();
         cursor = comicDbHelper.getReadableDatabase().query(
-            OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES,
+            IssueEntry.TABLE_NAME_OWNED_ISSUES,
             projection,
-            OwnedIssueEntry.COLUMN_ISSUE_ID + " = ?",
+            IssueEntry.COLUMN_ISSUE_ID + " = ?",
             new String[]{recordId},
             null,
             null,
@@ -150,9 +149,9 @@ public class ComicProvider extends ContentProvider {
         break;
 
       case CODE_OWNED_ISSUES:
-        ids = db.insert(OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES, null, values);
+        ids = db.insert(IssueEntry.TABLE_NAME_OWNED_ISSUES, null, values);
         if (ids > 0) {
-          returnUri = ContentUris.withAppendedId(OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES, ids);
+          returnUri = ContentUris.withAppendedId(IssueEntry.CONTENT_URI_OWNED_ISSUES, ids);
         } else {
           throw new SQLException("Failed to insert row into " + uri);
         }
@@ -208,7 +207,7 @@ public class ComicProvider extends ContentProvider {
         db.beginTransaction();
         try {
           for (ContentValues value : values) {
-            long ids = db.insert(OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES, null, value);
+            long ids = db.insert(IssueEntry.TABLE_NAME_OWNED_ISSUES, null, value);
             if (ids != -1) {
               rowsInserted++;
             }
@@ -272,7 +271,7 @@ public class ComicProvider extends ContentProvider {
 
       case CODE_OWNED_ISSUES:
         rowsDeleted = db.delete(
-            OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES,
+            IssueEntry.TABLE_NAME_OWNED_ISSUES,
             selection,
             selectionArgs);
         break;
@@ -287,8 +286,8 @@ public class ComicProvider extends ContentProvider {
       case CODE_OWNED_ISSUES_WITH_ID:
         recordId = uri.getLastPathSegment();
         rowsDeleted = db.delete(
-            OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES,
-            OwnedIssueEntry.COLUMN_ISSUE_ID  + " = ?",
+            IssueEntry.TABLE_NAME_OWNED_ISSUES,
+            IssueEntry.COLUMN_ISSUE_ID  + " = ?",
             new String[]{recordId});
         break;
 

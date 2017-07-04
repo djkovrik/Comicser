@@ -16,6 +16,7 @@ public abstract class ComicIssueInfoList {
   public abstract int issue_number();
   @Nullable public abstract String name();
   @Nullable public abstract String store_date();
+  @Nullable public abstract String cover_date();
   @Nullable public abstract ComicVolumeInfoShort volume();
 
   public static TypeAdapter<ComicIssueInfoList> typeAdapter(Gson gson) {
@@ -34,6 +35,7 @@ public abstract class ComicIssueInfoList {
     public abstract Builder issue_number(int issue_number);
     public abstract Builder name(String name);
     public abstract Builder store_date(String store_date);
+    public abstract Builder cover_date(String cover_date);
     public abstract Builder volume(ComicVolumeInfoShort volume);
 
     public abstract ComicIssueInfoList build();

@@ -8,7 +8,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
-import com.sedsoftware.comicser.data.model.ComicIssueInfoShort;
+import com.sedsoftware.comicser.data.model.ComicPublisherInfo;
+import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoShort;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,6 +23,7 @@ class TestUtils {
         .issue_number(321)
         .name("name")
         .store_date("store_date")
+        .cover_date("cover_date")
         .image(
             ComicImages.builder()
                 .icon_url("icon_url")
@@ -41,18 +43,26 @@ class TestUtils {
         .build();
   }
 
-  static ComicIssueInfoShort getDummyIssueInfoShort() {
-    return ComicIssueInfoShort.builder()
-        .id(123)
-        .name("name")
-        .issue_number(321)
-        .build();
-  }
-
-  static ComicVolumeInfoShort getDummyVolumeInfoShort() {
-    return ComicVolumeInfoShort.builder()
-        .id(123)
-        .name("name")
+  static ComicVolumeInfoList getDummyVolumeInfo() {
+    return ComicVolumeInfoList.builder()
+        .count_of_issues(123)
+        .id(321)
+        .image(
+            ComicImages.builder()
+                .icon_url("icon_url")
+                .medium_url("medium_url")
+                .screen_url("screen_url")
+                .small_url("small_url")
+                .super_url("super_url")
+                .thumb_url("thumb_url")
+                .tiny_url("tiny_url")
+                .build())
+        .name("Tets issue")
+        .publisher(ComicPublisherInfo.builder()
+            .name("DC Comics")
+            .id(11111)
+            .build())
+        .start_year(2003)
         .build();
   }
 

@@ -16,9 +16,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
-import com.sedsoftware.comicser.data.source.local.ComicContract.OwnedIssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.utils.ContentUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 public class ComicProviderTest {
 
   private static final Uri TEST_TODAY_ISSUES = IssueEntry.CONTENT_URI_TODAY_ISSUES;
-  private static final Uri TEST_OWNED_ISSUES = OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES;
+  private static final Uri TEST_OWNED_ISSUES = IssueEntry.CONTENT_URI_OWNED_ISSUES;
   private static final Uri TEST_TRACKED_VOLUMES = TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES;
 
   private static final long TEST_ISSUE_ID = 123;
@@ -116,15 +116,15 @@ public class ComicProviderTest {
     ComicDbHelper comicDbHelper = new ComicDbHelper(context);
     SQLiteDatabase database = comicDbHelper.getWritableDatabase();
     ContentValues testValues = ContentUtils
-        .ownedIssueToContentValues(TestUtils.getDummyIssueInfoShort());
+        .issueInfoToContentValues(TestUtils.getDummyIssueInfo());
 
     // Insert content via database
-    database.insert(OwnedIssueEntry.TABLE_NAME_OWNED_ISSUES, null, testValues);
+    database.insert(IssueEntry.TABLE_NAME_OWNED_ISSUES, null, testValues);
     database.close();
 
     // Query content via provider
     Cursor queryCursor = contentResolver.query(
-        OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES,
+        IssueEntry.CONTENT_URI_OWNED_ISSUES,
         null,
         null,
         null,
@@ -138,7 +138,7 @@ public class ComicProviderTest {
     ComicDbHelper comicDbHelper = new ComicDbHelper(context);
     SQLiteDatabase database = comicDbHelper.getWritableDatabase();
     ContentValues testValues = ContentUtils
-        .trackedVolumeToContentValues(TestUtils.getDummyVolumeInfoShort());
+        .volumeInfoToContentValues(TestUtils.getDummyVolumeInfo());
 
     // Insert content via database
     database.insert(TrackedVolumeEntry.TABLE_NAME_TRACKED_VOLUMES, null, testValues);
@@ -167,7 +167,7 @@ public class ComicProviderTest {
     todayIssues.close();
 
     Cursor ownedIssues = contentResolver
-        .query(OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES, null, null, null, null);
+        .query(IssueEntry.CONTENT_URI_OWNED_ISSUES, null, null, null, null);
     assertEquals("Error: Records were not deleted from owned issues table", 0,
         ownedIssues.getCount());
     ownedIssues.close();
@@ -207,14 +207,14 @@ public class ComicProviderTest {
     deleteAllRecordsViaProvider();
 
     ContentValues testValues = ContentUtils
-        .ownedIssueToContentValues(TestUtils.getDummyIssueInfoShort());
+        .issueInfoToContentValues(TestUtils.getDummyIssueInfo());
 
     // Insert content via provider
-    contentResolver.insert(OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES, testValues);
+    contentResolver.insert(IssueEntry.CONTENT_URI_OWNED_ISSUES, testValues);
 
     // Query content via provider
     Cursor queryCursor = contentResolver.query(
-        OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES,
+        IssueEntry.CONTENT_URI_OWNED_ISSUES,
         null,
         null,
         null,
@@ -229,7 +229,7 @@ public class ComicProviderTest {
     deleteAllRecordsViaProvider();
 
     ContentValues testValues = ContentUtils
-        .trackedVolumeToContentValues(TestUtils.getDummyVolumeInfoShort());
+        .volumeInfoToContentValues(TestUtils.getDummyVolumeInfo());
 
     // Insert content via provider
     contentResolver.insert(TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES, testValues);
@@ -245,9 +245,14 @@ public class ComicProviderTest {
     TestUtils.validateCursor("testTrackedVolumesInsert", queryCursor, testValues);
   }
 
+  @After
+  public void cleanUp() {
+    deleteAllRecordsViaProvider();
+  }
+
   private void deleteAllRecordsViaProvider() {
     contentResolver.delete(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null);
-    contentResolver.delete(OwnedIssueEntry.CONTENT_URI_OWNED_ISSUES, null, null);
+    contentResolver.delete(IssueEntry.CONTENT_URI_OWNED_ISSUES, null, null);
     contentResolver.delete(TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES, null, null);
   }
 }

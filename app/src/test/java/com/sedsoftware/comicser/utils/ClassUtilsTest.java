@@ -13,7 +13,7 @@ public class ClassUtilsTest {
 
     // Arrange
     String detectedAVFields = ClassUtils.getMethodsList(ComicVolumeInfoList.class);
-    String actualFields = "count_of_issues,id,image,name,publisher";
+    String actualFields = "count_of_issues,id,image,name,publisher,start_year";
 
     // Assert
     assertEquals("getMethodsList method returned incorrect list!",
