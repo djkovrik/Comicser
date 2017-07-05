@@ -1,12 +1,17 @@
 package com.sedsoftware.comicser.utils;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
+import com.sedsoftware.comicser.data.model.ComicVolumeInfoShort;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContentUtils {
 
@@ -25,6 +30,66 @@ public class ContentUtils {
     values.put(IssueEntry.COLUMN_ISSUE_VOLUME_NAME, issue.volume().name());
 
     return values;
+  }
+
+  public static List<ComicIssueInfoList> issueInfoFromCursor(Cursor cursor) {
+
+    List<ComicIssueInfoList> issues = new ArrayList<>();
+
+    if (cursor.getCount() > 0) {
+      cursor.moveToPosition(-1);
+
+      while (cursor.moveToNext()) {
+
+        long id = cursor
+            .getLong(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_ID));
+        int number = cursor
+            .getInt(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_NUMBER));
+        String name = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_NAME));
+        String storeDate = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_STORE_DATE));
+        String coverDate = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_COVER_DATE));
+        String small = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_SMALL_IMAGE));
+        String medium = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_MEDIUM_IMAGE));
+        String hd = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_HD_IMAGE));
+        long volumeId = cursor
+            .getLong(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_VOLUME_ID));
+        String volumeName = cursor
+            .getString(cursor.getColumnIndexOrThrow(IssueEntry.COLUMN_ISSUE_VOLUME_NAME));
+
+        ComicIssueInfoList issue = ComicIssueInfoList.builder()
+            .id(id)
+            .image(
+                ComicImages.builder()
+                    .icon_url("")
+                    .medium_url(medium)
+                    .screen_url("")
+                    .small_url(small)
+                    .super_url(hd)
+                    .thumb_url("")
+                    .tiny_url("")
+                    .build())
+            .issue_number(number)
+            .name(name)
+            .store_date(storeDate)
+            .cover_date(coverDate)
+            .volume(
+                ComicVolumeInfoShort.builder()
+                    .id(volumeId)
+                    .name(volumeName)
+                    .build())
+            .build();
+
+        issues.add(issue);
+      }
+    }
+
+    return issues;
   }
 
   public static ContentValues volumeInfoToContentValues(@NonNull ComicVolumeInfoList volume) {
