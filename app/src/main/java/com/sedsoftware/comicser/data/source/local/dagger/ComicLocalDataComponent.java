@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.data.source.local.dagger;
 
 import com.sedsoftware.comicser.data.source.local.LocalDataScope;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
+import com.sedsoftware.comicser.features.issuelist.IssuesPresenter;
 import dagger.Subcomponent;
 
 /**
@@ -14,4 +15,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {ComicLocalDataModule.class})
 public interface ComicLocalDataComponent {
 
+  void inject(IssuesPresenter presenter);
 }
