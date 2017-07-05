@@ -64,7 +64,8 @@ dependencies {
   // Android libs
   compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
   compile "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
-  compile 'com.android.support.constraint:constraint-layout:1.0.2'
+  compile "com.android.support:cardview-v7:${SUPPORT_LIBRARY_VERSION}"
+  compile "com.android.support.constraint:constraint-layout:1.0.2"
 
   // App dependencies
   compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
