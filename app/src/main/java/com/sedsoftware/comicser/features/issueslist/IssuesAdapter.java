@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
+class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
   private List<ComicIssueInfoList> issues;
 
-  public IssuesAdapter() {
+  IssuesAdapter() {
     issues = new ArrayList<>();
   }
 
@@ -41,7 +41,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
   @Override
   public int getItemCount() {
-    return issues.size();
+    return issues == null ? 0 : issues.size();
   }
 
   @Override
@@ -64,7 +64,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
     @BindView(R.id.issue_name)
     TextView issueName;
 
-    public IssueViewHolder(View itemView) {
+    IssueViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }

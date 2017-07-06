@@ -91,17 +91,9 @@ public class IssuesFragment extends
     }
   }
 
-  private void updateTitle() {
-    ActionBar supportActionBar = ((NavigationActivity) getActivity()).getSupportActionBar();
-
-    if (supportActionBar != null) {
-      supportActionBar.setTitle(title);
-    }
-  }
-
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.issues_view, menu);
+    inflater.inflate(R.menu.fragment_issues_list, menu);
 
     // Tint Menu icons
     Drawable filter = menu.findItem(R.id.action_filter).getIcon();
@@ -128,6 +120,12 @@ public class IssuesFragment extends
     return adapter == null ? null : adapter.getIssues();
   }
 
+  @Override
+  public void setData(List<ComicIssueInfoList> data) {
+    adapter.setIssues(data);
+    adapter.notifyDataSetChanged();
+  }
+
   @NonNull
   @Override
   public LceViewState<List<ComicIssueInfoList>, IssuesView> createViewState() {
@@ -146,26 +144,13 @@ public class IssuesFragment extends
   }
 
   @Override
+  public void loadData(boolean pullToRefresh) {
+    presenter.loadTodayIssues(pullToRefresh);
+  }
+
+  @Override
   public void loadDataForChosenDate(String date) {
     presenter.loadIssuesByDate(date);
-  }
-
-  @Override
-  public void showEmptyView(boolean show) {
-    if (show) {
-      emptyView.setText(emptyViewText);
-      emptyView.setVisibility(View.VISIBLE);
-      recyclerView.setVisibility(View.GONE);
-    } else {
-      recyclerView.setVisibility(View.VISIBLE);
-      emptyView.setVisibility(View.GONE);
-    }
-  }
-
-  @Override
-  public void setTitle(String date) {
-    title = String.format(Locale.US, titleFormatString, date);
-    updateTitle();
   }
 
   @Override
@@ -183,16 +168,10 @@ public class IssuesFragment extends
     dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
   }
 
-
   @Override
-  public void setData(List<ComicIssueInfoList> data) {
-    adapter.setIssues(data);
-    adapter.notifyDataSetChanged();
-  }
-
-  @Override
-  public void loadData(boolean pullToRefresh) {
-    presenter.loadTodayIssues(pullToRefresh);
+  public void setTitle(String date) {
+    title = String.format(Locale.US, titleFormatString, date);
+    updateTitle();
   }
 
   @Override
@@ -214,6 +193,18 @@ public class IssuesFragment extends
   }
 
   @Override
+  public void showEmptyView(boolean show) {
+    if (show) {
+      emptyView.setText(emptyViewText);
+      emptyView.setVisibility(View.VISIBLE);
+      recyclerView.setVisibility(View.GONE);
+    } else {
+      recyclerView.setVisibility(View.VISIBLE);
+      emptyView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
   public void onRefresh() {
     loadData(true);
   }
@@ -225,5 +216,13 @@ public class IssuesFragment extends
         .plusLocalComponent(new ComicLocalDataModule())
         .plusIssuesComponent();
     issuesComponent.inject(this);
+  }
+
+  private void updateTitle() {
+    ActionBar supportActionBar = ((NavigationActivity) getActivity()).getSupportActionBar();
+
+    if (supportActionBar != null) {
+      supportActionBar.setTitle(title);
+    }
   }
 }

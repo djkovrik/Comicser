@@ -21,5 +21,6 @@
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">Data loading error! Please check your internet connection or try again later.</string>
-  <string name="msg_no_issues_today">No available releases found. Please use search or chose another date.</string>
+  <string name="msg_no_issues_today">No available releases found. Please chose another date.</string>
+  <string name="msg_title_today">Today</string>
 </resources>
