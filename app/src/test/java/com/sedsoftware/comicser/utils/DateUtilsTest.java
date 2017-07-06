@@ -18,6 +18,6 @@ public class DateUtilsTest {
     // Assert
     assertEquals("getDateString method returned incorrect string!",
         TEST_DATE_STRING,
-        DateUtils.getDateString(testDate.getTime()));
+        DateTextUtils.getDateString(testDate.getTime()));
   }
 }

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.features.issueslist.IssuesAdapter.IssueViewHolder;
+import com.sedsoftware.comicser.utils.DateTextUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -110,7 +111,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
     private void setIssueDate(String date) {
       if (date != null) {
-        issueDate.setText(date);
+        issueDate.setText(DateTextUtils.getFormattedDate(date));
       }
     }
   }

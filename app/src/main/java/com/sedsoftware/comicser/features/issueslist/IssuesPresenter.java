@@ -5,7 +5,7 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
 import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
-import com.sedsoftware.comicser.utils.DateUtils;
+import com.sedsoftware.comicser.utils.DateTextUtils;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -32,7 +32,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
     this.localDataHelper = localDataHelper;
     this.remoteDataHelper = remoteDataHelper;
 
-    currentDate = DateUtils.getTodayDateString();
+    currentDate = DateTextUtils.getTodayDateString();
     lastSyncDate = preferencesHelper.getLastSyncDate();
   }
 
