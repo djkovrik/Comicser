@@ -15,7 +15,7 @@ public class DateTextUtils {
     return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(date);
   }
 
-  public static String getFormattedDate(String rawDate) {
+  public static String getFormattedDate(String rawDate, String format) {
 
     SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     Date storeDate = new Date();
@@ -26,7 +26,7 @@ public class DateTextUtils {
       e.printStackTrace();
     }
 
-    SimpleDateFormat newFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.US);
+    SimpleDateFormat newFormat = new SimpleDateFormat(format, Locale.US);
 
     return newFormat.format(storeDate);
   }

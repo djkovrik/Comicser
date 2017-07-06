@@ -49,6 +49,7 @@ dependencies {
   final ANDROID_STATE_VERSION = "1.1.1"
   final MOSBY_VERSION = "3.0.4"
   final FRAGMENTARGS_VERSION = "3.0.2"
+  final MATERIAL_DATE_PICKER_VERSION = "3.2.2"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -85,6 +86,7 @@ dependencies {
   compile "com.hannesdorfmann.mosby3:viewstate:${MOSBY_VERSION}"
   compile "com.hannesdorfmann.mosby3:mvp-lce:${MOSBY_VERSION}"
   compile "com.hannesdorfmann.fragmentargs:annotation:${FRAGMENTARGS_VERSION}"
+  compile "com.wdullaer:materialdatetimepicker:${MATERIAL_DATE_PICKER_VERSION}"
 
   provided "com.jakewharton.auto.value:auto-value-annotations:${AUTO_VALUE_VERSION}"
   provided "com.ryanharter.auto.value:auto-value-gson:${AUTO_VALUE_GSON_VERSION}"

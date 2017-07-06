@@ -14,7 +14,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.features.issueslist.IssuesAdapter.IssueViewHolder;
-import com.sedsoftware.comicser.utils.DateTextUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -64,8 +63,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
     ImageView issueCover;
     @BindView(R.id.issue_name)
     TextView issueName;
-    @BindView(R.id.issue_date)
-    TextView issueDate;
 
     public IssueViewHolder(View itemView) {
       super(itemView);
@@ -78,11 +75,9 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
       String issueNameText = issue.name();
       String volumeNameText = issue.volume().name();
       int number = issue.issue_number();
-      String date = issue.store_date();
 
       loadCover(cover);
       setIssueName(issueNameText, volumeNameText, number);
-      setIssueDate(date);
     }
 
     private void loadCover(@Nullable String url) {
@@ -107,12 +102,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
       }
 
       issueName.setText(name);
-    }
-
-    private void setIssueDate(String date) {
-      if (date != null) {
-        issueDate.setText(DateTextUtils.getFormattedDate(date));
-      }
     }
   }
 }

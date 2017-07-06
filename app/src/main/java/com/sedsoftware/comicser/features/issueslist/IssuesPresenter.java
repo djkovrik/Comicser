@@ -63,7 +63,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         .doOnSubscribe(disposable -> Timber.tag("Comicser").d("Issues data loading started..."))
         .doOnError(t -> Timber.tag("Comicser").d("Issues data loading error: " + t.getMessage()))
         .doOnComplete(() -> Timber.tag("Comicser").d("Issues data loading completed."))
-        .subscribe(getIssuesObserver(false));
+        .subscribe(getIssuesByDateObserver(date));
   }
 
   private Observer<List<ComicIssueInfoList>> getIssuesObserver(boolean forcedSync) {
@@ -107,6 +107,45 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         }
         if (isViewAttached()) {
           getView().showContent();
+          getView().setTitle("today");
+        }
+      }
+    };
+  }
+
+  private Observer<List<ComicIssueInfoList>> getIssuesByDateObserver(String date) {
+    return new Observer<List<ComicIssueInfoList>>() {
+      @Override
+      public void onSubscribe(@NonNull Disposable d) {
+        if (isViewAttached()) {
+          getView().showEmptyView(false);
+          getView().showLoading(true);
+        }
+      }
+
+      @Override
+      public void onNext(@NonNull List<ComicIssueInfoList> list) {
+        if (isViewAttached()) {
+          if (list.size() > 0) {
+            getView().setData(list);
+          } else {
+            getView().showEmptyView(true);
+          }
+        }
+      }
+
+      @Override
+      public void onError(@NonNull Throwable e) {
+        if (isViewAttached()) {
+          getView().showError(e, false);
+        }
+      }
+
+      @Override
+      public void onComplete() {
+        if (isViewAttached()) {
+          getView().showContent();
+          getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
         }
       }
     };
