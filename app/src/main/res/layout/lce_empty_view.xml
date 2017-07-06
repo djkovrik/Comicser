@@ -13,6 +13,7 @@
     android:drawablePadding="16dp"
     android:drawableTop="@drawable/ic_error_sad"
     android:gravity="center"
+    android:visibility="gone"
     android:textColor="@color/colorSecondaryText"
     android:textSize="20sp"
     tools:text="@string/msg_no_issues_today"/>

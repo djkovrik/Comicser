@@ -71,6 +71,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
         if (isViewAttached()) {
+          getView().showEmptyView(false);
           getView().showLoading(forcedSync);
         }
       }
@@ -86,9 +87,8 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         if (isViewAttached()) {
           if (list.size() > 0) {
             getView().setData(list);
-            getView().showContent();
           } else {
-            getView().showEmptyView();
+            getView().showEmptyView(true);
           }
         }
       }
@@ -96,7 +96,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
       @Override
       public void onError(@NonNull Throwable e) {
         if (isViewAttached()) {
-          getView().showLoading(false);
           getView().showError(e, forcedSync);
         }
       }
@@ -107,7 +106,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
           preferencesHelper.setSyncDate(currentDate);
         }
         if (isViewAttached()) {
-          getView().showLoading(false);
+          getView().showContent();
         }
       }
     };

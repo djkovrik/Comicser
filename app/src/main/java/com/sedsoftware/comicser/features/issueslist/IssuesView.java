@@ -13,5 +13,5 @@ public interface IssuesView extends MvpLceView<List<ComicIssueInfoList>> {
 //  void setData(List<ComicIssueInfoList> data);
 //  void loadData(boolean pullToRefresh);
 
-  void showEmptyView();
+  void showEmptyView(boolean show);
 }

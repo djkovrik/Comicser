@@ -15,6 +15,7 @@
     android:gravity="center"
     android:textColor="@color/colorSecondaryText"
     android:textSize="20sp"
+    android:visibility="gone"
     tools:text="@string/error_data_not_available"/>
 
 </merge>

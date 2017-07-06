@@ -5,17 +5,18 @@
   android:layout_height="match_parent">
 
   <include layout="@layout/lce_loading_view"/>
+  <include layout="@layout/lce_empty_view"/>
   <include layout="@layout/lce_error_view"/>
 
   <android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/refreshLayout"
+    android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     tools:targetApi="lollipop">
 
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/contentView"
+      android:id="@+id/recyclerView"
       android:scrollbarStyle="outsideOverlay"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

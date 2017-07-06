@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -27,20 +26,17 @@ public class IssuesFragment extends
     BaseLceFragment<SwipeRefreshLayout, List<ComicIssueInfoList>, IssuesView, IssuesPresenter>
     implements IssuesView, SwipeRefreshLayout.OnRefreshListener {
 
-  @BindView(R.id.errorView)
-  TextView errorView;
   @BindString(R.string.error_data_not_available)
   String errorViewText;
-  @BindView(R.id.emptyView)
-  TextView emptyView;
   @BindString(R.string.msg_no_issues_today)
   String emptyViewText;
-  @BindView(R.id.loadingView)
-  ProgressBar loadingView;
-  @BindView(R.id.refreshLayout)
-  SwipeRefreshLayout swipeRefreshLayout;
+
+  @BindView(R.id.emptyView)
+  TextView emptyView;
   @BindView(R.id.contentView)
-  RecyclerView contentView;
+  SwipeRefreshLayout contentView;
+  @BindView(R.id.recyclerView)
+  RecyclerView recyclerView;
 
   IssuesComponent issuesComponent;
 
@@ -55,7 +51,7 @@ public class IssuesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    swipeRefreshLayout.setOnRefreshListener(this);
+    contentView.setOnRefreshListener(this);
 
     // Setup recyclerview
     adapter = new IssuesAdapter();
@@ -63,9 +59,9 @@ public class IssuesFragment extends
 
     GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
 
-    contentView.setLayoutManager(manager);
-    contentView.setHasFixedSize(true);
-    contentView.setAdapter(adapter);
+    recyclerView.setLayoutManager(manager);
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setAdapter(adapter);
 
     loadData(false);
   }
@@ -93,13 +89,13 @@ public class IssuesFragment extends
   }
 
   @Override
-  public void showEmptyView() {
-    swipeRefreshLayout.setRefreshing(false);
-    emptyView.setText(emptyViewText);
-    emptyView.setVisibility(View.VISIBLE);
-    contentView.setVisibility(View.GONE);
-    loadingView.setVisibility(View.GONE);
-    errorView.setVisibility(View.GONE);
+  public void showEmptyView(boolean show) {
+    if (show) {
+      emptyView.setText(emptyViewText);
+      emptyView.setVisibility(View.VISIBLE);
+    } else {
+      emptyView.setVisibility(View.GONE);
+    }
   }
 
   @Override
@@ -116,41 +112,19 @@ public class IssuesFragment extends
   @Override
   public void showContent() {
     super.showContent();
-    swipeRefreshLayout.setRefreshing(false);
-    contentView.setVisibility(View.VISIBLE);
-    loadingView.setVisibility(View.GONE);
-    errorView.setVisibility(View.GONE);
-    emptyView.setVisibility(View.GONE);
+    contentView.setRefreshing(false);
   }
 
   @Override
   public void showError(Throwable e, boolean pullToRefresh) {
     super.showError(e, pullToRefresh);
-    swipeRefreshLayout.setRefreshing(false);
-    contentView.setVisibility(View.GONE);
-    emptyView.setVisibility(View.GONE);
-    loadingView.setVisibility(View.GONE);
-    errorView.setText(errorViewText);
-    errorView.setVisibility(View.VISIBLE);
+    contentView.setRefreshing(false);
   }
 
   @Override
   public void showLoading(boolean pullToRefresh) {
     super.showLoading(pullToRefresh);
-
-    swipeRefreshLayout.setRefreshing(pullToRefresh);
-
-    if (pullToRefresh) {
-      contentView.setVisibility(View.GONE);
-      loadingView.setVisibility(View.VISIBLE);
-      emptyView.setVisibility(View.GONE);
-      errorView.setVisibility(View.GONE);
-    } else {
-      contentView.setVisibility(View.VISIBLE);
-      loadingView.setVisibility(View.GONE);
-      emptyView.setVisibility(View.GONE);
-      errorView.setVisibility(View.GONE);
-    }
+    contentView.setRefreshing(pullToRefresh);
   }
 
   @Override
