@@ -29,11 +29,9 @@ import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataM
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -57,10 +55,11 @@ public class IssuesFragment extends
   @State
   String title;
 
+  @State
+  String chosenDate;
+
   IssuesComponent issuesComponent;
   IssuesAdapter adapter;
-
-  private OnDateSetListener callback;
 
   @Override
   protected int getLayoutRes() {
@@ -83,11 +82,13 @@ public class IssuesFragment extends
     recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(adapter);
 
-    loadData(false);
-
     setHasOptionsMenu(true);
 
-    callback = createOnDateSetListenerCallback();
+    if (chosenDate != null) {
+      loadDataForChosenDate(chosenDate);
+    } else {
+      loadData(false);
+    }
   }
 
   private void updateTitle() {
@@ -98,24 +99,11 @@ public class IssuesFragment extends
     }
   }
 
-  private OnDateSetListener createOnDateSetListenerCallback() {
-    return (view, year, monthOfYear, dayOfMonth) -> {
-      String date = String.format(Locale.US, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-      presenter.loadIssuesByDate(date);
-    };
-  }
-
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.issues_view, menu);
 
     // Tint Menu icons
-    Drawable search = menu.findItem(R.id.action_search).getIcon();
-    search = DrawableCompat.wrap(search);
-    DrawableCompat
-        .setTint(search, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_search).setIcon(search);
-
     Drawable filter = menu.findItem(R.id.action_filter).getIcon();
     filter = DrawableCompat.wrap(filter);
     DrawableCompat
@@ -130,9 +118,6 @@ public class IssuesFragment extends
     switch (item.getItemId()) {
       case R.id.action_filter:
         choseDateAndLoadData();
-        break;
-      case R.id.action_search:
-
         break;
     }
     return true;
@@ -161,6 +146,11 @@ public class IssuesFragment extends
   }
 
   @Override
+  public void loadDataForChosenDate(String date) {
+    presenter.loadIssuesByDate(date);
+  }
+
+  @Override
   public void showEmptyView(boolean show) {
     if (show) {
       emptyView.setText(emptyViewText);
@@ -174,7 +164,6 @@ public class IssuesFragment extends
 
   @Override
   public void setTitle(String date) {
-    Timber.d("Set title called: " + date);
     title = String.format(Locale.US, titleFormatString, date);
     updateTitle();
   }
@@ -183,7 +172,10 @@ public class IssuesFragment extends
   public void choseDateAndLoadData() {
     Calendar now = Calendar.getInstance();
     DatePickerDialog dpd = DatePickerDialog.newInstance(
-        callback,
+        (view, year, monthOfYear, dayOfMonth) -> {
+          chosenDate = String.format(Locale.US, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+          loadDataForChosenDate(chosenDate);
+        },
         now.get(Calendar.YEAR),
         now.get(Calendar.MONTH),
         now.get(Calendar.DAY_OF_MONTH));
