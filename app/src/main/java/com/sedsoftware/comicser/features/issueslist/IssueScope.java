@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.issuelist;
+package com.sedsoftware.comicser.features.issueslist;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

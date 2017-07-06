@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.issuelist;
+package com.sedsoftware.comicser.features.issueslist;
 
 import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;

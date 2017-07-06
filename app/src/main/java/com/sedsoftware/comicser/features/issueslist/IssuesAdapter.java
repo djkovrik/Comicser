@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.issuelist;
+package com.sedsoftware.comicser.features.issueslist;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
-import com.sedsoftware.comicser.features.issuelist.IssuesAdapter.IssueViewHolder;
+import com.sedsoftware.comicser.features.issueslist.IssuesAdapter.IssueViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 

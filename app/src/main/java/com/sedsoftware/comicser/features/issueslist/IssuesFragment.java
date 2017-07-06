@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.issuelist;
+package com.sedsoftware.comicser.features.issueslist;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

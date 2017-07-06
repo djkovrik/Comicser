@@ -15,8 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.sedsoftware.comicser.R;
-import com.sedsoftware.comicser.features.issuelist.IssuesFragment;
-import com.sedsoftware.comicser.features.issuelist.IssuesFragmentBuilder;
+import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
+import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
 public class NavigationActivity extends
