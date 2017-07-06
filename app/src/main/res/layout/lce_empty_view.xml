@@ -12,10 +12,12 @@
     android:padding="16dp"
     android:drawablePadding="16dp"
     android:drawableTop="@drawable/ic_error_sad"
+    android:drawableTint="@color/colorAccentDark"
     android:gravity="center"
     android:visibility="gone"
-    android:textColor="@color/colorSecondaryText"
+    android:textColor="@color/colorAccentDark"
     android:textSize="20sp"
-    tools:text="@string/msg_no_issues_today"/>
+    tools:text="@string/msg_no_issues_today"
+    tools:targetApi="m"/>
 
 </merge>

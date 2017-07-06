@@ -17,7 +17,7 @@
   <string name="navigation_settings">Settings</string>
 
   <!-- Issues -->
-  <string name="issues_title_format">Issues [<xliff:g id="date">%s</xliff:g>]</string>
+  <string name="issues_title_format">Issues - <xliff:g id="date">%s</xliff:g></string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">Data loading error! Please check your internet connection or try again later.</string>

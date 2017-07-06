@@ -115,7 +115,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         }
         if (isViewAttached()) {
           getView().showContent();
-          getView().setTitle("today");
+          getView().setTitle("Today");
         }
       }
     };
