@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">Comicser</string>
 
   <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -7,7 +7,7 @@
   <!-- Menu items -->
   <string name="action_filter">Filter</string>
   <string name="action_search">Search</string>
-  
+
   <!-- Navigation drawer items -->
   <string name="navigation_issues">Issues</string>
   <string name="navigation_volumes">Volumes</string>
@@ -15,4 +15,22 @@
   <string name="navigation_collection">My collection</string>
   <string name="navigation_tracker">Release tracker</string>
   <string name="navigation_settings">Settings</string>
+
+  <!-- Issues -->
+  <string name="issues_title_format">Issues - <xliff:g id="date">%s</xliff:g></string>
+
+  <!-- Errors and info messages -->
+  <string name="error_data_not_available">Data loading error! Please check your internet connection or try again later.</string>
+  <string name="msg_no_issues_today">No available releases found. Please chose another date.</string>
+  <string name="msg_title_today">Today</string>
+
+  <!-- ShowcaseView guide -->
+  <!-- Issues -->
+  <string name="showcase_issues_title">Issues view</string>
+  <string name="showcase_issues_datepicker">
+    Here you can choose a specific date so Comicser will load all issue releases for that date.
+  </string>
+  <string name="showcase_issues_drawer">
+    Also you can use this button of left swipe for navigation drawer access.
+  </string>
 </resources>

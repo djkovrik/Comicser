@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.data.source.local;
 
 
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
@@ -9,6 +10,7 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.utils.ContentUtils;
+import io.reactivex.Observable;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -28,6 +30,22 @@ public class ComicLocalDataHelper {
           IssueEntry.CONTENT_URI_TODAY_ISSUES,
           ContentUtils.issueInfoToContentValues(issue));
     }
+  }
+
+  public Observable<List<ComicIssueInfoList>> getTodaysIssuesFromDb() {
+
+    return Observable.create(e -> {
+
+      Cursor query = contentResolver
+          .query(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null, null, null);
+
+      if (query != null) {
+        List<ComicIssueInfoList> list = ContentUtils.issueInfoFromCursor(query);
+        query.close();
+        e.onNext(list);
+      }
+      e.onComplete();
+    });
   }
 
   public void removeAllTodaysIssuesFromDb() {

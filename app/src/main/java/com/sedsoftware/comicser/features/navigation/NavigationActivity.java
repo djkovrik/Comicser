@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
+import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 
 public class NavigationActivity extends
     MvpActivity<NavigationActivityView, NavigationActivityPresenter>
@@ -52,6 +56,7 @@ public class NavigationActivity extends
     toggle.syncState();
 
     navigationView.setNavigationItemSelectedListener(this);
+    navigationView.setCheckedItem(R.id.nav_issues);
   }
 
   @Override
@@ -90,7 +95,17 @@ public class NavigationActivity extends
 
   @Override
   public void showTodayIssuesFragment() {
-    Toast.makeText(this, "Issues", Toast.LENGTH_SHORT).show();
+
+    FragmentManager manager = getSupportFragmentManager();
+
+    IssuesFragment issues = (IssuesFragment) manager.findFragmentById(R.id.content_frame);
+
+    if (issues == null) {
+      issues = new IssuesFragmentBuilder()
+          .build();
+
+      FragmentUtils.addFragmentTo(manager, issues, R.id.content_frame);
+    }
   }
 
   @Override
