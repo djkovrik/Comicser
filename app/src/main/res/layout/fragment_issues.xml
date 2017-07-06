@@ -4,21 +4,8 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextView
-    android:id="@+id/errorView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:text="Error!"
-    android:visibility="gone"/>
-
-  <ProgressBar
-    android:id="@+id/loadingView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:visibility="gone"/>
+  <include layout="@layout/lce_loading_view"/>
+  <include layout="@layout/lce_error_view"/>
 
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/refreshLayout"

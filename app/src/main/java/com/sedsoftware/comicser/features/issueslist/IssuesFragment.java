@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
@@ -28,6 +29,12 @@ public class IssuesFragment extends
 
   @BindView(R.id.errorView)
   TextView errorView;
+  @BindString(R.string.error_data_not_available)
+  String errorViewText;
+  @BindView(R.id.emptyView)
+  TextView emptyView;
+  @BindString(R.string.msg_no_issues_today)
+  String emptyViewText;
   @BindView(R.id.loadingView)
   ProgressBar loadingView;
   @BindView(R.id.refreshLayout)
@@ -87,7 +94,12 @@ public class IssuesFragment extends
 
   @Override
   public void showEmptyView() {
-
+    swipeRefreshLayout.setRefreshing(false);
+    emptyView.setText(emptyViewText);
+    emptyView.setVisibility(View.VISIBLE);
+    contentView.setVisibility(View.GONE);
+    loadingView.setVisibility(View.GONE);
+    errorView.setVisibility(View.GONE);
   }
 
   @Override
@@ -108,6 +120,7 @@ public class IssuesFragment extends
     contentView.setVisibility(View.VISIBLE);
     loadingView.setVisibility(View.GONE);
     errorView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
   }
 
   @Override
@@ -115,7 +128,9 @@ public class IssuesFragment extends
     super.showError(e, pullToRefresh);
     swipeRefreshLayout.setRefreshing(false);
     contentView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
     loadingView.setVisibility(View.GONE);
+    errorView.setText(errorViewText);
     errorView.setVisibility(View.VISIBLE);
   }
 
@@ -128,10 +143,12 @@ public class IssuesFragment extends
     if (pullToRefresh) {
       contentView.setVisibility(View.GONE);
       loadingView.setVisibility(View.VISIBLE);
+      emptyView.setVisibility(View.GONE);
       errorView.setVisibility(View.GONE);
     } else {
       contentView.setVisibility(View.VISIBLE);
       loadingView.setVisibility(View.GONE);
+      emptyView.setVisibility(View.GONE);
       errorView.setVisibility(View.GONE);
     }
   }
