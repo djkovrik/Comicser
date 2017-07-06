@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +18,11 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.evernote.android.state.State;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.data.RetainingLceViewState;
@@ -27,6 +32,9 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
+import com.sedsoftware.comicser.features.ViewTargets;
+import com.sedsoftware.comicser.features.ViewTargets.MissingViewException;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
@@ -102,6 +110,8 @@ public class IssuesFragment extends
         .setTint(filter, ContextCompat.getColor(getContext(), R.color.material_color_white));
     menu.findItem(R.id.action_filter).setIcon(filter);
 
+    showcaseToolbarItems();
+
     super.onCreateOptionsMenu(menu, inflater);
   }
 
@@ -165,6 +175,7 @@ public class IssuesFragment extends
         now.get(Calendar.MONTH),
         now.get(Calendar.DAY_OF_MONTH));
 
+    dpd.setAccentColor(ContextCompat.getColor(getContext(), R.color.colorAccentDark));
     dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
   }
 
@@ -223,6 +234,54 @@ public class IssuesFragment extends
 
     if (supportActionBar != null) {
       supportActionBar.setTitle(title);
+    }
+  }
+
+  private void showcaseToolbarItems() {
+
+    if (presenter.shouldNotDisplayShowcases()) {
+      return;
+    }
+
+    Toolbar toolbar = ButterKnife.findById(getActivity(), R.id.toolbar);
+
+    if (toolbar != null) {
+
+      // Show first showcase
+      new ShowcaseView.Builder(getActivity())
+          .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_filter))
+          .withMaterialShowcase()
+          .hideOnTouchOutside()
+          .setStyle(R.style.CustomShowcaseTheme)
+          .setContentTitle(R.string.showcase_issues_title)
+          .setContentText(R.string.showcase_issues_datepicker)
+          .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+            @Override
+            public void onShowcaseViewHide(ShowcaseView showcaseView) {
+              super.onShowcaseViewHide(showcaseView);
+              // Show second showcase
+              try {
+                ViewTarget navigationButtonViewTarget = ViewTargets
+                    .navigationButtonViewTarget(toolbar);
+
+                new ShowcaseView.Builder(getActivity())
+                    .setTarget(navigationButtonViewTarget)
+                    .withMaterialShowcase()
+                    .hideOnTouchOutside()
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setContentTitle(R.string.showcase_issues_title)
+                    .setContentText(R.string.showcase_issues_drawer)
+                    .build()
+                    .show();
+              } catch (MissingViewException e) {
+                e.printStackTrace();
+              }
+            }
+          })
+          .build()
+          .show();
+
+      presenter.showcaseWasDisplayed();
     }
   }
 }

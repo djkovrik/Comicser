@@ -13,6 +13,8 @@ public class PreferencesHelper {
   private static final String PREFERENCE_LAST_SYNC_DATE = "comicser_last_sync_date";
   private static final String PREFERENCE_LAST_SYNC_DATE_DEFAULT = "2017-01-01";
 
+  private static final String PREFERENCE_SHOULD_SHOWCASE_ISSUES = "comicser_views_showcased";
+
   private final SharedPreferences sharedPreferences;
 
   public PreferencesHelper(Context context) {
@@ -33,5 +35,13 @@ public class PreferencesHelper {
 
   public String getLastSyncDate() {
     return sharedPreferences.getString(PREFERENCE_LAST_SYNC_DATE, PREFERENCE_LAST_SYNC_DATE_DEFAULT);
+  }
+
+  public void markIssuesViewAsShowcased() {
+    sharedPreferences.edit().putBoolean(PREFERENCE_SHOULD_SHOWCASE_ISSUES, true).apply();
+  }
+
+  public boolean wasIssuesViewShowcased() {
+    return sharedPreferences.getBoolean(PREFERENCE_SHOULD_SHOWCASE_ISSUES, false);
   }
 }

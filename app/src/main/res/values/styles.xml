@@ -17,4 +17,21 @@
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+  <!-- Showcase styling -->
+  <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
+    <item name="sv_backgroundColor">@color/colorPrimaryDarkTransparent</item>
+    <item name="sv_showcaseColor">@color/colorAccentDark</item>
+    <item name="sv_tintButtonColor">true</item>
+    <item name="sv_titleTextAppearance">@style/CustomTitle</item>
+    <item name="sv_detailTextAppearance">@style/CustomDetails</item>
+  </style>
+
+  <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
+    <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
+  <style name="CustomDetails" parent="TextAppearance.ShowcaseView.Detail">
+    <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
 </resources>

@@ -36,6 +36,14 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
     lastSyncDate = preferencesHelper.getLastSyncDate();
   }
 
+  public boolean shouldNotDisplayShowcases() {
+    return preferencesHelper.wasIssuesViewShowcased();
+  }
+
+  public void showcaseWasDisplayed() {
+    preferencesHelper.markIssuesViewAsShowcased();
+  }
+
   public void loadTodayIssues(boolean pullToRefresh) {
 
     boolean forcedSync = (pullToRefresh || !(currentDate.equals(lastSyncDate)));

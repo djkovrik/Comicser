@@ -23,4 +23,14 @@
   <string name="error_data_not_available">Data loading error! Please check your internet connection or try again later.</string>
   <string name="msg_no_issues_today">No available releases found. Please chose another date.</string>
   <string name="msg_title_today">Today</string>
+
+  <!-- ShowcaseView guide -->
+  <!-- Issues -->
+  <string name="showcase_issues_title">Issues view</string>
+  <string name="showcase_issues_datepicker">
+    Here you can choose a specific date so Comicser will load all issue releases for that date.
+  </string>
+  <string name="showcase_issues_drawer">
+    Also you can use this button of left swipe for navigation drawer access.
+  </string>
 </resources>
