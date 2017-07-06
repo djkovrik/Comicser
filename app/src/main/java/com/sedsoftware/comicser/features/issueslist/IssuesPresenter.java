@@ -1,13 +1,10 @@
 package com.sedsoftware.comicser.features.issueslist;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
 import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
-import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
-import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.utils.DateUtils;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -37,17 +34,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
     currentDate = DateUtils.getTodayDateString();
     lastSyncDate = preferencesHelper.getLastSyncDate();
-  }
-
-  @Override
-  public void attachView(IssuesView view) {
-    super.attachView(view);
-
-    ComicserApp
-        .getAppComponent()
-        .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
-        .inject(this);
   }
 
   public void loadTodayIssues(boolean pullToRefresh) {
