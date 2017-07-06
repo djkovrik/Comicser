@@ -7,4 +7,7 @@
 
   <!-- Cards -->
   <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
+
+  <!-- Misc -->
+  <dimen name="image_progressbar_padding">64dp</dimen>
 </resources>
