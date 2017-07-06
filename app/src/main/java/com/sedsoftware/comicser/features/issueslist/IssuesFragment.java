@@ -59,6 +59,8 @@ public class IssuesFragment extends
     contentView.setLayoutManager(manager);
     contentView.setHasFixedSize(true);
     contentView.setAdapter(adapter);
+
+    loadData(false);
   }
 
   @Override
