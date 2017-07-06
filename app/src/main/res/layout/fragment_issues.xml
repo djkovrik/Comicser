@@ -13,6 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:elevation="@dimen/material_elevation_refresh_indicator"
     tools:targetApi="lollipop">
 
     <android.support.v7.widget.RecyclerView
@@ -20,6 +21,7 @@
       android:scrollbarStyle="outsideOverlay"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:padding="@dimen/card_margin_value_half"
       android:clipToPadding="false"/>
 
   </android.support.v4.widget.SwipeRefreshLayout>

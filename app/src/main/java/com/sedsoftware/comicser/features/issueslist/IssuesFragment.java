@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindString;
@@ -57,7 +57,9 @@ public class IssuesFragment extends
     adapter = new IssuesAdapter();
     adapter.setHasStableIds(true);
 
-    GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
+//    GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
+    StaggeredGridLayoutManager manager =
+        new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
     recyclerView.setLayoutManager(manager);
     recyclerView.setHasFixedSize(true);

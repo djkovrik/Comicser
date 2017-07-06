@@ -16,6 +16,7 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.features.issueslist.IssuesAdapter.IssueViewHolder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
@@ -62,8 +63,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
     ImageView issueCover;
     @BindView(R.id.issue_name)
     TextView issueName;
-    @BindView(R.id.issue_number)
-    TextView issueNumber;
     @BindView(R.id.issue_date)
     TextView issueDate;
 
@@ -74,14 +73,14 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
     void bindTo(ComicIssueInfoList issue) {
 
-      String cover = issue.image().medium_url();
-      String name = issue.volume().name();
+      String cover = issue.image().small_url();
+      String issueNameText = issue.name();
+      String volumeNameText = issue.volume().name();
       int number = issue.issue_number();
       String date = issue.store_date();
 
       loadCover(cover);
-      setIssueName(name);
-      setIssueNumber(number);
+      setIssueName(issueNameText, volumeNameText, number);
       setIssueDate(date);
     }
 
@@ -96,14 +95,17 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
       }
     }
 
-    private void setIssueName(String name) {
-      if (name != null) {
-        issueName.setText(name);
-      }
-    }
+    private void setIssueName(String issue, String volume, int number) {
 
-    private void setIssueNumber(int number) {
-      issueNumber.setText(String.valueOf(number));
+      String name;
+
+      if (issue != null) {
+        name = String.format(Locale.US, "%s #%d - %s", volume, number, issue);
+      } else {
+        name = String.format(Locale.US, "%s #%d", volume, number);
+      }
+
+      issueName.setText(name);
     }
 
     private void setIssueDate(String date) {

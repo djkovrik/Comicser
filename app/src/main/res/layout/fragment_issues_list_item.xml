@@ -5,45 +5,53 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical">
+  android:layout_margin="@dimen/card_margin_value_half"
+  android:elevation="@dimen/cardview_default_elevation"
+  android:orientation="vertical"
+  tools:targetApi="lollipop">
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
       android:id="@+id/issue_cover"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:adjustViewBounds="true"
       app:srcCompat="@drawable/dummy_issue_cover"
       tools:ignore="ContentDescription"/>
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
       android:orientation="horizontal">
 
       <TextView
         android:id="@+id/issue_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        tools:text="The Walking Dead"/>
-
-      <TextView
-        android:id="@+id/issue_number"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        tools:text="#169"/>
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="@dimen/material_card_title_block_small_text_size"
+        tools:text="The Walking Dead #169"/>
 
     </LinearLayout>
 
     <TextView
       android:id="@+id/issue_date"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:textColor="@color/colorSecondaryText"
+      android:textSize="@dimen/material_card_title_block_subtitle_text_size"
       tools:text="July 05, 2017"/>
 
   </LinearLayout>
