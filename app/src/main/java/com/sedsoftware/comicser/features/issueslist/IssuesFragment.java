@@ -94,7 +94,7 @@ public class IssuesFragment extends
 
     if (chosenDate != null) {
       loadDataForChosenDate(chosenDate);
-    } else {
+    } else if (savedInstanceState != null) {
       loadData(false);
     }
   }
