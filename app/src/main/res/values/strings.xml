@@ -5,7 +5,7 @@
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
   <!-- Menu items -->
-  <string name="action_filter">Filter</string>
+  <string name="action_choose_date">Choose date</string>
   <string name="action_search">Search</string>
 
   <!-- Navigation drawer items -->

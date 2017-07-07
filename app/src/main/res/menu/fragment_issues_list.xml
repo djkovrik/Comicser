@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-    android:id="@+id/action_filter"
+    android:id="@+id/action_choose_date"
     android:icon="@drawable/ic_date_range_black_24dp"
     android:orderInCategory="100"
-    android:title="@string/action_filter"
+    android:title="@string/action_choose_date"
     app:showAsAction="ifRoom"/>
 </menu>

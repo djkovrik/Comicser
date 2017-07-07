@@ -55,10 +55,10 @@ public class IssuesFragment extends
 
   @BindView(R.id.emptyView)
   TextView emptyView;
+  @BindView(R.id.refreshLayout)
+  SwipeRefreshLayout refreshLayout;
   @BindView(R.id.contentView)
-  SwipeRefreshLayout contentView;
-  @BindView(R.id.recyclerView)
-  RecyclerView recyclerView;
+  RecyclerView contentView;
 
   @State
   String title;
@@ -78,7 +78,7 @@ public class IssuesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    contentView.setOnRefreshListener(this);
+    refreshLayout.setOnRefreshListener(this);
 
     adapter = new IssuesAdapter();
     adapter.setHasStableIds(true);
@@ -86,9 +86,9 @@ public class IssuesFragment extends
     StaggeredGridLayoutManager manager =
         new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
-    recyclerView.setLayoutManager(manager);
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setAdapter(adapter);
+    contentView.setLayoutManager(manager);
+    contentView.setHasFixedSize(true);
+    contentView.setAdapter(adapter);
 
     setHasOptionsMenu(true);
 
@@ -104,11 +104,11 @@ public class IssuesFragment extends
     inflater.inflate(R.menu.fragment_issues_list, menu);
 
     // Tint Menu icons
-    Drawable filter = menu.findItem(R.id.action_filter).getIcon();
+    Drawable filter = menu.findItem(R.id.action_choose_date).getIcon();
     filter = DrawableCompat.wrap(filter);
     DrawableCompat
         .setTint(filter, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_filter).setIcon(filter);
+    menu.findItem(R.id.action_choose_date).setIcon(filter);
 
     showcaseToolbarItems();
 
@@ -118,7 +118,7 @@ public class IssuesFragment extends
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.action_filter:
+      case R.id.action_choose_date:
         choseDateAndLoadData();
         break;
     }
@@ -193,32 +193,31 @@ public class IssuesFragment extends
   @Override
   public void showContent() {
     super.showContent();
-    contentView.setRefreshing(false);
+    refreshLayout.setRefreshing(false);
   }
 
   @Override
   public void showError(Throwable e, boolean pullToRefresh) {
     super.showError(e, pullToRefresh);
-    contentView.setRefreshing(false);
+    refreshLayout.setRefreshing(false);
     loadingView.setVisibility(View.GONE);
   }
 
   @Override
   public void showLoading(boolean pullToRefresh) {
     super.showLoading(pullToRefresh);
-    contentView.setRefreshing(pullToRefresh);
+    refreshLayout.setRefreshing(pullToRefresh);
   }
 
   @Override
   public void showEmptyView(boolean show) {
-    contentView.setRefreshing(false);
+    refreshLayout.setRefreshing(false);
     if (show) {
       emptyView.setText(emptyViewText);
       emptyView.setVisibility(View.VISIBLE);
-      recyclerView.setVisibility(View.GONE);
+      contentView.setVisibility(View.GONE);
       errorView.setVisibility(View.GONE);
     } else {
-      recyclerView.setVisibility(View.VISIBLE);
       emptyView.setVisibility(View.GONE);
     }
   }
@@ -257,7 +256,7 @@ public class IssuesFragment extends
 
       // Show first showcase
       new ShowcaseView.Builder(getActivity())
-          .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_filter))
+          .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_choose_date))
           .withMaterialShowcase()
           .hideOnTouchOutside()
           .setStyle(R.style.CustomShowcaseTheme)

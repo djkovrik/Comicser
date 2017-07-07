@@ -11,13 +11,13 @@
     android:layout_gravity="center"
     android:padding="16dp"
     android:drawablePadding="16dp"
-    android:drawableTop="@drawable/ic_error_sad"
     android:drawableTint="@color/colorPrimary"
+    android:drawableTop="@drawable/ic_error_sad"
     android:gravity="center"
-    android:visibility="gone"
     android:textColor="@color/colorPrimary"
     android:textSize="20sp"
-    tools:text="@string/msg_no_issues_today"
-    tools:targetApi="m"/>
+    android:visibility="gone"
+    tools:targetApi="m"
+    tools:text="@string/msg_no_issues_today"/>
 
 </merge>

@@ -9,7 +9,7 @@
   <include layout="@layout/lce_error_view"/>
 
   <android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/contentView"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
@@ -17,7 +17,7 @@
     tools:targetApi="lollipop">
 
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/recyclerView"
+      android:id="@+id/contentView"
       android:scrollbarStyle="outsideOverlay"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
