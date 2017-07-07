@@ -17,6 +17,8 @@ public interface IssuesView extends MvpLceView<List<ComicIssueInfoList>> {
 
   void loadDataForChosenDate(String date);
 
+  void loadDataFiltered(String filter);
+
   void setTitle(String title);
 
   void showEmptyView(boolean show);

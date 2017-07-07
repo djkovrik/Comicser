@@ -2,9 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
+    android:id="@+id/action_search"
+    android:icon="@drawable/ic_search_black_24dp"
+    android:orderInCategory="100"
+    android:title="@string/action_search"
+    app:showAsAction="always"/>
+  <item
     android:id="@+id/action_choose_date"
     android:icon="@drawable/ic_date_range_black_24dp"
-    android:orderInCategory="100"
+    android:orderInCategory="200"
     android:title="@string/action_choose_date"
+    app:showAsAction="ifRoom"/>
+  <item
+    android:id="@+id/action_clear_search_query"
+    android:icon="@drawable/ic_action_navigation_close_inverted"
+    android:orderInCategory="300"
+    android:title="@string/action_clear_search_query"
+    android:visible="false"
     app:showAsAction="ifRoom"/>
 </menu>
