@@ -95,7 +95,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
       @Override
       public void onNext(@NonNull List<ComicIssueInfoList> list) {
-        Timber.tag("Comicser").d("Loaded data size: " + list.size());
         if (forcedSync) {
           Timber.tag("Comicser").d("Data loaded from server, saving to db...");
           localDataHelper.removeAllTodaysIssuesFromDb();

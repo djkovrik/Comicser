@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +43,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -55,6 +55,8 @@ public class IssuesFragment extends
   String emptyViewText;
   @BindString(R.string.issues_title_format)
   String titleFormatString;
+  @BindInt(R.integer.issues_grid_columns_count)
+  int gridColumnsCount;
 
   @BindView(R.id.emptyView)
   TextView emptyView;
@@ -77,10 +79,7 @@ public class IssuesFragment extends
 
   private Menu currentMenu;
 
-  @Override
-  protected int getLayoutRes() {
-    return R.layout.fragment_issues;
-  }
+  // --- FRAGMENTS LIFECYCLE ---
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -92,7 +91,7 @@ public class IssuesFragment extends
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =
-        new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        new StaggeredGridLayoutManager(gridColumnsCount, StaggeredGridLayoutManager.VERTICAL);
 
     contentView.setLayoutManager(manager);
     contentView.setHasFixedSize(true);
@@ -100,26 +99,28 @@ public class IssuesFragment extends
 
     setHasOptionsMenu(true);
 
-    if (searchQuery != null && searchQuery.length() > 0) {
+    if (isNotNullOrEmpty(searchQuery)) {
       loadDataFiltered(searchQuery);
-    } else if (chosenDate != null) {
+    } else if (isNotNullOrEmpty(chosenDate)) {
       loadDataForChosenDate(chosenDate);
     } else if (savedInstanceState != null) {
       loadData(false);
     }
   }
 
+  // --- OPTIONS MENU ---
+
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.fragment_issues_list, menu);
+
+    currentMenu = menu;
 
     tintMenuIcons(menu);
     setUpSearchItem(menu);
     showcaseToolbarItems();
 
-    currentMenu = menu;
-
-    if (searchQuery != null && searchQuery.length() > 0) {
+    if (isNotNullOrEmpty(searchQuery)) {
       showClearQueryMenuItem(true);
     } else {
       showClearQueryMenuItem(false);
@@ -127,6 +128,157 @@ public class IssuesFragment extends
 
     super.onCreateOptionsMenu(menu, inflater);
   }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_choose_date:
+        choseDateAndLoadData();
+        break;
+      case R.id.action_clear_search_query:
+        showClearQueryMenuItem(false);
+        searchQuery = "";
+        if (isNotNullOrEmpty(chosenDate)) {
+          loadDataForChosenDate(chosenDate);
+        } else {
+          loadData(false);
+        }
+        break;
+    }
+    return true;
+  }
+
+  // --- BASE LCE FRAGMENT ---
+
+  @Override
+  protected int getLayoutRes() {
+    return R.layout.fragment_issues;
+  }
+
+  @Override
+  protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
+    String actualMessage = e.getMessage();
+    if (actualMessage.contains("Unable to resolve host") ||
+        actualMessage.contains("timeout")) {
+      return errorNoInternetText;
+    }
+    return e.getMessage();
+  }
+
+  @NonNull
+  @Override
+  public IssuesPresenter createPresenter() {
+    return issuesComponent.presenter();
+  }
+
+  @Override
+  protected void injectDependencies() {
+    issuesComponent = ComicserApp.getAppComponent()
+        .plusRemoteComponent(new ComicRemoteDataModule())
+        .plusLocalComponent(new ComicLocalDataModule())
+        .plusIssuesComponent();
+    issuesComponent.inject(this);
+  }
+
+  // --- MVP VIEW STATE ---
+
+  @Override
+  public List<ComicIssueInfoList> getData() {
+    return adapter == null ? null : adapter.getIssues();
+  }
+
+  @NonNull
+  @Override
+  public LceViewState<List<ComicIssueInfoList>, IssuesView> createViewState() {
+    return new RetainingLceViewState<>();
+  }
+
+  // --- MVP VIEW ---
+
+  @Override
+  public void setTitle(String date) {
+    title = String.format(Locale.US, titleFormatString, date);
+    updateTitle();
+  }
+
+  @Override
+  public void showEmptyView(boolean show) {
+    refreshLayout.setRefreshing(false);
+    if (show) {
+      emptyView.setText(emptyViewText);
+      emptyView.setVisibility(View.VISIBLE);
+      contentView.setVisibility(View.GONE);
+      errorView.setVisibility(View.GONE);
+    } else {
+      emptyView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  public void showContent() {
+    super.showContent();
+    refreshLayout.setRefreshing(false);
+  }
+
+  @Override
+  public void showError(Throwable e, boolean pullToRefresh) {
+    super.showError(e, pullToRefresh);
+    refreshLayout.setRefreshing(false);
+    loadingView.setVisibility(View.GONE);
+  }
+
+  @Override
+  public void showLoading(boolean pullToRefresh) {
+    super.showLoading(pullToRefresh);
+    refreshLayout.setRefreshing(pullToRefresh);
+  }
+
+  @Override
+  public void choseDateAndLoadData() {
+    Calendar now = Calendar.getInstance();
+    DatePickerDialog dpd = DatePickerDialog.newInstance(
+        (view, year, monthOfYear, dayOfMonth) -> {
+          chosenDate = String.format(Locale.US, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+          loadDataForChosenDate(chosenDate);
+        },
+        now.get(Calendar.YEAR),
+        now.get(Calendar.MONTH),
+        now.get(Calendar.DAY_OF_MONTH));
+
+    dpd.setAccentColor(ContextCompat.getColor(getContext(), R.color.colorAccentDark));
+    dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
+  }
+
+  @Override
+  public void loadDataForChosenDate(String date) {
+    presenter.loadIssuesByDate(date);
+  }
+
+  @Override
+  public void loadDataFiltered(String filter) {
+    String date = (chosenDate != null) ? chosenDate : DateTextUtils.getTodayDateString();
+    presenter.loadIssuesByDateAndName(date, filter);
+  }
+
+  @Override
+  public void setData(List<ComicIssueInfoList> data) {
+    adapter.setIssues(data);
+    adapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void loadData(boolean pullToRefresh) {
+    presenter.loadTodayIssues(pullToRefresh);
+  }
+
+  // --- SWIPE TO REFRESH LAYOUT ---
+
+  @Override
+  public void onRefresh() {
+    loadData(true);
+  }
+
+  // --- MISC UTILITY FUNCTIONS ---
 
   private void tintMenuIcons(Menu menu) {
     // Tint Menu icons
@@ -156,7 +308,6 @@ public class IssuesFragment extends
     searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
-        Timber.tag("Comicser").d("SUBMIT: " + query);
         searchQuery = query;
 
         if (searchQuery.length() > 0) {
@@ -172,158 +323,6 @@ public class IssuesFragment extends
         return false;
       }
     });
-
-    searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-      @Override
-      public void onSearchViewShown() {
-        Timber.tag("Comicser").d("OPENED!");
-      }
-
-      @Override
-      public void onSearchViewClosed() {
-        Timber.tag("Comicser").d("CLOSED!");
-      }
-    });
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_choose_date:
-        choseDateAndLoadData();
-        break;
-      case R.id.action_clear_search_query:
-        showClearQueryMenuItem(false);
-        searchQuery = "";
-        if (chosenDate != null && chosenDate.length() > 0) {
-          loadDataForChosenDate(chosenDate);
-        } else {
-          loadData(false);
-        }
-        break;
-    }
-    return true;
-  }
-
-  @Override
-  public List<ComicIssueInfoList> getData() {
-    return adapter == null ? null : adapter.getIssues();
-  }
-
-  @Override
-  public void setData(List<ComicIssueInfoList> data) {
-    adapter.setIssues(data);
-    adapter.notifyDataSetChanged();
-  }
-
-  @NonNull
-  @Override
-  public LceViewState<List<ComicIssueInfoList>, IssuesView> createViewState() {
-    return new RetainingLceViewState<>();
-  }
-
-  @NonNull
-  @Override
-  public IssuesPresenter createPresenter() {
-    return issuesComponent.presenter();
-  }
-
-  @Override
-  protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
-    String actualMessage = e.getMessage();
-    if (actualMessage.contains("Unable to resolve host") ||
-        actualMessage.contains("timeout")) {
-      return errorNoInternetText;
-    }
-    return e.getMessage();
-  }
-
-  @Override
-  public void loadData(boolean pullToRefresh) {
-    Timber.tag("Comicser").d("loadData(" + pullToRefresh + ")");
-    presenter.loadTodayIssues(pullToRefresh);
-  }
-
-  @Override
-  public void loadDataForChosenDate(String date) {
-    Timber.tag("Comicser").d("loadDataForChosenDate(" + date + ")");
-    presenter.loadIssuesByDate(date);
-  }
-
-  @Override
-  public void loadDataFiltered(String filter) {
-    Timber.tag("Comicser").d("loadDataFiltered(" + filter + ")");
-    String date = (chosenDate != null) ? chosenDate : DateTextUtils.getTodayDateString();
-    presenter.loadIssuesByDateAndName(date, filter);
-  }
-
-  @Override
-  public void choseDateAndLoadData() {
-    Calendar now = Calendar.getInstance();
-    DatePickerDialog dpd = DatePickerDialog.newInstance(
-        (view, year, monthOfYear, dayOfMonth) -> {
-          chosenDate = String.format(Locale.US, "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-          loadDataForChosenDate(chosenDate);
-        },
-        now.get(Calendar.YEAR),
-        now.get(Calendar.MONTH),
-        now.get(Calendar.DAY_OF_MONTH));
-
-    dpd.setAccentColor(ContextCompat.getColor(getContext(), R.color.colorAccentDark));
-    dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
-  }
-
-  @Override
-  public void setTitle(String date) {
-    title = String.format(Locale.US, titleFormatString, date);
-    updateTitle();
-  }
-
-  @Override
-  public void showContent() {
-    super.showContent();
-    refreshLayout.setRefreshing(false);
-  }
-
-  @Override
-  public void showError(Throwable e, boolean pullToRefresh) {
-    super.showError(e, pullToRefresh);
-    Timber.tag("Comicser").d("showError(" + pullToRefresh + ")");
-    refreshLayout.setRefreshing(false);
-    loadingView.setVisibility(View.GONE);
-  }
-
-  @Override
-  public void showLoading(boolean pullToRefresh) {
-    super.showLoading(pullToRefresh);
-    refreshLayout.setRefreshing(pullToRefresh);
-  }
-
-  @Override
-  public void showEmptyView(boolean show) {
-    refreshLayout.setRefreshing(false);
-    if (show) {
-      emptyView.setText(emptyViewText);
-      emptyView.setVisibility(View.VISIBLE);
-      contentView.setVisibility(View.GONE);
-      errorView.setVisibility(View.GONE);
-    } else {
-      emptyView.setVisibility(View.GONE);
-    }
-  }
-
-  @Override
-  public void onRefresh() {
-    loadData(true);
-  }
-
-  @Override
-  protected void injectDependencies() {
-    issuesComponent = ComicserApp.getAppComponent()
-        .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
-        .plusIssuesComponent();
-    issuesComponent.inject(this);
   }
 
   private void updateTitle() {
@@ -382,8 +381,11 @@ public class IssuesFragment extends
     }
   }
 
+  private boolean isNotNullOrEmpty(String str) {
+    return str != null && !str.isEmpty();
+  }
+
   void showClearQueryMenuItem(boolean show) {
-    Timber.tag("Comicser").d("showClearQueryMenuItem(" + show + ")");
     currentMenu.findItem(R.id.action_choose_date).setVisible(!show);
     currentMenu.findItem(R.id.action_search).setVisible(!show);
     currentMenu.findItem(R.id.action_clear_search_query).setVisible(show);
