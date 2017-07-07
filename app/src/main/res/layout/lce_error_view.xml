@@ -11,11 +11,13 @@
     android:layout_gravity="center"
     android:padding="16dp"
     android:drawablePadding="16dp"
+    android:drawableTint="@color/colorPrimary"
     android:drawableTop="@drawable/ic_error_outline"
     android:gravity="center"
-    android:textColor="@color/colorSecondaryText"
+    android:textColor="@color/colorPrimary"
     android:textSize="20sp"
     android:visibility="gone"
+    tools:targetApi="m"
     tools:text="@string/error_data_not_available"/>
 
 </merge>

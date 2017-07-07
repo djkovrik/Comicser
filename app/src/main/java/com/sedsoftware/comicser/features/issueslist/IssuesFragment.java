@@ -47,7 +47,7 @@ public class IssuesFragment extends
     implements IssuesView, SwipeRefreshLayout.OnRefreshListener {
 
   @BindString(R.string.error_data_not_available)
-  String errorViewText;
+  String errorNoInternetText;
   @BindString(R.string.msg_no_issues_today)
   String emptyViewText;
   @BindString(R.string.issues_title_format)
@@ -150,6 +150,11 @@ public class IssuesFragment extends
 
   @Override
   protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
+    String actualMessage = e.getMessage();
+    if (actualMessage.contains("Unable to resolve host") ||
+        actualMessage.contains("timeout")) {
+      return errorNoInternetText;
+    }
     return e.getMessage();
   }
 
@@ -195,6 +200,7 @@ public class IssuesFragment extends
   public void showError(Throwable e, boolean pullToRefresh) {
     super.showError(e, pullToRefresh);
     contentView.setRefreshing(false);
+    loadingView.setVisibility(View.GONE);
   }
 
   @Override
@@ -205,10 +211,12 @@ public class IssuesFragment extends
 
   @Override
   public void showEmptyView(boolean show) {
+    contentView.setRefreshing(false);
     if (show) {
       emptyView.setText(emptyViewText);
       emptyView.setVisibility(View.VISIBLE);
       recyclerView.setVisibility(View.GONE);
+      errorView.setVisibility(View.GONE);
     } else {
       recyclerView.setVisibility(View.VISIBLE);
       emptyView.setVisibility(View.GONE);

@@ -23,6 +23,8 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
   final String currentDate;
   final String lastSyncDate;
 
+  boolean issuesListNotEmpty;
+
   @Inject
   public IssuesPresenter(
       PreferencesHelper preferencesHelper,
@@ -34,6 +36,8 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
     currentDate = DateTextUtils.getTodayDateString();
     lastSyncDate = preferencesHelper.getLastSyncDate();
+
+    issuesListNotEmpty = true;
   }
 
   public boolean shouldNotDisplayShowcases() {
@@ -78,6 +82,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
     return new Observer<List<ComicIssueInfoList>>() {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
+        issuesListNotEmpty = false;
         if (isViewAttached()) {
           getView().showEmptyView(false);
           getView().showLoading(forcedSync);
@@ -95,8 +100,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         if (isViewAttached()) {
           if (list.size() > 0) {
             getView().setData(list);
-          } else {
-            getView().showEmptyView(true);
+            issuesListNotEmpty = true;
           }
         }
       }
@@ -114,8 +118,12 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
           preferencesHelper.setSyncDate(currentDate);
         }
         if (isViewAttached()) {
-          getView().showContent();
-          getView().setTitle("Today");
+          if (issuesListNotEmpty) {
+            getView().showContent();
+            getView().setTitle("Today");
+          } else {
+            getView().showEmptyView(true);
+          }
         }
       }
     };
@@ -125,6 +133,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
     return new Observer<List<ComicIssueInfoList>>() {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
+        issuesListNotEmpty = false;
         if (isViewAttached()) {
           getView().showEmptyView(false);
           getView().showLoading(true);
@@ -136,8 +145,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         if (isViewAttached()) {
           if (list.size() > 0) {
             getView().setData(list);
-          } else {
-            getView().showEmptyView(true);
+            issuesListNotEmpty = true;
           }
         }
       }
@@ -151,9 +159,16 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
       @Override
       public void onComplete() {
+        Timber.tag("Comicser").d("onCompleted");
         if (isViewAttached()) {
-          getView().showContent();
-          getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
+          if (issuesListNotEmpty) {
+            Timber.tag("Comicser").d("issues not empty");
+            getView().showContent();
+            getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
+          } else {
+            Timber.tag("Comicser").d("issues empty");
+            getView().showEmptyView(true);
+          }
         }
       }
     };
