@@ -32,6 +32,9 @@
   <string name="showcase_issues_datepicker">
     Here you can choose a specific date so Comicser will load all issue releases for that date.
   </string>
+  <string name="showcase_issues_search">
+    Use search to find all issues with certain volume name for currently displayed list.
+  </string>
   <string name="showcase_issues_drawer">
     Also you can use this button of left swipe for navigation drawer access.
   </string>

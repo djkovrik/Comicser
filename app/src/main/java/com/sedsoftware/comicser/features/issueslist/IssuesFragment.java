@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 import com.evernote.android.state.State;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.data.RetainingLceViewState;
@@ -35,8 +34,6 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
-import com.sedsoftware.comicser.features.ViewTargets;
-import com.sedsoftware.comicser.features.ViewTargets.MissingViewException;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -356,22 +353,15 @@ public class IssuesFragment extends
             public void onShowcaseViewHide(ShowcaseView showcaseView) {
               super.onShowcaseViewHide(showcaseView);
               // Show second showcase
-              try {
-                ViewTarget navigationButtonViewTarget = ViewTargets
-                    .navigationButtonViewTarget(toolbar);
-
-                new ShowcaseView.Builder(getActivity())
-                    .setTarget(navigationButtonViewTarget)
-                    .withMaterialShowcase()
-                    .hideOnTouchOutside()
-                    .setStyle(R.style.CustomShowcaseTheme)
-                    .setContentTitle(R.string.showcase_issues_title)
-                    .setContentText(R.string.showcase_issues_drawer)
-                    .build()
-                    .show();
-              } catch (MissingViewException e) {
-                e.printStackTrace();
-              }
+              new ShowcaseView.Builder(getActivity())
+                  .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_search))
+                  .withMaterialShowcase()
+                  .hideOnTouchOutside()
+                  .setStyle(R.style.CustomShowcaseTheme)
+                  .setContentTitle(R.string.showcase_issues_title)
+                  .setContentText(R.string.showcase_issues_search)
+                  .build()
+                  .show();
             }
           })
           .build()
