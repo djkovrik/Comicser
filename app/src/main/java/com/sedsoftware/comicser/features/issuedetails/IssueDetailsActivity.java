@@ -1,60 +1,50 @@
 package com.sedsoftware.comicser.features.issuedetails;
 
-import android.support.annotation.NonNull;
-import android.widget.FrameLayout;
-import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
-import com.sedsoftware.comicser.base.BaseLceActivity;
-import com.sedsoftware.comicser.data.model.ComicIssueInfo;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import com.evernote.android.state.State;
+import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.base.BaseActivity;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 
-// TODO(1) Replace FrameLayout with actual content view!
-public class IssueDetailsActivity
-    extends BaseLceActivity<FrameLayout, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
-    implements IssueDetailsView {
+public class IssueDetailsActivity extends BaseActivity {
 
-  @Override
-  public ComicIssueInfo getData() {
-    return null;
+  public static String EXTRA_ISSUE_ID_ARG = "current_issue_id";
+
+  @State
+  long chosenIssueId;
+
+  public static Intent prepareIntent(Context context, long issueId) {
+    Intent intent = new Intent(context, IssueDetailsActivity.class);
+    intent.putExtra(EXTRA_ISSUE_ID_ARG, issueId);
+    return intent;
   }
 
   @Override
-  protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
-    return null;
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_issue_details);
+
+    Bundle extras = getIntent().getExtras();
+    chosenIssueId = getIdFromExtras(extras);
+
+    IssueDetailsFragment fragment =
+        (IssueDetailsFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.issue_details_container);
+
+    if (fragment == null) {
+      fragment = new IssueDetailsFragmentBuilder(chosenIssueId).build();
+      FragmentUtils.addFragmentTo(getSupportFragmentManager(), fragment,
+          R.id.issue_details_container);
+    }
   }
 
-  @NonNull
-  @Override
-  public IssueDetailsPresenter createPresenter() {
-    return null;
-  }
-
-  @NonNull
-  @Override
-  public LceViewState<ComicIssueInfo, IssueDetailsView> createViewState() {
-    return null;
-  }
-
-  @Override
-  public void showContent() {
-    super.showContent();
-  }
-
-  @Override
-  public void showError(Throwable e, boolean pullToRefresh) {
-    super.showError(e, pullToRefresh);
-  }
-
-  @Override
-  public void showLoading(boolean pullToRefresh) {
-    super.showLoading(pullToRefresh);
-  }
-
-  @Override
-  public void setData(ComicIssueInfo data) {
-
-  }
-
-  @Override
-  public void loadData(boolean pullToRefresh) {
-
+  private long getIdFromExtras(Bundle extras) {
+    if (extras != null && extras.containsKey(EXTRA_ISSUE_ID_ARG)) {
+      return extras.getLong(EXTRA_ISSUE_ID_ARG);
+    }
+    return 1L;
   }
 }

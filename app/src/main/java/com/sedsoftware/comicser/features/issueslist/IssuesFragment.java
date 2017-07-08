@@ -34,13 +34,13 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
+import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -84,11 +84,12 @@ public class IssuesFragment extends
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    setRetainInstance(true);
 
     refreshLayout.setOnRefreshListener(this);
 
-    // TODO() Handle click
-    adapter = new IssuesAdapter(issueId -> Timber.d("Clicked: " + issueId));
+    adapter = new IssuesAdapter(issueId ->
+        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =

@@ -8,5 +8,5 @@ public interface IssueDetailsComponent {
 
   IssueDetailsPresenter presenter();
 
-  void inject(IssueDetailsActivity activity);
+  void inject(IssueDetailsFragment fragment);
 }
