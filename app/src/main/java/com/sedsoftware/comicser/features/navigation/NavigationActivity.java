@@ -31,6 +31,8 @@ public class NavigationActivity extends
   @BindView(R.id.drawer_layout)
   DrawerLayout drawer;
 
+  // TODO(2) This does not survive config change
+  // Optimize or revert onBackPressed functionality
   BaseLceFragment currentFragment;
 
   @Override
@@ -47,7 +49,7 @@ public class NavigationActivity extends
   public void onBackPressed() {
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
-    } else if (currentFragment.isSearchViewOpened()) {
+    } else if (currentFragment!= null && currentFragment.isSearchViewOpened()) {
       currentFragment.closeSearchView();
     } else {
       super.onBackPressed();
