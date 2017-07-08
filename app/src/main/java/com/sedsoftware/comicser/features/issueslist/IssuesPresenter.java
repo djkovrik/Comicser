@@ -95,18 +95,17 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
       @Override
       public void onNext(@NonNull List<ComicIssueInfoList> list) {
-        if (forcedSync) {
+        if (forcedSync & list.size() > 0) {
           Timber.tag("Comicser").d("Data loaded from server, saving to db...");
           localDataHelper.removeAllTodaysIssuesFromDb();
           localDataHelper.saveTodaysIssuesToDb(list);
-        } else {
-          Timber.tag("Comicser").d("Data loaded from db.");
+          preferencesHelper.setSyncDate(currentDate);
+          issuesListNotEmpty = true;
         }
 
         if (isViewAttached()) {
           if (list.size() > 0) {
             getView().setData(list);
-            issuesListNotEmpty = true;
           }
         }
       }
@@ -122,14 +121,12 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
       @Override
       public void onComplete() {
         Timber.tag("Comicser").d("Data loading completed!");
-        if (forcedSync) {
-          preferencesHelper.setSyncDate(currentDate);
-        }
         if (isViewAttached()) {
+          getView().setTitle("Today");
           if (issuesListNotEmpty) {
             getView().showContent();
-            getView().setTitle("Today");
           } else {
+            getView().showLoading(false);
             getView().showEmptyView(true);
           }
         }
@@ -172,9 +169,9 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
       public void onComplete() {
         Timber.tag("Comicser").d("Data loading completed!");
         if (isViewAttached()) {
+          getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
           if (issuesListNotEmpty) {
             getView().showContent();
-            getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
           } else {
             getView().showEmptyView(true);
           }

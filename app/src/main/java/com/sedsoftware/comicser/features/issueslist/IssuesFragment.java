@@ -228,6 +228,10 @@ public class IssuesFragment extends
   public void showLoading(boolean pullToRefresh) {
     super.showLoading(pullToRefresh);
     refreshLayout.setRefreshing(pullToRefresh);
+
+    if (!pullToRefresh) {
+      loadingView.setVisibility(View.GONE);
+    }
   }
 
   @Override
