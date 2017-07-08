@@ -281,6 +281,7 @@ public class IssuesFragment extends
 
   @Override
   public void loadData(boolean pullToRefresh) {
+    chosenDate = "";
     presenter.loadTodayIssues(pullToRefresh);
   }
 

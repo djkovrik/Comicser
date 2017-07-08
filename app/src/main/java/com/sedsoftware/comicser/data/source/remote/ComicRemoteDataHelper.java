@@ -11,6 +11,7 @@ import com.sedsoftware.comicser.data.model.ServerResponse;
 import com.sedsoftware.comicser.utils.ClassUtils;
 import com.sedsoftware.comicser.utils.RxUtils;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class ComicRemoteDataHelper {
    * @param date Date string in YYYY-MM-DD format.
    * @return Issue info list.
    */
-  public Observable<List<ComicIssueInfoList>> getIssuesListByDate(String date) {
+  public Single<List<ComicIssueInfoList>> getIssuesListByDate(String date) {
 
     String fields = ClassUtils.getMethodsList(ComicIssueInfoList.class);
 
@@ -47,7 +48,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getIssuesList(options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
 
   }
 
@@ -57,7 +59,7 @@ public class ComicRemoteDataHelper {
    * @param name Target issue name.
    * @return Issue info list.
    */
-  public Observable<List<ComicIssueInfoList>> getIssuesListByName(String name) {
+  public Single<List<ComicIssueInfoList>> getIssuesListByName(String name) {
 
     String fields = ClassUtils.getMethodsList(ComicIssueInfoList.class);
 
@@ -71,7 +73,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getIssuesList(options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
 
   }
 

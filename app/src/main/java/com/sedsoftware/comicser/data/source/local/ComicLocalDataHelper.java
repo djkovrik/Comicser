@@ -10,7 +10,7 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.utils.ContentUtils;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -23,7 +23,7 @@ public class ComicLocalDataHelper {
     this.contentResolver = contentResolver;
   }
 
-  public void saveTodaysIssuesToDb(@NonNull List<ComicIssueInfoList> issues) {
+  public void saveTodayIssuesToDb(@NonNull List<ComicIssueInfoList> issues) {
 
     for (ComicIssueInfoList issue : issues) {
       contentResolver.insert(
@@ -32,9 +32,9 @@ public class ComicLocalDataHelper {
     }
   }
 
-  public Observable<List<ComicIssueInfoList>> getTodaysIssuesFromDb() {
+  public Single<List<ComicIssueInfoList>> getTodayIssuesFromDb() {
 
-    return Observable.create(e -> {
+    return Single.create(e -> {
 
       Cursor query = contentResolver
           .query(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null, null, null);
@@ -42,13 +42,12 @@ public class ComicLocalDataHelper {
       if (query != null) {
         List<ComicIssueInfoList> list = ContentUtils.issueInfoFromCursor(query);
         query.close();
-        e.onNext(list);
+        e.onSuccess(list);
       }
-      e.onComplete();
     });
   }
 
-  public void removeAllTodaysIssuesFromDb() {
+  public void removeAllTodayIssuesFromDb() {
     contentResolver.delete(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null);
   }
 

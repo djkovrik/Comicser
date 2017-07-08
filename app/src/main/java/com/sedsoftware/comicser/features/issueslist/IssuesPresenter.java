@@ -7,7 +7,6 @@ import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -25,8 +24,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
   final String currentDate;
   final String lastSyncDate;
 
-  boolean issuesListNotEmpty;
-
   @Inject
   public IssuesPresenter(
       PreferencesHelper preferencesHelper,
@@ -38,8 +35,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
     currentDate = DateTextUtils.getTodayDateString();
     lastSyncDate = preferencesHelper.getLastSyncDate();
-
-    issuesListNotEmpty = true;
   }
 
   public boolean shouldNotDisplayShowcases() {
@@ -55,137 +50,41 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
     boolean forcedSync = (pullToRefresh || !(currentDate.equals(lastSyncDate)));
 
     if (forcedSync) {
+      Timber.d("Load issues from sever...");
       remoteDataHelper
           .getIssuesListByDate(currentDate)
-          .subscribe(getIssuesObserver(true));
+          .subscribe(getObserver(true));
     } else {
+      Timber.d("Load issues from db...");
       localDataHelper
-          .getTodaysIssuesFromDb()
-          .subscribe(getIssuesObserver(false));
+          .getTodayIssuesFromDb()
+          .subscribe(getObserver(false));
     }
   }
 
   public void loadIssuesByDate(String date) {
+    Timber.d("Load issues by date: " + date);
     remoteDataHelper
         .getIssuesListByDate(date)
-        .subscribe(getIssuesByDateObserver(date));
+        .subscribe(getObserverFiltered(date, true));
   }
 
   public void loadIssuesByDateAndName(String date, String name) {
+    Timber.d("Load issues by date: " + date + " and name: " + name);
     remoteDataHelper
         .getIssuesListByDate(date)
-        .flatMap(Observable::fromIterable)
+        .flatMapObservable(Observable::fromIterable)
         .filter(issue -> issue.volume() != null)
         .filter(issue -> issue.volume().name().contains(name))
         .toList()
-        .subscribe(getFilteredIssuesObserver(name));
+        .subscribe(getObserverFiltered(name, false));
   }
 
-  private Observer<List<ComicIssueInfoList>> getIssuesObserver(boolean forcedSync) {
-    return new Observer<List<ComicIssueInfoList>>() {
-      @Override
-      public void onSubscribe(@NonNull Disposable d) {
-        Timber.tag("Comicser").d("Data loading started (forcedSync = " + forcedSync + ")");
-        issuesListNotEmpty = false;
-        if (isViewAttached()) {
-          getView().showEmptyView(false);
-          getView().showLoading(forcedSync);
-        }
-      }
-
-      @Override
-      public void onNext(@NonNull List<ComicIssueInfoList> list) {
-        if (forcedSync & list.size() > 0) {
-          Timber.tag("Comicser").d("Data loaded from server, saving to db...");
-          localDataHelper.removeAllTodaysIssuesFromDb();
-          localDataHelper.saveTodaysIssuesToDb(list);
-          preferencesHelper.setSyncDate(currentDate);
-          issuesListNotEmpty = true;
-        }
-
-        if (isViewAttached()) {
-          if (list.size() > 0) {
-            getView().setData(list);
-          }
-        }
-      }
-
-      @Override
-      public void onError(@NonNull Throwable e) {
-        Timber.tag("Comicser").d("Data loading error: " + e.getMessage());
-        if (isViewAttached()) {
-          getView().showError(e, forcedSync);
-        }
-      }
-
-      @Override
-      public void onComplete() {
-        Timber.tag("Comicser").d("Data loading completed!");
-        if (isViewAttached()) {
-          getView().setTitle("Today");
-          if (issuesListNotEmpty) {
-            getView().showContent();
-          } else {
-            getView().showLoading(false);
-            getView().showEmptyView(true);
-          }
-        }
-      }
-    };
-  }
-
-  private Observer<List<ComicIssueInfoList>> getIssuesByDateObserver(String date) {
-    return new Observer<List<ComicIssueInfoList>>() {
-      @Override
-      public void onSubscribe(@NonNull Disposable d) {
-        Timber.tag("Comicser").d("Issues data loading started...");
-        issuesListNotEmpty = false;
-        if (isViewAttached()) {
-          getView().showEmptyView(false);
-          getView().showLoading(true);
-        }
-      }
-
-      @Override
-      public void onNext(@NonNull List<ComicIssueInfoList> list) {
-        Timber.tag("Comicser").d("Loaded data size: " + list.size());
-        if (isViewAttached()) {
-          if (list.size() > 0) {
-            getView().setData(list);
-            issuesListNotEmpty = true;
-          }
-        }
-      }
-
-      @Override
-      public void onError(@NonNull Throwable e) {
-        Timber.tag("Comicser").d("Data loading error: " + e.getMessage());
-        if (isViewAttached()) {
-          getView().showError(e, false);
-        }
-      }
-
-      @Override
-      public void onComplete() {
-        Timber.tag("Comicser").d("Data loading completed!");
-        if (isViewAttached()) {
-          getView().setTitle(DateTextUtils.getFormattedDate(date, "MMM d, yyyy"));
-          if (issuesListNotEmpty) {
-            getView().showContent();
-          } else {
-            getView().showEmptyView(true);
-          }
-        }
-      }
-    };
-  }
-
-  private SingleObserver<List<ComicIssueInfoList>> getFilteredIssuesObserver(String name) {
+  private SingleObserver<List<ComicIssueInfoList>> getObserver(boolean forcedSync) {
     return new SingleObserver<List<ComicIssueInfoList>>() {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
-        Timber.tag("Comicser").d("Issues data loading started...");
-        issuesListNotEmpty = false;
+        Timber.d("Data loading started (forcedSync = " + forcedSync + ")");
         if (isViewAttached()) {
           getView().showEmptyView(false);
           getView().showLoading(true);
@@ -194,18 +93,26 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
       @Override
       public void onSuccess(@NonNull List<ComicIssueInfoList> list) {
-        Timber.tag("Comicser").d("Loaded data size: " + list.size());
+
         if (isViewAttached()) {
+          getView().setTitle("Today");
+
           if (list.size() > 0) {
+            // Save data to db
+            if (forcedSync) {
+              Timber.d("Data loaded from server, saving to db...");
+              localDataHelper.removeAllTodayIssuesFromDb();
+              localDataHelper.saveTodayIssuesToDb(list);
+              preferencesHelper.setSyncDate(currentDate);
+            }
+            // Display content
+            Timber.d("Displaying content...");
             getView().setData(list);
-            issuesListNotEmpty = true;
-          }
-        }
-        if (isViewAttached()) {
-          if (issuesListNotEmpty) {
             getView().showContent();
-            getView().setTitle(name);
           } else {
+            // Display empty view
+            Timber.d("Displaying empty view...");
+            getView().showLoading(false);
             getView().showEmptyView(true);
           }
         }
@@ -213,8 +120,52 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
       @Override
       public void onError(@NonNull Throwable e) {
-        Timber.tag("Comicser").d("Data loading error: " + e.getMessage());
+        Timber.d("Data loading error: " + e.getMessage());
         if (isViewAttached()) {
+          Timber.d("Displaying error view...");
+          getView().showError(e, forcedSync);
+        }
+      }
+    };
+  }
+
+  private SingleObserver<List<ComicIssueInfoList>> getObserverFiltered(String str, boolean isDate) {
+    return new SingleObserver<List<ComicIssueInfoList>>() {
+      @Override
+      public void onSubscribe(@NonNull Disposable d) {
+        Timber.d("Issues data loading started...");
+        if (isViewAttached()) {
+          getView().showEmptyView(false);
+          getView().showLoading(true);
+        }
+      }
+
+      @Override
+      public void onSuccess(@NonNull List<ComicIssueInfoList> list) {
+
+        if (isViewAttached()) {
+          String title = isDate ? DateTextUtils.getFormattedDate(str, "MMM d, yyyy") : str;
+          getView().setTitle(title);
+
+          if (list.size() > 0) {
+            // Display content
+            Timber.d("Displaying content...");
+            getView().setData(list);
+            getView().showContent();
+          } else {
+            // Display empty view
+            Timber.d("Displaying empty view...");
+            getView().showLoading(false);
+            getView().showEmptyView(true);
+          }
+        }
+      }
+
+      @Override
+      public void onError(@NonNull Throwable e) {
+        Timber.d("Data loading error: " + e.getMessage());
+        if (isViewAttached()) {
+          Timber.d("Displaying error view...");
           getView().showError(e, false);
         }
       }
