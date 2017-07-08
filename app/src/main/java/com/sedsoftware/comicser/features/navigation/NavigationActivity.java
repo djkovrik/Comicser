@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
 import com.sedsoftware.comicser.utils.FragmentUtils;
@@ -30,6 +31,8 @@ public class NavigationActivity extends
   @BindView(R.id.drawer_layout)
   DrawerLayout drawer;
 
+  BaseLceFragment currentFragment;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,6 +47,8 @@ public class NavigationActivity extends
   public void onBackPressed() {
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
+    } else if (currentFragment.isSearchViewOpened()) {
+      currentFragment.closeSearchView();
     } else {
       super.onBackPressed();
     }
@@ -101,9 +106,8 @@ public class NavigationActivity extends
     IssuesFragment issues = (IssuesFragment) manager.findFragmentById(R.id.content_frame);
 
     if (issues == null) {
-      issues = new IssuesFragmentBuilder()
-          .build();
-
+      issues = new IssuesFragmentBuilder().build();
+      currentFragment = issues;
       FragmentUtils.addFragmentTo(manager, issues, R.id.content_frame);
     }
   }

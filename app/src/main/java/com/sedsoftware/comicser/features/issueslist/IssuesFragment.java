@@ -62,6 +62,8 @@ public class IssuesFragment extends
   @BindView(R.id.contentView)
   RecyclerView contentView;
 
+  MaterialSearchView searchView;
+
   @State
   String title;
 
@@ -175,6 +177,16 @@ public class IssuesFragment extends
         .plusLocalComponent(new ComicLocalDataModule())
         .plusIssuesComponent();
     issuesComponent.inject(this);
+  }
+
+  @Override
+  public boolean isSearchViewOpened() {
+    return searchView.isSearchOpen();
+  }
+
+  @Override
+  public void closeSearchView() {
+    searchView.closeSearch();
   }
 
   // --- MVP VIEW STATE ---
@@ -298,7 +310,7 @@ public class IssuesFragment extends
 
   private void setUpSearchItem(Menu menu) {
     // Find items
-    MaterialSearchView searchView = ButterKnife.findById(getActivity(), R.id.search_view);
+    searchView = ButterKnife.findById(getActivity(), R.id.search_view);
     MenuItem menuItem = menu.findItem(R.id.action_search);
 
     // Tweaks
