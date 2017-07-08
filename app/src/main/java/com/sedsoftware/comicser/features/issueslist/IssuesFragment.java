@@ -40,6 +40,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -86,7 +87,8 @@ public class IssuesFragment extends
 
     refreshLayout.setOnRefreshListener(this);
 
-    adapter = new IssuesAdapter();
+    // TODO() Handle click
+    adapter = new IssuesAdapter(issueId -> Timber.d("Clicked: " + issueId));
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =

@@ -25,9 +25,11 @@ import java.util.Locale;
 class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
   private List<ComicIssueInfoList> issues;
+  private final OnIssueClickListener listener;
 
-  IssuesAdapter() {
+  IssuesAdapter(OnIssueClickListener listener) {
     issues = new ArrayList<>();
+    this.listener = listener;
   }
 
   @Override
@@ -61,7 +63,9 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
     this.issues = issues;
   }
 
-  class IssueViewHolder extends RecyclerView.ViewHolder {
+  class IssueViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    private long currentIssueId;
 
     @BindView(R.id.issue_cover)
     ImageView issueCover;
@@ -73,9 +77,18 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
     IssueViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+
+      itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+      listener.issueClicked(currentIssueId);
     }
 
     void bindTo(ComicIssueInfoList issue) {
+
+      currentIssueId = issue.id();
 
       String cover = issue.image().small_url();
       String issueNameText = issue.name();
@@ -127,5 +140,9 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
       issueName.setText(name);
     }
+  }
+
+  interface OnIssueClickListener {
+    void issueClicked(long issueId);
   }
 }
