@@ -11,6 +11,7 @@ import com.sedsoftware.comicser.data.model.ServerResponse;
 import com.sedsoftware.comicser.utils.ClassUtils;
 import com.sedsoftware.comicser.utils.RxUtils;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class ComicRemoteDataHelper {
    * @param issueId Target issue id (!= issue number).
    * @return Detailed issue info.
    */
-  public Observable<ComicIssueInfo> getIssueDetailsById(long issueId) {
+  public Single<ComicIssueInfo> getIssueDetailsById(long issueId) {
 
     String fields = ClassUtils.getMethodsList(ComicIssueInfo.class);
 
@@ -93,7 +94,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getIssueDetails(issueId, options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 
   /**
