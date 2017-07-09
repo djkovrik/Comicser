@@ -46,8 +46,7 @@ public class ImageUtils {
           }
         })
         .error(R.drawable.placeholder_error)
-        .skipMemoryCache(true)
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .diskCacheStrategy(DiskCacheStrategy.RESULT)
         .into(view);
   }
 
