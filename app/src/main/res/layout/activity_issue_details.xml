@@ -5,7 +5,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:fitsSystemWindows="true">
+  android:fitsSystemWindows="true"
+  tools:context="com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity">
 
   <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
@@ -19,14 +20,15 @@
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="?attr/colorPrimary"
+      app:layout_scrollFlags="scroll|enterAlways"
       app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
 
   </android.support.design.widget.AppBarLayout>
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_color_grey_200"
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

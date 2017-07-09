@@ -1,132 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="wrap_content">
 
-  <FrameLayout
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+  <android.support.v7.widget.CardView
+    android:id="@+id/contentView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin_value_half"
+    android:elevation="@dimen/cardview_default_elevation"
+    android:orientation="vertical"
+    tools:targetApi="lollipop">
 
-    <android.support.v7.widget.CardView
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:id="@+id/contentView"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="@dimen/card_margin_value_half"
-      android:elevation="@dimen/cardview_default_elevation"
-      android:orientation="vertical"
-      tools:targetApi="lollipop">
+      android:orientation="vertical">
 
-      <LinearLayout
+      <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+          android:id="@+id/issue_details_screen"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:adjustViewBounds="true"
+          tools:ignore="ContentDescription"
+          tools:src="@drawable/dummy_issue_screen"/>
+
+        <ProgressBar
+          android:id="@+id/issue_details_screen_loading"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_gravity="center_horizontal"/>
+
+      </FrameLayout>
+      <!-- Issue info below -->
+
+      <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <FrameLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-
-          <ImageView
-            android:id="@+id/issue_details_screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/dummy_issue_screen"/>
-
-          <ProgressBar
-            android:id="@+id/issue_details_screen_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"/>
-
-        </FrameLayout>
-        <!-- Issue info below -->
-
-        <GridLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:columnCount="2">
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_name"/>
-
-          <TextView
-            android:id="@+id/issue_details_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_issue_name"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_volume_name"/>
-
-          <TextView
-            android:id="@+id/issue_details_volume_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_volume_name"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_number"/>
-
-          <TextView
-            android:id="@+id/issue_details_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_issue_number"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_cover_date"/>
-
-          <TextView
-            android:id="@+id/issue_details_cover_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_date"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_store_date"/>
-
-          <TextView
-            android:id="@+id/issue_details_store_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_date"/>
-
-        </GridLayout>
+        android:columnCount="2">
 
         <TextView
-          android:id="@+id/issue_details_description"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          tools:text="@string/lorem_ipsum"/>
+          android:text="@string/issue_details_name"/>
 
-      </LinearLayout>
+        <TextView
+          android:id="@+id/issue_details_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="@string/dummy_issue_name"/>
 
-    </android.support.v7.widget.CardView>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/issue_details_volume_name"/>
 
-    <include layout="@layout/lce_loading_view"/>
-    <include layout="@layout/lce_error_view"/>
+        <TextView
+          android:id="@+id/issue_details_volume_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="@string/dummy_volume_name"/>
 
-  </FrameLayout>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/issue_details_number"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+          android:id="@+id/issue_details_number"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="@string/dummy_issue_number"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/issue_details_cover_date"/>
+
+        <TextView
+          android:id="@+id/issue_details_cover_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="@string/dummy_date"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/issue_details_store_date"/>
+
+        <TextView
+          android:id="@+id/issue_details_store_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="@string/dummy_date"/>
+
+      </GridLayout>
+
+      <TextView
+        android:id="@+id/issue_details_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/lorem_ipsum"/>
+
+    </LinearLayout>
+
+  </android.support.v7.widget.CardView>
+
+  <include layout="@layout/lce_loading_view"/>
+  <include layout="@layout/lce_error_view"/>
+
+</FrameLayout>

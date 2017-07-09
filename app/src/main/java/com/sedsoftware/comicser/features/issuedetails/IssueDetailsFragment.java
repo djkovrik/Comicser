@@ -158,6 +158,7 @@ public class IssueDetailsFragment
     setUpTextView(issueNumber, String.valueOf(issue.issue_number()));
     setUpTextView(issueCoverDate, issue.cover_date());
     setUpTextView(issueStoreDate, issue.store_date());
+    setUpDescriptionTextView(issueDescription, issue.description());
   }
 
   private void setUpTextView(TextView textView, String text) {
@@ -165,6 +166,14 @@ public class IssueDetailsFragment
       textView.setText(text);
     } else {
       textView.setText("-");
+    }
+  }
+
+  private void setUpDescriptionTextView(TextView textView, String text) {
+    if (text != null && !text.isEmpty()) {
+      textView.setText(text);
+    } else {
+      textView.setVisibility(View.GONE);
     }
   }
 }
