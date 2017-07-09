@@ -1,11 +1,11 @@
 package com.sedsoftware.comicser.features.issueslist;
 
-import android.graphics.drawable.Drawable;
+import static com.sedsoftware.comicser.utils.ViewUtils.tintMenuIcon;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
@@ -118,7 +118,9 @@ public class IssuesFragment extends
 
     currentMenu = menu;
 
-    tintMenuIcons(menu);
+    tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
+    tintMenuIcon(getContext(), menu, R.id.action_choose_date, R.color.material_color_white);
+
     setUpSearchItem(menu);
     showcaseToolbarItems();
 
@@ -295,21 +297,6 @@ public class IssuesFragment extends
   }
 
   // --- MISC UTILITY FUNCTIONS ---
-
-  private void tintMenuIcons(Menu menu) {
-    // Tint Menu icons
-    Drawable search = menu.findItem(R.id.action_search).getIcon();
-    search = DrawableCompat.wrap(search);
-    DrawableCompat
-        .setTint(search, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_search).setIcon(search);
-
-    Drawable filter = menu.findItem(R.id.action_choose_date).getIcon();
-    filter = DrawableCompat.wrap(filter);
-    DrawableCompat
-        .setTint(filter, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_choose_date).setIcon(filter);
-  }
 
   private void setUpSearchItem(Menu menu) {
     // Find items
