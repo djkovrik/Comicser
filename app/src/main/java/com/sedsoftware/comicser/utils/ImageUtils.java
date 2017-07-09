@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.StringSignature;
 import com.sedsoftware.comicser.R;
 
 public class ImageUtils {
@@ -16,6 +17,7 @@ public class ImageUtils {
     Glide.clear(view);
     Glide.with(view.getContext())
         .load(url)
+        .signature(new StringSignature(url))
         .fitCenter()
         .crossFade()
         .listener(new RequestListener<String, GlideDrawable>() {
@@ -35,6 +37,7 @@ public class ImageUtils {
           }
         })
         .error(R.drawable.placeholder_error)
+        .skipMemoryCache(true)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }

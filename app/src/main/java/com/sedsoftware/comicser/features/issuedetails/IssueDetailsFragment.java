@@ -3,8 +3,12 @@ package com.sedsoftware.comicser.features.issuedetails;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import butterknife.BindView;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
@@ -12,19 +16,39 @@ import com.hannesdorfmann.mosby3.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
+import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.utils.ImageUtils;
 import timber.log.Timber;
 
-// TODO(1) Replace TextView with actual content view!
+
 @FragmentWithArgs
 public class IssueDetailsFragment
-    extends BaseLceFragment<TextView, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
+    extends BaseLceFragment<CardView, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
     implements IssueDetailsView {
 
   @Arg
   long issueId;
+
+  @BindView(R.id.issue_details_screen)
+  ImageView issueScreen;
+  @BindView(R.id.issue_details_screen_loading)
+  ProgressBar progressBar;
+  @BindView(R.id.issue_details_name)
+  TextView issueName;
+  @BindView(R.id.issue_details_volume_name)
+  TextView volumeName;
+  @BindView(R.id.issue_details_number)
+  TextView issueNumber;
+  @BindView(R.id.issue_details_cover_date)
+  TextView issueCoverDate;
+  @BindView(R.id.issue_details_store_date)
+  TextView issueStoreDate;
+  @BindView(R.id.issue_details_description)
+  TextView issueDescription;
+
 
   IssueDetailsComponent issueDetailsComponent;
 
@@ -98,9 +122,6 @@ public class IssueDetailsFragment
   @Override
   public void setData(ComicIssueInfo data) {
     comicIssueInfo = data;
-    //TODO() Bind data to UI
-    Timber.d("Loading finished!");
-    Timber.d(" - issue: " + comicIssueInfo.volume().name());
     bindIssueDataToUi(comicIssueInfo);
   }
 
@@ -119,6 +140,29 @@ public class IssueDetailsFragment
   }
 
   private void bindIssueDataToUi(ComicIssueInfo issue) {
-    contentView.setText(issue.volume().name());
+
+    ComicImages image = issue.image();
+
+    if (image != null) {
+      String imageUrl = image.screen_url();
+      Timber.d("URL: " + imageUrl);
+      ImageUtils.loadImageWithProgress(issueScreen, imageUrl, progressBar);
+    } else {
+      issueScreen.setVisibility(View.GONE);
+    }
+
+    setUpTextView(issueName, issue.name());
+    setUpTextView(volumeName, issue.volume().name());
+    setUpTextView(issueNumber, String.valueOf(issue.issue_number()));
+    setUpTextView(issueCoverDate, issue.cover_date());
+    setUpTextView(issueStoreDate, issue.store_date());
+  }
+
+  private void setUpTextView(TextView textView, String text) {
+    if (text != null) {
+      textView.setText(text);
+    } else {
+      textView.setText("-");
+    }
   }
 }

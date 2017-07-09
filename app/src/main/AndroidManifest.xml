@@ -28,7 +28,8 @@
 
     <activity
       android:name=".features.issuedetails.IssueDetailsActivity"
-      android:parentActivityName=".features.navigation.NavigationActivity">
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".features.navigation.NavigationActivity"/>
