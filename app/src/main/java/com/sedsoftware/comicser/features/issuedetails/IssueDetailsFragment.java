@@ -23,6 +23,7 @@ import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -191,9 +192,10 @@ public class IssueDetailsFragment
     }
   }
 
-  private void setUpDescriptionTextView(TextView textView, String text) {
-    if (text != null && !text.isEmpty()) {
-      textView.setText(text);
+  private void setUpDescriptionTextView(TextView textView, String htmlText) {
+    if (htmlText != null && !htmlText.isEmpty()) {
+
+      textView.setText(HtmlUtils.parseHtmlText(htmlText));
     } else {
       textView.setVisibility(View.GONE);
     }

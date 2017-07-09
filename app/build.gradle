@@ -51,6 +51,7 @@ dependencies {
   final FRAGMENTARGS_VERSION = "3.0.2"
   final MATERIAL_DATE_PICKER_VERSION = "3.2.2"
   final MATERIAL_SEARCH_VIEW_VERSION = "1.4.0"
+  final JSOUP_VERSION = "1.10.3"
 
   // Testing
   final ESPRESSO_VERSION = "2.2.2"
@@ -89,6 +90,7 @@ dependencies {
   compile "com.hannesdorfmann.fragmentargs:annotation:${FRAGMENTARGS_VERSION}"
   compile "com.wdullaer:materialdatetimepicker:${MATERIAL_DATE_PICKER_VERSION}"
   compile "com.miguelcatalan:materialsearchview:${MATERIAL_SEARCH_VIEW_VERSION}"
+  compile "org.jsoup:jsoup:${JSOUP_VERSION}"
 
   provided "com.jakewharton.auto.value:auto-value-annotations:${AUTO_VALUE_VERSION}"
   provided "com.ryanharter.auto.value:auto-value-gson:${AUTO_VALUE_GSON_VERSION}"
