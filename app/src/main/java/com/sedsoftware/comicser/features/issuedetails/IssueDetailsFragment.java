@@ -141,12 +141,14 @@ public class IssueDetailsFragment
 
   private void bindIssueDataToUi(ComicIssueInfo issue) {
 
+    final String cacheImageType = "screen_url";
+
     ComicImages image = issue.image();
 
     if (image != null) {
       String imageUrl = image.screen_url();
       Timber.d("URL: " + imageUrl);
-      ImageUtils.loadImageWithProgress(issueScreen, imageUrl, progressBar);
+      ImageUtils.loadImageWithProgress(issueScreen, imageUrl, cacheImageType, progressBar);
     } else {
       issueScreen.setVisibility(View.GONE);
     }
