@@ -18,6 +18,7 @@
       android:name=".data.source.local.ComicProvider"/>
 
     <activity
+      android:launchMode="singleTop"
       android:name=".features.navigation.NavigationActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
