@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -16,17 +18,20 @@ import com.hannesdorfmann.mosby3.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
+import com.sedsoftware.comicser.data.model.ComicCharacterInfoShort;
 import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.utils.ImageUtils;
+import java.util.ArrayList;
+import java.util.List;
 import timber.log.Timber;
 
 
 @FragmentWithArgs
 public class IssueDetailsFragment
-    extends BaseLceFragment<CardView, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
+    extends BaseLceFragment<LinearLayout, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
     implements IssueDetailsView {
 
   @Arg
@@ -48,16 +53,25 @@ public class IssueDetailsFragment
   TextView issueStoreDate;
   @BindView(R.id.issue_details_description)
   TextView issueDescription;
-
+  @BindView(R.id.issue_details_characters_card)
+  CardView charactersView;
+  @BindView(R.id.issue_details_characters_list)
+  ListView charactersList;
 
   IssueDetailsComponent issueDetailsComponent;
 
   private ComicIssueInfo comicIssueInfo;
+  private IssueDetailsCharacterAdapter listAdapter;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
+
+    listAdapter = new IssueDetailsCharacterAdapter(new ArrayList<>(0),
+        characterId -> Timber.d("Clicked: " + characterId));
+
+    charactersList.setAdapter(listAdapter);
 
     if (savedInstanceState != null) {
       loadData(false);
@@ -159,6 +173,14 @@ public class IssueDetailsFragment
     setUpTextView(issueCoverDate, issue.cover_date());
     setUpTextView(issueStoreDate, issue.store_date());
     setUpDescriptionTextView(issueDescription, issue.description());
+
+    List<ComicCharacterInfoShort> characters = issue.character_credits();
+
+    if (characters != null) {
+      listAdapter.replaceCharacters(characters);
+    } else {
+      charactersView.setVisibility(View.GONE);
+    }
   }
 
   private void setUpTextView(TextView textView, String text) {
