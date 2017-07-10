@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
@@ -14,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
@@ -60,6 +63,11 @@ public class IssueDetailsFragment
   CardView charactersView;
   @BindView(R.id.issue_details_characters_list)
   ListView charactersList;
+
+  @BindString(R.string.msg_bookmarked)
+  String messageBookmarked;
+  @BindString(R.string.msg_bookmark_removed)
+  String messageBookmarkRemoved;
 
   IssueDetailsComponent issueDetailsComponent;
 
@@ -200,26 +208,41 @@ public class IssueDetailsFragment
   @Override
   public void markAsBookmarked() {
     currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_black_24dp);
-    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark, R.color.material_color_white);
+
+    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark,
+        R.color.material_color_white);
   }
 
   @Override
   public void unmarkAsBookmarked() {
     currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_border_black_24dp);
-    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark, R.color.material_color_white);
+
+    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark,
+        R.color.material_color_white);
   }
 
   @Override
   public void onBookmarkClick() {
+
+    String message;
+
     boolean isBookmarkedNow = presenter.isCurrentIssueBookmarked(issueId);
 
     if (isBookmarkedNow) {
       presenter.removeBookmark(issueId);
+      message = messageBookmarkRemoved;
     } else {
       presenter.bookmarkIssue(currentIssue);
+      message = messageBookmarked;
     }
 
     presenter.setUpBookmarkIconState(issueId);
+
+    Snackbar.make(
+        ButterKnife.findById(getActivity(), R.id.issue_details_activity_layout),
+        message,
+        Snackbar.LENGTH_SHORT)
+        .show();
   }
 
   // --- UI BINDING UTILS ---
