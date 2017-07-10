@@ -18,6 +18,6 @@ public class IssueTextUtils {
   }
 
   public static String getFormattedIssueDetailsTitle(String volume, int number) {
-    return String.format(Locale.US, "%s - Issue #%d", volume, number);
+    return String.format(Locale.US, "%s #%d", volume, number);
   }
 }

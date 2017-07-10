@@ -14,12 +14,9 @@ import java.util.List;
 class IssueDetailsCharacterAdapter extends BaseAdapter {
 
   private List<ComicCharacterInfoShort> characters;
-  private CharacterClickListener listener;
 
-  IssueDetailsCharacterAdapter(List<ComicCharacterInfoShort> characters,
-      CharacterClickListener listener) {
+  IssueDetailsCharacterAdapter(List<ComicCharacterInfoShort> characters) {
     this.characters = characters;
-    this.listener = listener;
   }
 
   public void replaceCharacters(List<ComicCharacterInfoShort> characters) {
@@ -63,7 +60,7 @@ class IssueDetailsCharacterAdapter extends BaseAdapter {
   }
 
 
-  class CharacterViewHolder implements View.OnClickListener {
+  class CharacterViewHolder {
 
     @BindView(R.id.issue_details_character_name)
     TextView characterName;
@@ -72,8 +69,6 @@ class IssueDetailsCharacterAdapter extends BaseAdapter {
 
     CharacterViewHolder(View view) {
       ButterKnife.bind(this, view);
-
-      view.setOnClickListener(this);
     }
 
     void bindTo(ComicCharacterInfoShort character) {
@@ -84,15 +79,5 @@ class IssueDetailsCharacterAdapter extends BaseAdapter {
         characterName.setText(name);
       }
     }
-
-    @Override
-    public void onClick(View v) {
-      listener.onCharacterClick(characterId);
-    }
-  }
-
-  interface CharacterClickListener {
-
-    void onCharacterClick(long characterId);
   }
 }

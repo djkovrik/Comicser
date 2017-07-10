@@ -1,8 +1,10 @@
 package com.sedsoftware.comicser.features.issuedetails;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +26,8 @@ import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataM
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
+import com.sedsoftware.comicser.utils.IssueTextUtils;
+import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -39,12 +43,10 @@ public class IssueDetailsFragment
 
   @BindView(R.id.issue_details_screen)
   ImageView issueScreen;
-  @BindView(R.id.issue_details_name)
-  TextView issueName;
-  @BindView(R.id.issue_details_volume_name)
-  TextView volumeName;
-  @BindView(R.id.issue_details_number)
-  TextView issueNumber;
+  @BindView(R.id.issue_details_full_name)
+  TextView issueFullTitleName;
+  @BindView(R.id.issue_details_issue_name)
+  TextView issueSeparateName;
   @BindView(R.id.issue_details_cover_date)
   TextView issueCoverDate;
   @BindView(R.id.issue_details_store_date)
@@ -66,10 +68,18 @@ public class IssueDetailsFragment
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
 
-    listAdapter = new IssueDetailsCharacterAdapter(new ArrayList<>(0),
-        characterId -> Timber.d("Clicked: " + characterId));
+    listAdapter = new IssueDetailsCharacterAdapter(new ArrayList<>(0));
 
     charactersList.setAdapter(listAdapter);
+
+    charactersList.setDivider(
+        new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorAccentDark)));
+
+    charactersList.setDividerHeight(1);
+
+    // TODO() Replace with character details activity launch
+    charactersList.setOnItemClickListener(
+        (parent, view1, position, id) -> Timber.d("Clicked id: " + id));
 
     if (savedInstanceState != null) {
       loadData(false);
@@ -151,47 +161,66 @@ public class IssueDetailsFragment
     issueDetailsComponent.inject(this);
   }
 
+  // --- UI BINDING UTILS ---
+
   private void bindIssueDataToUi(ComicIssueInfo issue) {
 
-    ComicImages image = issue.image();
+    loadHeaderImage(issueScreen, issue.image());
 
+    String volumeName = issue.volume().name();
+    int issueNumber = issue.issue_number();
+    setUpHeaderText(issueFullTitleName, volumeName, issueNumber);
+    setUpOtherText(issueSeparateName, issue.name());
+    setUpDate(issueCoverDate, issue.cover_date());
+    setUpDate(issueStoreDate, issue.store_date());
+    setUpDescription(issueDescription, issue.description());
+    setUpCharactersList(charactersView, charactersList, issue.character_credits());
+  }
+
+  private void loadHeaderImage(ImageView header, ComicImages image) {
     if (image != null) {
       String imageUrl = image.small_url();
-      ImageUtils.loadImageWithTopCrop(issueScreen, imageUrl);
+      ImageUtils.loadImageWithTopCrop(header, imageUrl);
     } else {
-      issueScreen.setVisibility(View.GONE);
-    }
-
-    setUpTextView(issueName, issue.name());
-    setUpTextView(volumeName, issue.volume().name());
-    setUpTextView(issueNumber, String.valueOf(issue.issue_number()));
-    setUpTextView(issueCoverDate, issue.cover_date());
-    setUpTextView(issueStoreDate, issue.store_date());
-    setUpDescriptionTextView(issueDescription, issue.description());
-
-    List<ComicCharacterInfoShort> characters = issue.character_credits();
-
-    if (characters != null) {
-      listAdapter.replaceCharacters(characters);
-    } else {
-      charactersView.setVisibility(View.GONE);
+      header.setVisibility(View.GONE);
     }
   }
 
-  private void setUpTextView(TextView textView, String text) {
-    if (text != null) {
-      textView.setText(text);
+  private void setUpHeaderText(TextView textView, String volumeName, int number) {
+    textView.setText(IssueTextUtils.getFormattedIssueDetailsTitle(volumeName, number));
+  }
+
+  private void setUpOtherText(TextView textView, String name) {
+    if (name != null) {
+      textView.setText(name);
+    } else {
+      textView.setVisibility(View.GONE);
+    }
+  }
+
+  private void setUpDate(TextView textView, String date) {
+    if (date != null) {
+      textView.setText(date);
     } else {
       textView.setText("-");
     }
   }
 
-  private void setUpDescriptionTextView(TextView textView, String htmlText) {
-    if (htmlText != null && !htmlText.isEmpty()) {
-
-      textView.setText(HtmlUtils.parseHtmlText(htmlText));
+  private void setUpDescription(TextView textView, String description) {
+    if (description != null) {
+      textView.setText(HtmlUtils.parseHtmlText(description));
     } else {
       textView.setVisibility(View.GONE);
+    }
+  }
+
+  private void setUpCharactersList(CardView parent, ListView listView,
+      List<ComicCharacterInfoShort> characters) {
+    if (characters != null && !characters.isEmpty()) {
+      listAdapter.replaceCharacters(characters);
+      ViewUtils.setListViewHeightBasedOnChildren(listView);
+    } else {
+      parent.setVisibility(View.GONE);
     }
   }
 }

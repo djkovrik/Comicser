@@ -22,11 +22,13 @@
   <string name="issues_search_hint">Enter issue name here…</string>
 
   <!-- Issue details -->
+  <string name="issue_details_activity_title">Issue details:</string>
   <string name="issue_details_name">Name:</string>
   <string name="issue_details_volume_name">Volume:</string>
   <string name="issue_details_number">Number:</string>
   <string name="issue_details_cover_date">Cover date:</string>
   <string name="issue_details_store_date">Store date:</string>
+  <string name="issue_details_characters">Characters:</string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
@@ -51,6 +53,7 @@
   <string name="dummy_issue_name" translatable="false">Road\'s End</string>
   <string name="dummy_issue_number" translatable="false">168</string>
   <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
+  <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
   <string name="dummy_date" translatable="false">Jun 7, 2017</string>
   <string name="dummy_character_name" translatable="false">Rick Grimes</string>
 

@@ -36,64 +36,73 @@
           tools:src="@drawable/dummy_issue_cover"/>
         <!-- Issue info below -->
 
+        <TextView
+          android:id="@+id/issue_details_full_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+          android:paddingBottom="@dimen/material_card_title_block_large_padding_top"
+          android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+          android:background="@color/colorPrimaryDark"
+          android:ellipsize="end"
+          android:maxLines="2"
+          android:textColor="@color/material_color_white"
+          android:textSize="@dimen/material_card_title_block_large_title_text_size"
+          tools:text="@string/dummy_issue_details_header"/>
+
+        <TextView
+          android:id="@+id/issue_details_issue_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+          android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+          android:background="@color/colorPrimaryDark"
+          android:textColor="@color/material_color_white"
+          android:textSize="@dimen/material_card_title_block_subtitle_text_size"
+          tools:text="@string/dummy_issue_name"/>
+
         <GridLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+          android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+          android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
           android:columnCount="2">
 
           <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/issue_details_name"/>
-
-          <TextView
-            android:id="@+id/issue_details_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_issue_name"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_volume_name"/>
-
-          <TextView
-            android:id="@+id/issue_details_volume_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_volume_name"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_number"/>
-
-          <TextView
-            android:id="@+id/issue_details_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/dummy_issue_number"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/issue_details_cover_date"/>
+            android:text="@string/issue_details_cover_date"
+            android:textSize="@dimen/material_card_title_block_small_text_size"/>
 
           <TextView
             android:id="@+id/issue_details_cover_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:textSize="@dimen/material_card_title_block_small_text_size"
             tools:text="@string/dummy_date"/>
 
           <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/issue_details_store_date"/>
+            android:text="@string/issue_details_store_date"
+            android:textSize="@dimen/material_card_title_block_small_text_size"/>
 
           <TextView
             android:id="@+id/issue_details_store_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/material_card_title_block_large_subtitle_margin_top"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:textSize="@dimen/material_card_title_block_small_text_size"
             tools:text="@string/dummy_date"/>
 
         </GridLayout>
@@ -102,6 +111,11 @@
           android:id="@+id/issue_details_description"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:paddingTop="@dimen/material_card_supporting_text_padding_top"
+          android:paddingBottom="@dimen/material_card_supporting_text_padding_bottom"
+          android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
+          android:textSize="@dimen/material_card_supporting_text_text_size"
           tools:text="@string/lorem_ipsum"/>
 
       </LinearLayout>
@@ -117,11 +131,30 @@
       android:orientation="vertical"
       tools:targetApi="lollipop">
 
-      <ListView
-        android:id="@+id/issue_details_characters_list"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/fragment_issue_details_character_item"/>
+        android:orientation="vertical">
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+          android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
+          android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+          android:background="@color/colorPrimaryDark"
+          android:text="@string/issue_details_characters"
+          android:textColor="@color/material_color_white"
+          android:textSize="@dimen/material_card_title_block_large_title_text_size"/>
+
+        <ListView
+          android:id="@+id/issue_details_characters_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clickable="true"
+          tools:listitem="@layout/fragment_issue_details_character_item"/>
+      </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

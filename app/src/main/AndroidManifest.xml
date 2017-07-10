@@ -28,6 +28,7 @@
     </activity>
 
     <activity
+      android:label="@string/issue_details_activity_title"
       android:name=".features.issuedetails.IssueDetailsActivity"
       android:parentActivityName=".features.navigation.NavigationActivity"
       android:theme="@style/IssueDetails">
