@@ -55,14 +55,6 @@ public abstract class BaseLceFragment<CV extends View, M, V extends MvpLceView<M
     unbinder.unbind();
   }
 
-  public boolean isSearchViewOpened() {
-    return false;
-  }
-
-  public void closeSearchView() {
-
-  }
-
   protected void injectDependencies() {
 
   }

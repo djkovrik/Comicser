@@ -62,8 +62,6 @@ public class IssuesFragment extends
   @BindView(R.id.contentView)
   RecyclerView contentView;
 
-  MaterialSearchView searchView;
-
   @State
   String title;
 
@@ -183,16 +181,6 @@ public class IssuesFragment extends
     issuesComponent.inject(this);
   }
 
-  @Override
-  public boolean isSearchViewOpened() {
-    return searchView.isSearchOpen();
-  }
-
-  @Override
-  public void closeSearchView() {
-    searchView.closeSearch();
-  }
-
   // --- MVP VIEW STATE ---
 
   @Override
@@ -300,7 +288,7 @@ public class IssuesFragment extends
 
   private void setUpSearchItem(Menu menu) {
     // Find items
-    searchView = ButterKnife.findById(getActivity(), R.id.search_view);
+    MaterialSearchView searchView = ButterKnife.findById(getActivity(), R.id.search_view);
     MenuItem menuItem = menu.findItem(R.id.action_search);
 
     // Tweaks

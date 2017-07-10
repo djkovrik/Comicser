@@ -113,7 +113,8 @@ public class IssueDetailsFragment
         onBookmarkClick();
         break;
     }
-    return true;
+
+    return super.onOptionsItemSelected(item);
   }
 
   // --- BASE LCE FRAGMENT ---
