@@ -8,6 +8,7 @@
   <string name="action_choose_date">Choose date</string>
   <string name="action_search">Search</string>
   <string name="action_clear_search_query">Clear search</string>
+  <string name="action_bookmark">Bookmark</string>
 
   <!-- Navigation drawer items -->
   <string name="navigation_issues">Issues</string>

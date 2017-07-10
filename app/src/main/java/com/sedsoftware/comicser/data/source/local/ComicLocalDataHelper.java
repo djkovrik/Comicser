@@ -52,6 +52,17 @@ public class ComicLocalDataHelper {
     contentResolver.delete(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null);
   }
 
+  public boolean isIssueBookmarked(long issueId) {
+    Cursor query = contentResolver.query(
+        IssueEntry.CONTENT_URI_OWNED_ISSUES,
+        null,
+        IssueEntry.COLUMN_ISSUE_ID + " = ?",
+        new String[]{String.valueOf(issueId)},
+        null);
+
+    return (query != null && query.getCount() > 0);
+  }
+
   public void saveOwnedIssueToDb(@NonNull ComicIssueInfoList issue) {
     contentResolver.insert(
         IssueEntry.CONTENT_URI_OWNED_ISSUES,

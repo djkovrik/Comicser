@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,11 +65,16 @@ public class IssueDetailsFragment
 
   private ComicIssueInfo comicIssueInfo;
   private IssueDetailsCharacterAdapter listAdapter;
+  private Menu currentMenu;
+
+  // --- FRAGMENT LIFECYCLE ---
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
+
+    setHasOptionsMenu(true);
 
     listAdapter = new IssueDetailsCharacterAdapter(new ArrayList<>(0));
 
@@ -86,14 +94,41 @@ public class IssueDetailsFragment
     }
   }
 
+  // --- OPTIONS MENU ---
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.fragment_issue_details, menu);
+
+    currentMenu = menu;
+
+    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_bookmark, R.color.material_color_white);
+
+    presenter.setUpBookmarkIconState(issueId);
+
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_bookmark:
+        // Bookmark
+        break;
+    }
+    return true;
+  }
+
+  // --- BASE LCE FRAGMENT ---
+
   @Override
   protected int getLayoutRes() {
     return R.layout.fragment_issue_details;
   }
 
   @Override
-  public ComicIssueInfo getData() {
-    return comicIssueInfo;
+  protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
+    return e.getMessage();
   }
 
   @NonNull
@@ -102,16 +137,28 @@ public class IssueDetailsFragment
     return issueDetailsComponent.presenter();
   }
 
+  @Override
+  protected void injectDependencies() {
+    issueDetailsComponent = ComicserApp.getAppComponent()
+        .plusRemoteComponent(new ComicRemoteDataModule())
+        .plusLocalComponent(new ComicLocalDataModule())
+        .plusIssueDetailsComponent();
+    issueDetailsComponent.inject(this);
+  }
+  // --- MVP VIEW STATE ---
+
+  @Override
+  public ComicIssueInfo getData() {
+    return comicIssueInfo;
+  }
+
   @NonNull
   @Override
   public LceViewState<ComicIssueInfo, IssueDetailsView> createViewState() {
     return new RetainingLceViewState<>();
   }
 
-  @Override
-  protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
-    return e.getMessage();
-  }
+  // --- MVP VIEW ---
 
   @Override
   public void showContent() {
@@ -153,12 +200,13 @@ public class IssueDetailsFragment
   }
 
   @Override
-  protected void injectDependencies() {
-    issueDetailsComponent = ComicserApp.getAppComponent()
-        .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
-        .plusIssueDetailsComponent();
-    issueDetailsComponent.inject(this);
+  public void markAsBookmarked() {
+    currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_black_24dp);
+  }
+
+  @Override
+  public void unmarkAsBookmarked() {
+    currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_border_black_24dp);
   }
 
   // --- UI BINDING UTILS ---

@@ -1,7 +1,5 @@
 package com.sedsoftware.comicser.features.issueslist;
 
-import static com.sedsoftware.comicser.utils.ViewUtils.tintMenuIcon;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,6 +35,7 @@ import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
+import com.sedsoftware.comicser.utils.ViewUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
@@ -118,8 +117,8 @@ public class IssuesFragment extends
 
     currentMenu = menu;
 
-    tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
-    tintMenuIcon(getContext(), menu, R.id.action_choose_date, R.color.material_color_white);
+    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
+    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_choose_date, R.color.material_color_white);
 
     setUpSearchItem(menu);
     showcaseToolbarItems();

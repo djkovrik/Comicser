@@ -11,4 +11,8 @@ public interface IssueDetailsView extends MvpLceView<ComicIssueInfo> {
 //  void showError(Throwable e, boolean pullToRefresh);
 //  void setData(List<ComicIssueInfoList> data);
 //  void loadData(boolean pullToRefresh);
+
+  void markAsBookmarked();
+
+  void unmarkAsBookmarked();
 }
