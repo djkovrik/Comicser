@@ -13,9 +13,9 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.features.issueslist.IssuesAdapter.IssueViewHolder;
 import com.sedsoftware.comicser.utils.ImageUtils;
+import com.sedsoftware.comicser.utils.IssueTextUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
@@ -90,28 +90,17 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
       String volumeNameText = issue.volume().name();
       int number = issue.issue_number();
 
-      setIssueName(issueNameText, volumeNameText, number);
+      String name = IssueTextUtils.getFormattedIssueName(issueNameText, volumeNameText, number);
+      issueName.setText(name);
 
       if (coverUrl != null) {
         ImageUtils.loadImageWithProgress(issueCover, coverUrl, progressBar);
       }
     }
-
-    private void setIssueName(String issue, String volume, int number) {
-
-      String name;
-
-      if (issue != null) {
-        name = String.format(Locale.US, "%s #%d - %s", volume, number, issue);
-      } else {
-        name = String.format(Locale.US, "%s #%d", volume, number);
-      }
-
-      issueName.setText(name);
-    }
   }
 
   interface OnIssueClickListener {
+
     void issueClicked(long issueId);
   }
 }
