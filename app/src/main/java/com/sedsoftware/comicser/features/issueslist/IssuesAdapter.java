@@ -83,8 +83,6 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
 
     void bindTo(ComicIssueInfoList issue) {
 
-      final String cacheImageType = "small_url";
-
       currentIssueId = issue.id();
 
       String coverUrl = issue.image().small_url();
@@ -95,7 +93,7 @@ class IssuesAdapter extends RecyclerView.Adapter<IssueViewHolder> {
       setIssueName(issueNameText, volumeNameText, number);
 
       if (coverUrl != null) {
-        ImageUtils.loadImageWithProgress(issueCover, coverUrl, cacheImageType, progressBar);
+        ImageUtils.loadImageWithProgress(issueCover, coverUrl, progressBar);
       }
     }
 

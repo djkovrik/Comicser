@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/dummy_issue_cover"
+        tools:src="@drawable/dummy_issue_cover"
         tools:ignore="ContentDescription"/>
       <ProgressBar
         android:id="@+id/issue_cover_progressbar"

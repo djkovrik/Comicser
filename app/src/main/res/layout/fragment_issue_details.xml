@@ -7,6 +7,7 @@
 
   <include layout="@layout/lce_loading_view"/>
   <include layout="@layout/lce_error_view"/>
+
   <LinearLayout
     android:id="@+id/contentView"
     android:layout_width="match_parent"
@@ -26,25 +27,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <FrameLayout
+        <ImageView
+          android:id="@+id/issue_details_screen"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-
-          <ImageView
-            android:id="@+id/issue_details_screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/dummy_issue_screen"/>
-
-          <ProgressBar
-            android:id="@+id/issue_details_screen_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"/>
-
-        </FrameLayout>
+          android:layout_height="@dimen/issue_details_header_image_height"
+          android:adjustViewBounds="true"
+          tools:ignore="ContentDescription"
+          tools:src="@drawable/dummy_issue_cover"/>
         <!-- Issue info below -->
 
         <GridLayout

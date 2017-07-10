@@ -8,6 +8,9 @@
   <!-- Cards -->
   <dimen name="card_margin_value_half">@dimen/material_baseline_grid_0.5x</dimen>
 
+  <!-- Issue details -->
+  <dimen name="issue_details_header_image_height">240dp</dimen>
+
   <!-- Misc -->
   <dimen name="image_progressbar_padding">64dp</dimen>
 </resources>

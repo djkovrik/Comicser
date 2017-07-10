@@ -8,26 +8,39 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
 import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.utils.custom.GlideCustomCropTransformation;
 
 public class ImageUtils {
 
   /**
-   * External image loading function.
+   * External image loading function with custom image positioning (top crop)
    *
    * @param view Target imageView
    * @param url Image url
-   * @param sign Unique sign key which helps to cache images with the same file name separately
-   * @param progressBar ProgressBar view which shown while image loading
    */
-  public static void loadImageWithProgress(ImageView view, String url, String sign,
-      ProgressBar progressBar) {
-    Glide.clear(view);
+  public static void loadImageWithTopCrop(ImageView view, String url) {
+
     Glide.with(view.getContext())
         .load(url)
-        .signature(new StringSignature(sign))
-        .fitCenter()
+        .crossFade()
+        .transform(new GlideCustomCropTransformation(view.getContext(), 0, 0))
+        .error(R.drawable.placeholder_error)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(view);
+  }
+
+  /**
+   * External image loading function which handles ProgressBar as loading placeholder
+   *
+   * @param view Target imageView
+   * @param url Image url
+   * @param progressBar ProgressBar view which shown while image loading
+   */
+  public static void loadImageWithProgress(ImageView view, String url, ProgressBar progressBar) {
+
+    Glide.with(view.getContext())
+        .load(url)
         .crossFade()
         .listener(new RequestListener<String, GlideDrawable>() {
           @Override
@@ -46,25 +59,22 @@ public class ImageUtils {
           }
         })
         .error(R.drawable.placeholder_error)
-        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
 
   /**
-   * External image loading function.
+   * External image loading function which runs custom callback on any loading result
    *
    * @param view Target imageView
    * @param url Image url
-   * @param sign Unique sign key which helps to cache images with the same file name separately
    * @param callback Callback which runs when image loading finished with any result
    */
-  public static void loadImageWithCallback(ImageView view, String url, String sign,
+  public static void loadImageWithCallback(ImageView view, String url,
       ImageLoadingCallback callback) {
-    Glide.clear(view);
+
     Glide.with(view.getContext())
         .load(url)
-        .signature(new StringSignature(sign))
-        .fitCenter()
         .crossFade()
         .listener(new RequestListener<String, GlideDrawable>() {
           @Override
@@ -83,7 +93,6 @@ public class ImageUtils {
           }
         })
         .error(R.drawable.placeholder_error)
-        .skipMemoryCache(true)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }

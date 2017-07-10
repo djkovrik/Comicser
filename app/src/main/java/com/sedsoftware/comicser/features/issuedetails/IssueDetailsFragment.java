@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
@@ -40,8 +39,6 @@ public class IssueDetailsFragment
 
   @BindView(R.id.issue_details_screen)
   ImageView issueScreen;
-  @BindView(R.id.issue_details_screen_loading)
-  ProgressBar progressBar;
   @BindView(R.id.issue_details_name)
   TextView issueName;
   @BindView(R.id.issue_details_volume_name)
@@ -156,14 +153,11 @@ public class IssueDetailsFragment
 
   private void bindIssueDataToUi(ComicIssueInfo issue) {
 
-    final String cacheImageType = "screen_url";
-
     ComicImages image = issue.image();
 
     if (image != null) {
-      String imageUrl = image.screen_url();
-      Timber.d("URL: " + imageUrl);
-      ImageUtils.loadImageWithProgress(issueScreen, imageUrl, cacheImageType, progressBar);
+      String imageUrl = image.small_url();
+      ImageUtils.loadImageWithTopCrop(issueScreen, imageUrl);
     } else {
       issueScreen.setVisibility(View.GONE);
     }
