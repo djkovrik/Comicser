@@ -84,7 +84,7 @@ public class ComicRemoteDataHelper {
    * @param issueId Target issue id (!= issue number).
    * @return Detailed issue info.
    */
-  public Observable<ComicIssueInfo> getIssueDetailsById(long issueId) {
+  public Single<ComicIssueInfo> getIssueDetailsById(long issueId) {
 
     String fields = ClassUtils.getMethodsList(ComicIssueInfo.class);
 
@@ -96,7 +96,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getIssueDetails(issueId, options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 
   /**

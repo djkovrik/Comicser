@@ -1,11 +1,9 @@
 package com.sedsoftware.comicser.features.issueslist;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
@@ -34,8 +32,10 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
+import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
+import com.sedsoftware.comicser.utils.ViewUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
@@ -83,10 +83,12 @@ public class IssuesFragment extends
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    setRetainInstance(true);
 
     refreshLayout.setOnRefreshListener(this);
 
-    adapter = new IssuesAdapter();
+    adapter = new IssuesAdapter(issueId ->
+        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =
@@ -115,7 +117,9 @@ public class IssuesFragment extends
 
     currentMenu = menu;
 
-    tintMenuIcons(menu);
+    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
+    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_choose_date, R.color.material_color_white);
+
     setUpSearchItem(menu);
     showcaseToolbarItems();
 
@@ -293,21 +297,6 @@ public class IssuesFragment extends
   }
 
   // --- MISC UTILITY FUNCTIONS ---
-
-  private void tintMenuIcons(Menu menu) {
-    // Tint Menu icons
-    Drawable search = menu.findItem(R.id.action_search).getIcon();
-    search = DrawableCompat.wrap(search);
-    DrawableCompat
-        .setTint(search, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_search).setIcon(search);
-
-    Drawable filter = menu.findItem(R.id.action_choose_date).getIcon();
-    filter = DrawableCompat.wrap(filter);
-    DrawableCompat
-        .setTint(filter, ContextCompat.getColor(getContext(), R.color.material_color_white));
-    menu.findItem(R.id.action_choose_date).setIcon(filter);
-  }
 
   private void setUpSearchItem(Menu menu) {
     // Find items

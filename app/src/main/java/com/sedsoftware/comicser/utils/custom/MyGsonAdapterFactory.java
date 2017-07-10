@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.utils;
+package com.sedsoftware.comicser.utils.custom;
 
 import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;

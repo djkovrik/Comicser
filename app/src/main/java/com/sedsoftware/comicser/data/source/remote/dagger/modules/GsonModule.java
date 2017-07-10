@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sedsoftware.comicser.data.source.remote.RemoteDataScope;
-import com.sedsoftware.comicser.utils.MyGsonAdapterFactory;
+import com.sedsoftware.comicser.utils.custom.MyGsonAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 

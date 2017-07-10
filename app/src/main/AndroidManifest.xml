@@ -18,12 +18,23 @@
       android:name=".data.source.local.ComicProvider"/>
 
     <activity
+      android:launchMode="singleTop"
       android:name=".features.navigation.NavigationActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+    </activity>
+
+    <activity
+      android:label="@string/issue_details_activity_title"
+      android:name=".features.issuedetails.IssueDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/IssueDetails">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
     </activity>
   </application>
 

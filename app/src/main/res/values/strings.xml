@@ -8,6 +8,7 @@
   <string name="action_choose_date">Choose date</string>
   <string name="action_search">Search</string>
   <string name="action_clear_search_query">Clear search</string>
+  <string name="action_bookmark">Bookmark</string>
 
   <!-- Navigation drawer items -->
   <string name="navigation_issues">Issues</string>
@@ -21,21 +22,40 @@
   <string name="issues_title_format">Issues - <xliff:g id="date">%s</xliff:g></string>
   <string name="issues_search_hint">Enter issue name here…</string>
 
+  <!-- Issue details -->
+  <string name="issue_details_activity_title">Issue details:</string>
+  <string name="issue_details_name">Name:</string>
+  <string name="issue_details_volume_name">Volume:</string>
+  <string name="issue_details_number">Number:</string>
+  <string name="issue_details_cover_date">Cover date:</string>
+  <string name="issue_details_store_date">Store date:</string>
+  <string name="issue_details_characters">Characters:</string>
+
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
+  <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
   <string name="msg_no_issues_today">No available releases found!\nPlease try again later or choose another date.</string>
   <string name="msg_title_today">Today</string>
 
   <!-- ShowcaseView guide -->
   <!-- Issues -->
   <string name="showcase_issues_title">Issues view</string>
-  <string name="showcase_issues_datepicker">
-    Here you can choose a specific date so Comicser will load all issue releases for that date.
+  <string name="showcase_issues_datepicker">Here you can choose a specific date so Comicser will load all issue releases for that date.</string>
+  <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
+  <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
+
+  <!-- DUMMY TEXTS -->
+  <string name="lorem_ipsum" translatable="false">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+    the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of
+    type and scrambled it to make a type specimen book.
   </string>
-  <string name="showcase_issues_search">
-    Use search to find all issues with certain volume name for currently displayed list.
-  </string>
-  <string name="showcase_issues_drawer">
-    Also you can use this button of left swipe for navigation drawer access.
-  </string>
+
+  <string name="dummy_issue_name" translatable="false">Road\'s End</string>
+  <string name="dummy_issue_number" translatable="false">168</string>
+  <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
+  <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
+  <string name="dummy_date" translatable="false">Jun 7, 2017</string>
+  <string name="dummy_character_name" translatable="false">Rick Grimes</string>
+
 </resources>

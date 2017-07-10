@@ -22,7 +22,6 @@ import java.util.List;
 public abstract class ComicIssueInfo {
   public abstract List<ComicCharacterInfoShort> character_credits();
   @Nullable public abstract String cover_date();
-  @Nullable public abstract String deck();
   @Nullable public abstract String description();
   public abstract long id();
   @Nullable public abstract ComicImages image();
