@@ -5,6 +5,7 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
 import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
+import com.sedsoftware.comicser.utils.ContentUtils;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -18,7 +19,7 @@ public class IssueDetailsPresenter extends MvpBasePresenter<IssueDetailsView> {
   final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
-  public IssueDetailsPresenter(
+  IssueDetailsPresenter(
       PreferencesHelper preferencesHelper,
       ComicLocalDataHelper localDataHelper,
       ComicRemoteDataHelper remoteDataHelper) {
@@ -27,7 +28,7 @@ public class IssueDetailsPresenter extends MvpBasePresenter<IssueDetailsView> {
     this.remoteDataHelper = remoteDataHelper;
   }
 
-  public void setUpBookmarkIconState(long issueId) {
+  void setUpBookmarkIconState(long issueId) {
     if (isViewAttached()) {
       if (isCurrentIssueBookmarked(issueId)) {
         getView().markAsBookmarked();
@@ -37,19 +38,19 @@ public class IssueDetailsPresenter extends MvpBasePresenter<IssueDetailsView> {
     }
   }
 
-  public boolean isCurrentIssueBookmarked(long issueId) {
+  boolean isCurrentIssueBookmarked(long issueId) {
     return localDataHelper.isIssueBookmarked(issueId);
   }
 
-  public void bookmarkIssue(long issueId) {
-
+  void bookmarkIssue(ComicIssueInfo issue) {
+    localDataHelper.saveOwnedIssueToDb(ContentUtils.shortenIssueInfo(issue));
   }
 
-  public void removeBookmark(long issueId) {
-
+  void removeBookmark(long issueId) {
+    localDataHelper.removeOwnedIssueFromDb(issueId);
   }
 
-  public void loadIssueDetails(long issueId) {
+  void loadIssueDetails(long issueId) {
     remoteDataHelper
         .getIssueDetailsById(issueId)
         .subscribe(getIssueDetailsObserver());

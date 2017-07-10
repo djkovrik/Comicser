@@ -63,7 +63,7 @@ public class IssueDetailsFragment
 
   IssueDetailsComponent issueDetailsComponent;
 
-  private ComicIssueInfo comicIssueInfo;
+  private ComicIssueInfo currentIssue;
   private IssueDetailsCharacterAdapter listAdapter;
   private Menu currentMenu;
 
@@ -102,10 +102,7 @@ public class IssueDetailsFragment
 
     currentMenu = menu;
 
-    ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_bookmark, R.color.material_color_white);
-
     presenter.setUpBookmarkIconState(issueId);
-
     super.onCreateOptionsMenu(menu, inflater);
   }
 
@@ -113,7 +110,7 @@ public class IssueDetailsFragment
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_bookmark:
-        // Bookmark
+        onBookmarkClick();
         break;
     }
     return true;
@@ -149,7 +146,7 @@ public class IssueDetailsFragment
 
   @Override
   public ComicIssueInfo getData() {
-    return comicIssueInfo;
+    return currentIssue;
   }
 
   @NonNull
@@ -190,8 +187,8 @@ public class IssueDetailsFragment
 
   @Override
   public void setData(ComicIssueInfo data) {
-    comicIssueInfo = data;
-    bindIssueDataToUi(comicIssueInfo);
+    currentIssue = data;
+    bindIssueDataToUi(currentIssue);
   }
 
   @Override
@@ -202,11 +199,26 @@ public class IssueDetailsFragment
   @Override
   public void markAsBookmarked() {
     currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_black_24dp);
+    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark, R.color.material_color_white);
   }
 
   @Override
   public void unmarkAsBookmarked() {
     currentMenu.findItem(R.id.action_bookmark).setIcon(R.drawable.ic_bookmark_border_black_24dp);
+    ViewUtils.tintMenuIcon(getContext(), currentMenu, R.id.action_bookmark, R.color.material_color_white);
+  }
+
+  @Override
+  public void onBookmarkClick() {
+    boolean isBookmarkedNow = presenter.isCurrentIssueBookmarked(issueId);
+
+    if (isBookmarkedNow) {
+      presenter.removeBookmark(issueId);
+    } else {
+      presenter.bookmarkIssue(currentIssue);
+    }
+
+    presenter.setUpBookmarkIconState(issueId);
   }
 
   // --- UI BINDING UTILS ---

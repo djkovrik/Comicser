@@ -15,4 +15,6 @@ public interface IssueDetailsView extends MvpLceView<ComicIssueInfo> {
   void markAsBookmarked();
 
   void unmarkAsBookmarked();
+
+  void onBookmarkClick();
 }

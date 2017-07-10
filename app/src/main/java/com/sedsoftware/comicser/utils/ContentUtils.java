@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.sedsoftware.comicser.data.model.ComicImages;
+import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoShort;
@@ -14,6 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContentUtils {
+
+  public static ComicIssueInfoList shortenIssueInfo(ComicIssueInfo issue) {
+    return ComicIssueInfoList.builder()
+        .id(issue.id())
+        .image(issue.image())
+        .issue_number(issue.issue_number())
+        .name(issue.name())
+        .store_date(issue.store_date())
+        .cover_date(issue.cover_date())
+        .volume(issue.volume())
+        .build();
+  }
 
   public static ContentValues issueInfoToContentValues(@NonNull ComicIssueInfoList issue) {
 
