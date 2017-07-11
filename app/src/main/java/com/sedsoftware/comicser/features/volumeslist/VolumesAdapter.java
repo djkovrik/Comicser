@@ -73,10 +73,10 @@ class VolumesAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
     TextView volumePublisher;
     @BindString(R.string.volumes_publisher_text)
     String publisherFormat;
-    @BindView(R.id.volume_year_and_count)
-    TextView volumeYearAndCount;
-    @BindString(R.string.volumes_year_and_count)
-    String yearCountFormat;
+    @BindView(R.id.volume_issues_count)
+    TextView issuesCount;
+    @BindString(R.string.volumes_count_text)
+    String issuesCountFormat;
 
     VolumeViewHolder(View itemView) {
       super(itemView);
@@ -106,9 +106,8 @@ class VolumesAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
         volumePublisher.setVisibility(View.GONE);
       }
 
-      String yearCount = String
-          .format(Locale.US, yearCountFormat, volume.start_year(), volume.count_of_issues());
-      volumeYearAndCount.setText(yearCount);
+      String yearCount = String.format(Locale.US, issuesCountFormat, volume.count_of_issues());
+      issuesCount.setText(yearCount);
     }
 
     @Override

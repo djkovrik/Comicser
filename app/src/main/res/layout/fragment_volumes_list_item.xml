@@ -16,7 +16,7 @@
 
     <FrameLayout
       android:id="@+id/volume_image_layout"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content">
       <ImageView
         android:id="@+id/volume_cover"
@@ -64,13 +64,13 @@
         tools:text="@string/dummy_publisher"/>
 
       <TextView
-        android:id="@+id/volume_year_and_count"
+        android:id="@+id/volume_issues_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/material_card_title_block_large_subtitle_margin_top"
         android:maxLines="1"
+        android:textColor="@color/colorSecondaryText"
         android:textSize="@dimen/material_card_title_block_small_text_size"
-        tools:text="@string/dummy_issues_plus_year"/>
+        tools:text="@string/dummy_issues_count"/>
 
     </LinearLayout>
   </LinearLayout>

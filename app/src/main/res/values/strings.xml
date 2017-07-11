@@ -35,7 +35,7 @@
   <string name="volumes_fragment_title">Volumes</string>
   <string name="volumes_search_hint">Enter volume name here…</string>
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
-  <string name="volumes_year_and_count">Issues since <xliff:g id="year">%s</xliff:g>: <xliff:g id="count">%d</xliff:g></string>
+  <string name="volumes_count_text">Issues : <xliff:g id="count">%d</xliff:g></string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
@@ -67,6 +67,6 @@
   <string name="dummy_date" translatable="false">Jun 7, 2017</string>
   <string name="dummy_character_name" translatable="false">Rick Grimes</string>
   <string name="dummy_publisher">by Skybound</string>
-  <string name="dummy_issues_plus_year">Issues since 2003: 168</string>
+  <string name="dummy_issues_count">Issues: 10</string>
 
 </resources>
