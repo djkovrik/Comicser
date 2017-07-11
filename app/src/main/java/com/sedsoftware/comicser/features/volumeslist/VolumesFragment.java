@@ -9,9 +9,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import butterknife.BindInt;
+import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.evernote.android.state.State;
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby3.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -25,12 +29,22 @@ import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 import timber.log.Timber;
 
+@FragmentWithArgs
 public class VolumesFragment extends
     BaseLceFragment<RecyclerView, List<ComicVolumeInfoList>, VolumesView, VolumesPresenter>
     implements VolumesView {
 
   @BindInt(R.integer.issues_grid_columns_count)
   int gridColumnsCount;
+  @BindString(R.string.msg_no_volumes_today)
+  String emptyViewText;
+  @BindString(R.string.msg_volumes_start)
+  String initialViewText;
+
+  @BindView(R.id.initialView)
+  TextView initialView;
+  @BindView(R.id.emptyView)
+  TextView emptyView;
 
   @State
   String chosenName;
@@ -56,8 +70,8 @@ public class VolumesFragment extends
 
     setHasOptionsMenu(true);
 
-    if (savedInstanceState != null) {
-      loadData(true);
+    if (chosenName != null && chosenName.length() > 0) {
+      loadDataByName(chosenName);
     }
   }
 
@@ -125,7 +139,13 @@ public class VolumesFragment extends
 
   @Override
   public void loadData(boolean pullToRefresh) {
-    presenter.loadVolumesData(chosenName);
+    showLoading(false);
+    showInitialView(true);
+  }
+
+  @Override
+  public void loadDataByName(String name) {
+    presenter.loadVolumesData(name);
   }
 
   private void setUpSearchItem(Menu menu) {
@@ -144,7 +164,7 @@ public class VolumesFragment extends
         chosenName = query;
 
         if (chosenName.length() > 0) {
-          loadData(true);
+          loadDataByName(chosenName);
         }
         return false;
       }
@@ -155,5 +175,48 @@ public class VolumesFragment extends
         return false;
       }
     });
+  }
+
+  @Override
+  public void showContent() {
+    showInitialView(false);
+    showEmptyView(false);
+    super.showContent();
+  }
+
+  @Override
+  public void showLoading(boolean pullToRefresh) {
+    showInitialView(false);
+    showEmptyView(false);
+
+    if (pullToRefresh) {
+      loadingView.setVisibility(View.VISIBLE);
+    } else {
+      loadingView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  public void showInitialView(boolean show) {
+    if (show) {
+      initialView.setText(initialViewText);
+      initialView.setVisibility(View.VISIBLE);
+      contentView.setVisibility(View.GONE);
+      errorView.setVisibility(View.GONE);
+    } else {
+      initialView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  public void showEmptyView(boolean show) {
+    if (show) {
+      emptyView.setText(emptyViewText);
+      emptyView.setVisibility(View.VISIBLE);
+      contentView.setVisibility(View.GONE);
+      errorView.setVisibility(View.GONE);
+    } else {
+      emptyView.setVisibility(View.GONE);
+    }
   }
 }

@@ -13,4 +13,9 @@ public interface VolumesView extends MvpLceView<List<ComicVolumeInfoList>> {
 //  void setData(List<ComicIssueInfoList> data);
 //  void loadData(boolean pullToRefresh);
 
+  void loadDataByName(String name);
+
+  void showInitialView(boolean show);
+
+  void showEmptyView(boolean show);
 }

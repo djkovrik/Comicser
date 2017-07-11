@@ -5,6 +5,7 @@
 
   <include layout="@layout/lce_loading_view"/>
   <include layout="@layout/lce_empty_view"/>
+  <include layout="@layout/lce_initial_view"/>
   <include layout="@layout/lce_error_view"/>
 
   <android.support.v7.widget.RecyclerView
