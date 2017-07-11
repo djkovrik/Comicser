@@ -34,7 +34,7 @@
   <!-- Volumes -->
   <string name="volumes_search_hint">Enter volume name here…</string>
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
-  <string name="volumes_count_and_year">Issues since <xliff:g id="year">%s</xliff:g>: <xliff:g id="count">%d</xliff:g></string>
+  <string name="volumes_year_and_count">Issues since <xliff:g id="year">%s</xliff:g>: <xliff:g id="count">%d</xliff:g></string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
