@@ -3,6 +3,7 @@ package com.sedsoftware.comicser.features.volumeslist;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 import timber.log.Timber;
@@ -217,6 +219,15 @@ public class VolumesFragment extends
       errorView.setVisibility(View.GONE);
     } else {
       emptyView.setVisibility(View.GONE);
+    }
+  }
+
+  @Override
+  public void updateTitle() {
+    ActionBar supportActionBar = ((NavigationActivity) getActivity()).getSupportActionBar();
+
+    if (supportActionBar != null) {
+      supportActionBar.setTitle(chosenName);
     }
   }
 }

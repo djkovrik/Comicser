@@ -18,4 +18,6 @@ public interface VolumesView extends MvpLceView<List<ComicVolumeInfoList>> {
   void showInitialView(boolean show);
 
   void showEmptyView(boolean show);
+
+  void updateTitle();
 }

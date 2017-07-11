@@ -33,6 +33,7 @@ public class VolumesPresenter extends MvpBasePresenter<VolumesView> {
         Timber.d("Volumes data loading started...");
         if (isViewAttached()) {
           Timber.d("Displaying loading view...");
+          getView().updateTitle();
           getView().showEmptyView(false);
           getView().showInitialView(false);
           getView().showLoading(true);
