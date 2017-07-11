@@ -19,7 +19,6 @@ import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
 import com.sedsoftware.comicser.utils.FragmentUtils;
-import timber.log.Timber;
 
 public class NavigationActivity extends
     BaseMvpActivity<NavigationActivityView, NavigationActivityPresenter>
@@ -33,7 +32,8 @@ public class NavigationActivity extends
   DrawerLayout drawer;
 
   @State
-  @AppNavigation.Section int currentSection;
+  @AppNavigation.Section
+  int currentSection;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class NavigationActivity extends
     setSupportActionBar(toolbar);
     setUpNavigationDrawerParams();
 
-    Timber.tag("Navigation").d("onCreate from NavigationActivity [" + currentSection + "]");
     navigateToCurrentSection();
   }
 
@@ -79,10 +78,8 @@ public class NavigationActivity extends
 
     if (chosenMenuItem == R.id.nav_issues) {
       currentSection = AppNavigation.ISSUES;
-      Timber.tag("Navigation").d("currentSection set to " + AppNavigation.ISSUES);
     } else if (chosenMenuItem == R.id.nav_volumes) {
       currentSection = AppNavigation.VOLUMES;
-      Timber.tag("Navigation").d("currentSection set to " + AppNavigation.VOLUMES);
     } else if (chosenMenuItem == R.id.nav_characters) {
       Toast.makeText(this, "Characters", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_collection) {
@@ -99,10 +96,12 @@ public class NavigationActivity extends
   @Override
   public void navigateToCurrentSection() {
 
-    Timber.tag("Navigation").d("Navigating to current section [" + currentSection + "]");
-
-    BaseLceFragment fragment = NavigationFragmentsFactory.getFragment(currentSection);
     FragmentManager manager = getSupportFragmentManager();
-    FragmentUtils.replaceFragmentIn(manager, fragment, R.id.content_frame);
+
+    BaseLceFragment fragment = NavigationFragmentsFactory.getFragment(manager, currentSection);
+
+    FragmentUtils.replaceFragmentIn(
+        manager, fragment, R.id.content_frame,
+        NavigationFragmentsFactory.getFragmentTag(currentSection));
   }
 }

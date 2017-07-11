@@ -31,16 +31,15 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
-import com.sedsoftware.comicser.utils.custom.ToolbarActionItemTarget;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
+import com.sedsoftware.comicser.utils.custom.ToolbarActionItemTarget;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -106,8 +105,6 @@ public class IssuesFragment extends
     } else if (savedInstanceState != null) {
       loadData(false);
     }
-
-    Timber.tag("Navigation").d("onViewCreated from IssuesFragment");
   }
 
   // --- OPTIONS MENU ---
