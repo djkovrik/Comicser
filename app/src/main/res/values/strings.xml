@@ -32,6 +32,7 @@
   <string name="issue_details_characters">Characters:</string>
 
   <!-- Volumes -->
+  <string name="volumes_fragment_title">Volumes</string>
   <string name="volumes_search_hint">Enter volume name here…</string>
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
   <string name="volumes_year_and_count">Issues since <xliff:g id="year">%s</xliff:g>: <xliff:g id="count">%d</xliff:g></string>

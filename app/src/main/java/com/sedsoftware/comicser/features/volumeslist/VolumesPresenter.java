@@ -33,7 +33,6 @@ public class VolumesPresenter extends MvpBasePresenter<VolumesView> {
         Timber.d("Volumes data loading started...");
         if (isViewAttached()) {
           Timber.d("Displaying loading view...");
-          getView().updateTitle();
           getView().showEmptyView(false);
           getView().showInitialView(false);
           getView().showLoading(true);
@@ -52,6 +51,7 @@ public class VolumesPresenter extends MvpBasePresenter<VolumesView> {
             // Display empty view
             Timber.d("Displaying empty view...");
             getView().showEmptyView(true);
+            getView().showLoading(false);
           }
         }
       }
@@ -62,6 +62,7 @@ public class VolumesPresenter extends MvpBasePresenter<VolumesView> {
         if (isViewAttached()) {
           Timber.d("Displaying error view...");
           getView().showError(e, false);
+          getView().showLoading(false);
         }
       }
     };

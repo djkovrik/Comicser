@@ -38,6 +38,8 @@ public class VolumesFragment extends
 
   @BindInt(R.integer.issues_grid_columns_count)
   int gridColumnsCount;
+  @BindString(R.string.volumes_fragment_title)
+  String fragmentTitle;
   @BindString(R.string.msg_no_volumes_today)
   String emptyViewText;
   @BindString(R.string.msg_volumes_start)
@@ -50,6 +52,9 @@ public class VolumesFragment extends
 
   @State
   String chosenName;
+
+  @State
+  String title;
 
   VolumesComponent volumesComponent;
   VolumesAdapter adapter;
@@ -74,6 +79,10 @@ public class VolumesFragment extends
 
     if (chosenName != null && chosenName.length() > 0) {
       loadDataByName(chosenName);
+      setTitle(chosenName);
+    } else {
+      setTitle(fragmentTitle);
+      showInitialView(true);
     }
   }
 
@@ -167,6 +176,7 @@ public class VolumesFragment extends
 
         if (chosenName.length() > 0) {
           loadDataByName(chosenName);
+          setTitle(chosenName);
         }
         return false;
       }
@@ -188,9 +198,6 @@ public class VolumesFragment extends
 
   @Override
   public void showLoading(boolean pullToRefresh) {
-    showInitialView(false);
-    showEmptyView(false);
-
     if (pullToRefresh) {
       loadingView.setVisibility(View.VISIBLE);
     } else {
@@ -223,11 +230,16 @@ public class VolumesFragment extends
   }
 
   @Override
-  public void updateTitle() {
+  public void setTitle(String title) {
+    this.title = title;
+    updateTitle();
+  }
+
+  private void updateTitle() {
     ActionBar supportActionBar = ((NavigationActivity) getActivity()).getSupportActionBar();
 
     if (supportActionBar != null) {
-      supportActionBar.setTitle(chosenName);
+      supportActionBar.setTitle(title);
     }
   }
 }
