@@ -8,4 +8,5 @@
   <color name="colorAccentDark">#c67c00</color>
   <color name="colorAccentLight">#ffdd4b</color>
   <color name="colorSecondaryText">@color/material_color_grey_500</color>
+  <color name="colorMaterialBackground">@color/material_color_grey_200</color>
 </resources>
