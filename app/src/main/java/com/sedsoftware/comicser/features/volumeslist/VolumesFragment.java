@@ -73,6 +73,9 @@ public class VolumesFragment extends
     if (chosenName != null && chosenName.length() > 0) {
       loadDataByName(chosenName);
     }
+
+    Timber.tag("Navigation").d("onViewCreated from VolumesFragment");
+    Timber.tag("Navigation").d("chosenName =  " + chosenName);
   }
 
   // --- OPTIONS MENU ---

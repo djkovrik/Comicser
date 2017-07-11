@@ -12,16 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+import com.evernote.android.state.State;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
-import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
-import com.sedsoftware.comicser.features.volumeslist.VolumesFragmentBuilder;
+import com.sedsoftware.comicser.base.BaseMvpActivity;
+import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
+import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
 import com.sedsoftware.comicser.utils.FragmentUtils;
+import timber.log.Timber;
 
 public class NavigationActivity extends
-    MvpActivity<NavigationActivityView, NavigationActivityPresenter>
+    BaseMvpActivity<NavigationActivityView, NavigationActivityPresenter>
     implements NavigationActivityView, OnNavigationItemSelectedListener {
 
   @BindView(R.id.toolbar)
@@ -31,14 +32,20 @@ public class NavigationActivity extends
   @BindView(R.id.drawer_layout)
   DrawerLayout drawer;
 
+  @State
+  @AppNavigation.Section int currentSection;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_navigation_view);
-    ButterKnife.bind(this);
 
     setSupportActionBar(toolbar);
     setUpNavigationDrawerParams();
+
+    Timber.tag("Navigation").d("onCreate from NavigationActivity [" + currentSection + "]");
+    navigateToCurrentSection();
   }
 
   private void setUpNavigationDrawerParams() {
@@ -71,59 +78,31 @@ public class NavigationActivity extends
   public void handleChosenNavigationMenuItem(int chosenMenuItem) {
 
     if (chosenMenuItem == R.id.nav_issues) {
-      showTodayIssuesFragment();
+      currentSection = AppNavigation.ISSUES;
+      Timber.tag("Navigation").d("currentSection set to " + AppNavigation.ISSUES);
     } else if (chosenMenuItem == R.id.nav_volumes) {
-      showVolumesFragment();
+      currentSection = AppNavigation.VOLUMES;
+      Timber.tag("Navigation").d("currentSection set to " + AppNavigation.VOLUMES);
     } else if (chosenMenuItem == R.id.nav_characters) {
-      showCharactersFragment();
+      Toast.makeText(this, "Characters", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_collection) {
-      showCollectionManagerFragment();
+      Toast.makeText(this, "Collection", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_tracker) {
-      showReleaseTrackerFragment();
+      Toast.makeText(this, "Release tracker", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_settings) {
-      showSettingsScreen();
+      Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
     }
+
+    navigateToCurrentSection();
   }
 
   @Override
-  public void showTodayIssuesFragment() {
+  public void navigateToCurrentSection() {
 
+    Timber.tag("Navigation").d("Navigating to current section [" + currentSection + "]");
+
+    BaseLceFragment fragment = NavigationFragmentsFactory.getFragment(currentSection);
     FragmentManager manager = getSupportFragmentManager();
-    BaseLceFragment issues = (BaseLceFragment) manager.findFragmentById(R.id.content_frame);
-
-    if (issues == null) {
-      issues = new IssuesFragmentBuilder().build();
-      FragmentUtils.addFragmentTo(manager, issues, R.id.content_frame);
-    } else {
-      issues = new IssuesFragmentBuilder().build();
-      FragmentUtils.replaceFragmentIn(manager, issues, R.id.content_frame);
-    }
-  }
-
-  @Override
-  public void showVolumesFragment() {
-    FragmentManager manager = getSupportFragmentManager();
-    BaseLceFragment volumes = new VolumesFragmentBuilder().build();
-    FragmentUtils.replaceFragmentIn(manager, volumes, R.id.content_frame);
-  }
-
-  @Override
-  public void showCharactersFragment() {
-    Toast.makeText(this, "Characters", Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void showCollectionManagerFragment() {
-    Toast.makeText(this, "Collection", Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void showReleaseTrackerFragment() {
-    Toast.makeText(this, "Tracker", Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void showSettingsScreen() {
-    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+    FragmentUtils.replaceFragmentIn(manager, fragment, R.id.content_frame);
   }
 }

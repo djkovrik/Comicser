@@ -40,6 +40,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -105,6 +106,8 @@ public class IssuesFragment extends
     } else if (savedInstanceState != null) {
       loadData(false);
     }
+
+    Timber.tag("Navigation").d("onViewCreated from IssuesFragment");
   }
 
   // --- OPTIONS MENU ---

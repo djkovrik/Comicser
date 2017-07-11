@@ -6,15 +6,5 @@ public interface NavigationActivityView extends MvpView {
 
   void handleChosenNavigationMenuItem(int chosenMenuItem);
 
-  void showTodayIssuesFragment();
-
-  void showVolumesFragment();
-
-  void showCharactersFragment();
-
-  void showCollectionManagerFragment();
-
-  void showReleaseTrackerFragment();
-
-  void showSettingsScreen();
+  void navigateToCurrentSection();
 }
