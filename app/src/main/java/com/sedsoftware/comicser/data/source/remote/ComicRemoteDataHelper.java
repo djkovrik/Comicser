@@ -81,7 +81,7 @@ public class ComicRemoteDataHelper {
    * @param name Target volume name.
    * @return Volume info list.
    */
-  public Observable<List<ComicVolumeInfoList>> getVolumesListByName(String name) {
+  public Single<List<ComicVolumeInfoList>> getVolumesListByName(String name) {
 
     String fields = ClassUtils.getMethodsList(ComicVolumeInfoList.class);
 
@@ -95,7 +95,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getVolumesList(options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 
   /**
