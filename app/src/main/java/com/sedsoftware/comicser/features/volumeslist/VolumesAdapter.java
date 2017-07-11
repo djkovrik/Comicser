@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicImages;
+import com.sedsoftware.comicser.data.model.ComicPublisherInfo;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.features.volumeslist.VolumesAdapter.VolumeViewHolder;
 import com.sedsoftware.comicser.utils.ImageUtils;
@@ -96,10 +97,17 @@ class VolumesAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
 
       volumeName.setText(volume.name());
 
-      String publisher = String.format(Locale.US, publisherFormat, volume.publisher().name());
-      volumePublisher.setText(publisher);
+      ComicPublisherInfo publisher = volume.publisher();
 
-      String yearCount = String.format(Locale.US, yearCountFormat, volume.start_year(), volume.count_of_issues());
+      if (publisher != null) {
+        String publisherName = String.format(Locale.US, publisherFormat, publisher.name());
+        volumePublisher.setText(publisherName);
+      } else {
+        volumePublisher.setVisibility(View.GONE);
+      }
+
+      String yearCount = String
+          .format(Locale.US, yearCountFormat, volume.start_year(), volume.count_of_issues());
       volumeYearAndCount.setText(yearCount);
     }
 
