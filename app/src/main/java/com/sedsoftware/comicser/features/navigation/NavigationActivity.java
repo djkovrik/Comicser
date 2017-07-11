@@ -15,8 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.sedsoftware.comicser.R;
-import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
+import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
+import com.sedsoftware.comicser.features.volumeslist.VolumesFragmentBuilder;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
 public class NavigationActivity extends
@@ -88,18 +89,22 @@ public class NavigationActivity extends
   public void showTodayIssuesFragment() {
 
     FragmentManager manager = getSupportFragmentManager();
-
-    IssuesFragment issues = (IssuesFragment) manager.findFragmentById(R.id.content_frame);
+    BaseLceFragment issues = (BaseLceFragment) manager.findFragmentById(R.id.content_frame);
 
     if (issues == null) {
       issues = new IssuesFragmentBuilder().build();
       FragmentUtils.addFragmentTo(manager, issues, R.id.content_frame);
+    } else {
+      issues = new IssuesFragmentBuilder().build();
+      FragmentUtils.replaceFragmentIn(manager, issues, R.id.content_frame);
     }
   }
 
   @Override
   public void showVolumesFragment() {
-    Toast.makeText(this, "Volumes", Toast.LENGTH_SHORT).show();
+    FragmentManager manager = getSupportFragmentManager();
+    BaseLceFragment volumes = new VolumesFragmentBuilder().build();
+    FragmentUtils.replaceFragmentIn(manager, volumes, R.id.content_frame);
   }
 
   @Override

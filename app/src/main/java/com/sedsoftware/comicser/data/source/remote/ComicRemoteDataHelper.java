@@ -54,31 +54,6 @@ public class ComicRemoteDataHelper {
   }
 
   /**
-   * Request issues list (search by: specified name).
-   *
-   * @param name Target issue name.
-   * @return Issue info list.
-   */
-  public Single<List<ComicIssueInfoList>> getIssuesListByName(String name) {
-
-    String fields = ClassUtils.getMethodsList(ComicIssueInfoList.class);
-
-    Map<String, String> options = new HashMap<>();
-    options.put("api_key", API_KEY);
-    options.put("filter", "name:" + name);
-    options.put("field_list", fields);
-    options.put("sort", "name:asc");
-    options.put("format", "json");
-
-    return comicVineService
-        .getIssuesList(options)
-        .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results)
-        .singleOrError();
-
-  }
-
-  /**
    * Request issue details (search by: issue id).
    *
    * @param issueId Target issue id (!= issue number).
@@ -106,7 +81,7 @@ public class ComicRemoteDataHelper {
    * @param name Target volume name.
    * @return Volume info list.
    */
-  public Observable<List<ComicVolumeInfoList>> getVolumesListByName(String name) {
+  public Single<List<ComicVolumeInfoList>> getVolumesListByName(String name) {
 
     String fields = ClassUtils.getMethodsList(ComicVolumeInfoList.class);
 
@@ -114,12 +89,14 @@ public class ComicRemoteDataHelper {
     options.put("api_key", API_KEY);
     options.put("filter", "name:" + name);
     options.put("field_list", fields);
+    options.put("sort", "count_of_issues:desc");
     options.put("format", "json");
 
     return comicVineService
         .getVolumesList(options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 
   /**
