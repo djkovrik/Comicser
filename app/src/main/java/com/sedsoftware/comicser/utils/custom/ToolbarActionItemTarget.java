@@ -19,7 +19,7 @@
  * Source: https://github.com/amlcurran/ShowcaseView
  */
 
-package com.sedsoftware.comicser.features;
+package com.sedsoftware.comicser.utils.custom;
 
 import android.graphics.Point;
 import android.support.annotation.IdRes;

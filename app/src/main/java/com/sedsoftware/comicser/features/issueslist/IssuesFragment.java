@@ -31,7 +31,7 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
-import com.sedsoftware.comicser.features.ToolbarActionItemTarget;
+import com.sedsoftware.comicser.utils.custom.ToolbarActionItemTarget;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
