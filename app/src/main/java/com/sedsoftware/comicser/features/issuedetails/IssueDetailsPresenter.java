@@ -3,7 +3,6 @@ package com.sedsoftware.comicser.features.issuedetails;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
-import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
 import com.sedsoftware.comicser.utils.ContentUtils;
 import io.reactivex.SingleObserver;
@@ -14,16 +13,13 @@ import timber.log.Timber;
 
 public class IssueDetailsPresenter extends MvpBasePresenter<IssueDetailsView> {
 
-  final PreferencesHelper preferencesHelper;
   final ComicLocalDataHelper localDataHelper;
   final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
   IssueDetailsPresenter(
-      PreferencesHelper preferencesHelper,
       ComicLocalDataHelper localDataHelper,
       ComicRemoteDataHelper remoteDataHelper) {
-    this.preferencesHelper = preferencesHelper;
     this.localDataHelper = localDataHelper;
     this.remoteDataHelper = remoteDataHelper;
   }

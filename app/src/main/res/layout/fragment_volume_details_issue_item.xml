@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?android:attr/selectableItemBackground"
+  android:orientation="horizontal">
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/issue_number"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:textSize="@dimen/material_card_title_block_small_text_size"
+      tools:text="@string/dummy_issue_number_with_text"/>
+
+    <TextView
+      android:id="@+id/issue_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textSize="@dimen/material_card_title_block_small_text_size"
+      tools:text="@string/dummy_issue_name"/>
+
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/issue_bookmarked_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerInParent="true"
+    android:paddingStart="@dimen/material_list_icon_last_position_margin_horizontal"
+    android:paddingEnd="@dimen/material_list_icon_last_position_margin_horizontal"
+    android:tint="@color/colorPrimary"
+    app:srcCompat="@drawable/ic_bookmark_border_black_24dp"
+    tools:ignore="ContentDescription"/>
+
+</RelativeLayout>

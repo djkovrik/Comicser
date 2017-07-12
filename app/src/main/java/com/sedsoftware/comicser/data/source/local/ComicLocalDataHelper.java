@@ -52,14 +52,21 @@ public class ComicLocalDataHelper {
   }
 
   public boolean isIssueBookmarked(long issueId) {
-    Cursor query = contentResolver.query(
+
+    boolean result = false;
+
+    Cursor cursor = contentResolver.query(
         IssueEntry.CONTENT_URI_OWNED_ISSUES,
         null,
         IssueEntry.COLUMN_ISSUE_ID + " = ?",
         new String[]{String.valueOf(issueId)},
         null);
 
-    return (query != null && query.getCount() > 0);
+    if (cursor != null) {
+      result = cursor.getCount() > 0;
+      cursor.close();
+    }
+    return result;
   }
 
   public void saveOwnedIssueToDb(@NonNull ComicIssueInfoList issue) {
@@ -73,6 +80,23 @@ public class ComicLocalDataHelper {
         .buildDetailsUri(IssueEntry.CONTENT_URI_OWNED_ISSUES, issueId);
 
     contentResolver.delete(deletionUri, null, null);
+  }
+
+  public boolean isVolumeTracked(long volumeId) {
+    boolean result = false;
+
+    Cursor cursor = contentResolver.query(
+        TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES,
+        null,
+        TrackedVolumeEntry.COLUMN_VOLUME_ID + " = ?",
+        new String[]{String.valueOf(volumeId)},
+        null);
+
+    if (cursor != null) {
+      result = cursor.getCount() > 0;
+      cursor.close();
+    }
+    return result;
   }
 
   public void saveTrackedVolumeToDb(@NonNull ComicVolumeInfoList volume) {

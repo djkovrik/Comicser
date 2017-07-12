@@ -31,7 +31,17 @@
       android:label="@string/issue_details_activity_title"
       android:name=".features.issuedetails.IssueDetailsActivity"
       android:parentActivityName=".features.navigation.NavigationActivity"
-      android:theme="@style/IssueDetails">
+      android:theme="@style/Details">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <activity
+      android:label="@string/volume_details_activity_title"
+      android:name=".features.volumedetails.VolumeDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/Details">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".features.navigation.NavigationActivity"/>

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
+import com.sedsoftware.comicser.data.model.ComicVolumeInfo;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoShort;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
@@ -25,6 +26,17 @@ public class ContentUtils {
         .store_date(issue.store_date())
         .cover_date(issue.cover_date())
         .volume(issue.volume())
+        .build();
+  }
+
+  public static ComicVolumeInfoList shortenVolumeInfo(ComicVolumeInfo volume) {
+    return ComicVolumeInfoList.builder()
+        .id(volume.id())
+        .count_of_issues(volume.count_of_issues())
+        .image(volume.image())
+        .name(volume.name())
+        .publisher(volume.publisher())
+        .start_year(volume.start_year())
         .build();
   }
 

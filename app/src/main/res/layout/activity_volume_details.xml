@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/issue_details_activity_layout"
+  android:id="@+id/volume_details_activity_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
@@ -17,7 +17,7 @@
     tools:targetApi="lollipop">
 
     <android.support.v7.widget.Toolbar
-      android:id="@+id/issue_details_toolbar"
+      android:id="@+id/volume_details_toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="?attr/colorPrimary"
@@ -34,7 +34,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <FrameLayout
-      android:id="@+id/issue_details_container"
+      android:id="@+id/volume_details_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 

@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.issuedetails;
+package com.sedsoftware.comicser.features.volumedetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,26 +12,26 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseActivity;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
-public class IssueDetailsActivity extends BaseActivity {
+public class VolumeDetailsActivity extends BaseActivity {
 
-  public static String EXTRA_ISSUE_ID_ARG = "current_issue_id";
+  public static String EXTRA_VOLUME_ID_ARG = "current_volume_id";
 
   @State
-  long chosenIssueId;
+  long chosenVolumeId;
 
-  @BindView(R.id.issue_details_toolbar)
+  @BindView(R.id.volume_details_toolbar)
   Toolbar toolbar;
 
-  public static Intent prepareIntent(Context context, long issueId) {
-    Intent intent = new Intent(context, IssueDetailsActivity.class);
-    intent.putExtra(EXTRA_ISSUE_ID_ARG, issueId);
+  public static Intent prepareIntent(Context context, long volumeId) {
+    Intent intent = new Intent(context, VolumeDetailsActivity.class);
+    intent.putExtra(EXTRA_VOLUME_ID_ARG, volumeId);
     return intent;
   }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_issue_details);
+    setContentView(R.layout.activity_volume_details);
 
     setSupportActionBar(toolbar);
     ActionBar actionBar = getSupportActionBar();
@@ -40,22 +40,22 @@ public class IssueDetailsActivity extends BaseActivity {
     }
 
     Bundle extras = getIntent().getExtras();
-    chosenIssueId = getIdFromExtras(extras);
+    chosenVolumeId = getIdFromExtras(extras);
 
-    IssueDetailsFragment fragment =
-        (IssueDetailsFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.issue_details_container);
+    VolumeDetailsFragment fragment =
+        (VolumeDetailsFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.volume_details_container);
 
     if (fragment == null) {
-      fragment = new IssueDetailsFragmentBuilder(chosenIssueId).build();
+      fragment = new VolumeDetailsFragmentBuilder(chosenVolumeId).build();
       FragmentUtils.addFragmentTo(getSupportFragmentManager(), fragment,
-          R.id.issue_details_container);
+          R.id.volume_details_container);
     }
   }
 
   private long getIdFromExtras(Bundle extras) {
-    if (extras != null && extras.containsKey(EXTRA_ISSUE_ID_ARG)) {
-      return extras.getLong(EXTRA_ISSUE_ID_ARG);
+    if (extras != null && extras.containsKey(EXTRA_VOLUME_ID_ARG)) {
+      return extras.getLong(EXTRA_VOLUME_ID_ARG);
     }
     return 1L;
   }

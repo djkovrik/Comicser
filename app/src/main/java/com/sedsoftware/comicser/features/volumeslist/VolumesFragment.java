@@ -27,9 +27,9 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
+import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsActivity;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class VolumesFragment extends
@@ -65,7 +65,9 @@ public class VolumesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    adapter = new VolumesAdapter(volumeId -> Timber.d("Clicked id: " + volumeId));
+    adapter = new VolumesAdapter(
+        volumeId -> startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId)));
+
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =
