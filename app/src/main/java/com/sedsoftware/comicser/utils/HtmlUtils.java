@@ -11,7 +11,10 @@ public class HtmlUtils {
 
     Spanned result;
 
-    String cleanedText = Jsoup.clean(htmlText, Whitelist.basic().addTags("p"));
+    // Remove cover creators table because formatting is not supported by Spanned
+    String textWithoutTable = htmlText.replaceAll("<h4.*?/table>", "");
+    // Remove other tags
+    String cleanedText = Jsoup.clean(textWithoutTable, Whitelist.basic());
 
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
       result = Html.fromHtml(cleanedText, Html.FROM_HTML_MODE_LEGACY);
