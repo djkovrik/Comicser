@@ -37,6 +37,10 @@
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
   <string name="volumes_count_text">Issues : <xliff:g id="count">%d</xliff:g></string>
 
+  <!-- Volume details -->
+  <string name="volume_details_activity_title">Volume details:</string>
+  <string name="volume_details_other_issues">Other issues in this volume:</string>
+
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
   <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>

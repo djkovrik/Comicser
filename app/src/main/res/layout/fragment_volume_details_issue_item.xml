@@ -34,6 +34,7 @@
         android:indeterminate="true"/>
     </FrameLayout>
 
+
     <TextView
       android:id="@+id/issue_name"
       android:textStyle="bold"
