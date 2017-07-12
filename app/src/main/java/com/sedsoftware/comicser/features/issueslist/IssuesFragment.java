@@ -261,7 +261,7 @@ public class IssuesFragment extends
 
   @Override
   public void loadDataFiltered(String filter) {
-    String date = (chosenDate != null) ? chosenDate : DateTextUtils.getTodayDateString();
+    String date = (isNotNullOrEmpty(chosenDate)) ? chosenDate : DateTextUtils.getTodayDateString();
     presenter.loadIssuesByDateAndName(date, filter);
   }
 
