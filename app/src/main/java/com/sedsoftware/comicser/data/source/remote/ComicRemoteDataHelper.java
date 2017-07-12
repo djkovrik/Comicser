@@ -10,7 +10,6 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.model.ServerResponse;
 import com.sedsoftware.comicser.utils.ClassUtils;
 import com.sedsoftware.comicser.utils.RxUtils;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +88,6 @@ public class ComicRemoteDataHelper {
     options.put("api_key", API_KEY);
     options.put("filter", "name:" + name);
     options.put("field_list", fields);
-    options.put("sort", "count_of_issues:desc");
     options.put("format", "json");
 
     return comicVineService
@@ -105,7 +103,7 @@ public class ComicRemoteDataHelper {
    * @param volumeId Target volume id.
    * @return Detailed volume info.
    */
-  public Observable<ComicVolumeInfo> getVolumeDetailsById(long volumeId) {
+  public Single<ComicVolumeInfo> getVolumeDetailsById(long volumeId) {
 
     String fields = ClassUtils.getMethodsList(ComicVolumeInfo.class);
 
@@ -117,7 +115,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getVolumeDetails(volumeId, options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
 
   }
 
@@ -127,7 +126,7 @@ public class ComicRemoteDataHelper {
    * @param name Target character name to perform search.
    * @return Characters info list.
    */
-  public Observable<List<ComicCharacterInfoList>> getCharactersListByName(String name) {
+  public Single<List<ComicCharacterInfoList>> getCharactersListByName(String name) {
 
     String fields = ClassUtils.getMethodsList(ComicCharacterInfoList.class);
 
@@ -140,7 +139,8 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getCharactersList(options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 
   /**
@@ -149,7 +149,7 @@ public class ComicRemoteDataHelper {
    * @param characterId Target character ud.
    * @return Detailed character info.
    */
-  public Observable<ComicCharacterInfo> getCharacterDetailsById(long characterId) {
+  public Single<ComicCharacterInfo> getCharacterDetailsById(long characterId) {
 
     String fields = ClassUtils.getMethodsList(ComicCharacterInfo.class);
 
@@ -161,6 +161,7 @@ public class ComicRemoteDataHelper {
     return comicVineService
         .getCharacterDetails(characterId, options)
         .compose(RxUtils.applySchedulers())
-        .map(ServerResponse::results);
+        .map(ServerResponse::results)
+        .singleOrError();
   }
 }
