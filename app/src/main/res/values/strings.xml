@@ -43,7 +43,7 @@
   <string name="volume_details_publisher">Publisher:</string>
   <string name="volume_details_year">Year:</string>
   <string name="volume_details_other_issues">Other issues in this volume:</string>
-  <string name="volume_details_issue_number">Issue: <xliff:g id="number">%d</xliff:g></string>
+  <string name="volume_details_issue_number">Issue #<xliff:g id="number">%d</xliff:g></string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>

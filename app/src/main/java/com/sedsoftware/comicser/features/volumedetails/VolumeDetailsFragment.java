@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -89,6 +90,9 @@ public class VolumeDetailsFragment extends
     issuesRecyclerView.setHasFixedSize(true);
     issuesRecyclerView.setNestedScrollingEnabled(false);
     issuesRecyclerView.setAdapter(issuesAdapter);
+
+    issuesRecyclerView
+        .addItemDecoration(new DividerItemDecoration(getContext(), manager.getOrientation()));
 
     if (savedInstanceState != null) {
       loadData(false);

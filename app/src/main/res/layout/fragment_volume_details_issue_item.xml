@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_margin="@dimen/card_margin_value_half"
-  android:elevation="@dimen/cardview_default_elevation"
-  android:orientation="vertical"
-  tools:targetApi="lollipop">
+  android:background="?android:attr/selectableItemBackground"
+  android:orientation="vertical">
 
-  <LinearLayout
+  <TextView
+    android:id="@+id/issue_number"
+    android:textStyle="bold"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
+    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textSize="@dimen/material_card_title_block_small_text_size"
+    tools:text="@string/dummy_issue_number_with_text"/>
 
-    <TextView
-      android:id="@+id/issue_number"
-      android:textStyle="bold"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="@dimen/material_card_title_block_small_padding_vertical"
-      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-      android:ellipsize="end"
-      android:maxLines="2"
-      android:textSize="@dimen/material_card_title_block_small_text_size"
-      tools:text="@string/dummy_issue_number_with_text"/>
+  <TextView
+    android:id="@+id/issue_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+    android:textSize="@dimen/material_card_title_block_small_text_size"
+    tools:text="@string/dummy_issue_name"/>
 
-    <TextView
-      android:id="@+id/issue_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
-      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-      android:textSize="@dimen/material_card_title_block_small_text_size"
-      tools:text="@string/dummy_issue_name"/>
-
-  </LinearLayout>
-
-</android.support.v7.widget.CardView>
+</LinearLayout>
