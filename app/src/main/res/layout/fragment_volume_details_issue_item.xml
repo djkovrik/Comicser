@@ -14,29 +14,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <ImageView
-        android:id="@+id/issue_cover"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/dummy_issue_cover"/>
-      <ProgressBar
-        android:id="@+id/issue_cover_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="@dimen/image_progressbar_padding"
-        android:paddingBottom="@dimen/image_progressbar_padding"
-        android:indeterminate="true"/>
-    </FrameLayout>
-
-
     <TextView
-      android:id="@+id/issue_name"
+      android:id="@+id/issue_number"
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -47,7 +26,17 @@
       android:ellipsize="end"
       android:maxLines="2"
       android:textSize="@dimen/material_card_title_block_small_text_size"
-      tools:text="@string/dummy_issue_details_header"/>
+      tools:text="@string/dummy_issue_number_with_text"/>
+
+    <TextView
+      android:id="@+id/issue_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/material_card_title_block_small_padding_vertical"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:textSize="@dimen/material_card_title_block_small_text_size"
+      tools:text="@string/dummy_issue_name"/>
 
   </LinearLayout>
 

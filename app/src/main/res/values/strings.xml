@@ -35,11 +35,12 @@
   <string name="volumes_fragment_title">Volumes</string>
   <string name="volumes_search_hint">Enter volume name here…</string>
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
-  <string name="volumes_count_text">Issues : <xliff:g id="count">%d</xliff:g></string>
+  <string name="volumes_count_text">Issues: <xliff:g id="count">%d</xliff:g></string>
 
   <!-- Volume details -->
   <string name="volume_details_activity_title">Volume details:</string>
   <string name="volume_details_other_issues">Other issues in this volume:</string>
+  <string name="volume_details_issue_number">Issue: <xliff:g id="number">%d</xliff:g></string>
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
@@ -66,6 +67,7 @@
 
   <string name="dummy_issue_name" translatable="false">Road\'s End</string>
   <string name="dummy_issue_number" translatable="false">168</string>
+  <string name="dummy_issue_number_with_text" translatable="false">Issue #168</string>
   <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
   <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
   <string name="dummy_date" translatable="false">Jun 7, 2017</string>
