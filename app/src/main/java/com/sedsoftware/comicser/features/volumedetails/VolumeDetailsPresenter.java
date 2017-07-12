@@ -24,7 +24,7 @@ public class VolumeDetailsPresenter extends MvpBasePresenter<VolumeDetailsView> 
     this.remoteDataHelper = remoteDataHelper;
   }
 
-  void setUpBookmarkIconState(long volumeId) {
+  void setUpTrackIconState(long volumeId) {
     if (isViewAttached()) {
       if (isCurrentVolumeTracked(volumeId)) {
         getView().markAsTracked();
@@ -38,15 +38,15 @@ public class VolumeDetailsPresenter extends MvpBasePresenter<VolumeDetailsView> 
     return localDataHelper.isVolumeTracked(volumeId);
   }
 
-  void trackVolime(ComicVolumeInfo volume) {
+  void trackVolume(ComicVolumeInfo volume) {
     localDataHelper.saveTrackedVolumeToDb(ContentUtils.shortenVolumeInfo(volume));
   }
 
-  void removeBookmark(long volumeId) {
+  void removeTracking(long volumeId) {
     localDataHelper.removeTrackedVolumeFromDb(volumeId);
   }
 
-  void loadIssueDetails(long volumeId) {
+  void loadVolumeDetails(long volumeId) {
     remoteDataHelper
         .getVolumeDetailsById(volumeId)
         .subscribe(getVolumeDetailsObserver());

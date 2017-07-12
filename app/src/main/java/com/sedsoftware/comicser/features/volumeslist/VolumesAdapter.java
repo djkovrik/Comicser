@@ -81,6 +81,8 @@ class VolumesAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
     VolumeViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+
+      itemView.setOnClickListener(this);
     }
 
     void bindTo(ComicVolumeInfoList volume) {

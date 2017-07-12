@@ -19,7 +19,7 @@ public class IssueDetailsActivity extends BaseActivity {
   @State
   long chosenIssueId;
 
-  @BindView(R.id.details_toolbar)
+  @BindView(R.id.issue_details_toolbar)
   Toolbar toolbar;
 
   public static Intent prepareIntent(Context context, long issueId) {
@@ -44,12 +44,12 @@ public class IssueDetailsActivity extends BaseActivity {
 
     IssueDetailsFragment fragment =
         (IssueDetailsFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.details_container);
+            .findFragmentById(R.id.issue_details_container);
 
     if (fragment == null) {
       fragment = new IssueDetailsFragmentBuilder(chosenIssueId).build();
       FragmentUtils.addFragmentTo(getSupportFragmentManager(), fragment,
-          R.id.details_container);
+          R.id.issue_details_container);
     }
   }
 

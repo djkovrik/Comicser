@@ -51,6 +51,50 @@
           android:textSize="@dimen/material_card_title_block_large_title_text_size"
           tools:text="@string/dummy_volume_name"/>
 
+        <GridLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+          android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+          android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+          android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+          android:columnCount="2">
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volume_details_publisher"
+            android:textSize="@dimen/material_card_title_block_small_text_size"/>
+
+          <TextView
+            android:id="@+id/volume_details_publisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:textSize="@dimen/material_card_title_block_small_text_size"
+            tools:text="@string/dummy_publisher_name"/>
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volume_details_year"
+            android:textSize="@dimen/material_card_title_block_small_text_size"/>
+
+          <TextView
+            android:id="@+id/volume_details_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/material_card_title_block_large_subtitle_margin_top"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:textSize="@dimen/material_card_title_block_small_text_size"
+            tools:text="@string/dummy_year"/>
+
+        </GridLayout>
+
         <TextView
           android:id="@+id/volume_details_description"
           android:layout_width="match_parent"
@@ -93,12 +137,13 @@
           android:textSize="@dimen/material_card_title_block_large_title_text_size"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/volume_details_other_issues"
+          android:id="@+id/volume_details_issues_view"
           android:scrollbarStyle="outsideOverlay"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:padding="@dimen/card_margin_value_half"
           android:clipToPadding="false"/>
+
       </LinearLayout>
 
     </android.support.v7.widget.CardView>

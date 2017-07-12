@@ -15,7 +15,7 @@
   </style>
 
   <!-- Details activity theme -->
-  <style name="IssueDetails" parent="AppTheme.NoActionBar"/>
+  <style name="Details" parent="AppTheme.NoActionBar"/>
 
   <!-- Overlays -->
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

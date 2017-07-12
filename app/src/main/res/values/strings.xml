@@ -9,6 +9,7 @@
   <string name="action_search">Search</string>
   <string name="action_clear_search_query">Clear search</string>
   <string name="action_bookmark">Bookmark</string>
+  <string name="action_track">Track</string>
 
   <!-- Navigation drawer items -->
   <string name="navigation_issues">Issues</string>
@@ -39,6 +40,8 @@
 
   <!-- Volume details -->
   <string name="volume_details_activity_title">Volume details:</string>
+  <string name="volume_details_publisher">Publisher:</string>
+  <string name="volume_details_year">Year:</string>
   <string name="volume_details_other_issues">Other issues in this volume:</string>
   <string name="volume_details_issue_number">Issue: <xliff:g id="number">%d</xliff:g></string>
 
@@ -50,6 +53,8 @@
   <string name="msg_volumes_start">Use search button to load volume data.</string>
   <string name="msg_bookmarked">Issue added to collection</string>
   <string name="msg_bookmark_removed">Issue removed from collection</string>
+  <string name="msg_tracked">Volume added to tracker</string>
+  <string name="msg_track_removed">Volume removed from tracker</string>
 
   <!-- ShowcaseView guide -->
   <!-- Issues -->
@@ -74,5 +79,7 @@
   <string name="dummy_character_name" translatable="false">Rick Grimes</string>
   <string name="dummy_publisher">by Skybound</string>
   <string name="dummy_issues_count">Issues: 10</string>
+  <string name="dummy_year">2007</string>
+  <string name="dummy_publisher_name">Skybound</string>
 
 </resources>
