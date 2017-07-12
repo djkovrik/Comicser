@@ -32,6 +32,7 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
+import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsIssueAdapter.IssuesAdapterCallbacks;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
@@ -74,14 +75,32 @@ public class VolumeDetailsFragment extends
   // --- FRAGMENT LIFECYCLE ---
 
   @Override
+  public void onResume() {
+    super.onResume();
+    // Force recyclerView update so it can display actual bookmarks
+    issuesAdapter.notifyDataSetChanged();
+  }
+
+  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
     setRetainInstance(true);
     setHasOptionsMenu(true);
 
-    issuesAdapter = new VolumeDetailsIssueAdapter(
-        issueId -> startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
+    issuesAdapter = new VolumeDetailsIssueAdapter(new IssuesAdapterCallbacks() {
+      @Override
+      public void issueClicked(long issueId) {
+        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId));
+      }
+
+      @Override
+      public boolean isIssueTracked(long issueId) {
+        return presenter.ifTargetIssueOwned(issueId);
+      }
+    });
+
+
 
     issuesAdapter.setHasStableIds(true);
 
@@ -131,6 +150,7 @@ public class VolumeDetailsFragment extends
     return R.layout.fragment_volume_details;
   }
 
+  @NonNull
   @Override
   public VolumeDetailsPresenter createPresenter() {
     return volumeDetailsComponent.presenter();

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -18,9 +19,9 @@ class VolumeDetailsIssueAdapter extends
     RecyclerView.Adapter<VolumeDetailsIssueAdapter.IssueViewHolder> {
 
   private List<ComicIssueInfoShort> issues;
-  private final OnIssueClickListener listener;
+  final IssuesAdapterCallbacks listener;
 
-  VolumeDetailsIssueAdapter(OnIssueClickListener listener) {
+  VolumeDetailsIssueAdapter(IssuesAdapterCallbacks listener) {
     issues = new ArrayList<>();
     this.listener = listener;
   }
@@ -56,7 +57,7 @@ class VolumeDetailsIssueAdapter extends
     this.issues = issues;
   }
 
-  class IssueViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  class IssueViewHolder extends RecyclerView.ViewHolder {
 
     private long currentIssueId;
 
@@ -66,18 +67,15 @@ class VolumeDetailsIssueAdapter extends
     String issueNumberFormat;
     @BindView(R.id.issue_name)
     TextView issueName;
+    @BindView(R.id.issue_bookmarked_icon)
+    ImageView bookmarkIcon;
 
 
     IssueViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
 
-      itemView.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-      listener.issueClicked(currentIssueId);
+      itemView.setOnClickListener(v -> listener.issueClicked(currentIssueId));
     }
 
     void bindTo(ComicIssueInfoShort issue) {
@@ -93,11 +91,19 @@ class VolumeDetailsIssueAdapter extends
       } else {
         issueName.setVisibility(View.GONE);
       }
+
+      if (listener.isIssueTracked(currentIssueId)) {
+        bookmarkIcon.setImageResource(R.drawable.ic_bookmark_black_24dp);
+      } else {
+        bookmarkIcon.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
+      }
     }
   }
 
-  interface OnIssueClickListener {
+  interface IssuesAdapterCallbacks {
 
     void issueClicked(long issueId);
+
+    boolean isIssueTracked(long issueId);
   }
 }

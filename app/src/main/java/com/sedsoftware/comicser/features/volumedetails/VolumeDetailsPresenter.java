@@ -24,6 +24,10 @@ public class VolumeDetailsPresenter extends MvpBasePresenter<VolumeDetailsView> 
     this.remoteDataHelper = remoteDataHelper;
   }
 
+  boolean ifTargetIssueOwned(long issueId) {
+    return localDataHelper.isIssueBookmarked(issueId);
+  }
+
   void setUpTrackIconState(long volumeId) {
     if (isViewAttached()) {
       if (isCurrentVolumeTracked(volumeId)) {
