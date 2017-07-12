@@ -31,11 +31,11 @@ import com.sedsoftware.comicser.data.model.ComicPublisherInfo;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class VolumeDetailsFragment extends
@@ -80,7 +80,9 @@ public class VolumeDetailsFragment extends
     setRetainInstance(true);
     setHasOptionsMenu(true);
 
-    issuesAdapter = new VolumeDetailsIssueAdapter(issueId -> Timber.d("Issue clicked: " + issueId));
+    issuesAdapter = new VolumeDetailsIssueAdapter(
+        issueId -> startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
+
     issuesAdapter.setHasStableIds(true);
 
     LinearLayoutManager manager =
