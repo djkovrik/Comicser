@@ -30,13 +30,13 @@ import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsActivity;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 import com.sedsoftware.comicser.utils.IssueTextUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 
 @FragmentWithArgs
@@ -93,9 +93,9 @@ public class IssueDetailsFragment
 
     charactersList.setDividerHeight(1);
 
-    // TODO() Replace with character details activity launch
     charactersList.setOnItemClickListener(
-        (parent, view1, position, id) -> Timber.d("Clicked id: " + id));
+        (parent, view1, position, id) -> startActivity(
+            CharacterDetailsActivity.prepareIntent(getContext(), id)));
 
     if (savedInstanceState != null) {
       loadData(false);

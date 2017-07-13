@@ -1,4 +1,4 @@
-package com.sedsoftware.comicser.features.volumeslist;
+package com.sedsoftware.comicser.features.characterslist;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,26 +23,26 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
-import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
+import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
-import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsActivity;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 
 @FragmentWithArgs
-public class VolumesFragment extends
-    BaseLceFragment<RecyclerView, List<ComicVolumeInfoList>, VolumesView, VolumesPresenter>
-    implements VolumesView {
+public class CharactersFragment extends
+    BaseLceFragment<RecyclerView, List<ComicCharacterInfoList>, CharactersView, CharactersPresenter>
+    implements CharactersView {
 
   @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
-  @BindString(R.string.volumes_fragment_title)
+  @BindString(R.string.characters_fragment_title)
   String fragmentTitle;
-  @BindString(R.string.msg_no_volumes_found)
+  @BindString(R.string.msg_no_characters_found)
   String emptyViewText;
-  @BindString(R.string.msg_volumes_start)
+  @BindString(R.string.msg_characters_start)
   String initialViewText;
 
   @BindView(R.id.initialView)
@@ -56,8 +56,8 @@ public class VolumesFragment extends
   @State
   String title;
 
-  VolumesComponent volumesComponent;
-  VolumesAdapter adapter;
+  CharactersComponent charactersComponent;
+  CharactersAdapter adapter;
 
   // --- FRAGMENTS LIFECYCLE ---
 
@@ -65,8 +65,8 @@ public class VolumesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    adapter = new VolumesAdapter(
-        volumeId -> startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId)));
+    adapter = new CharactersAdapter(characterId ->
+        startActivity(CharacterDetailsActivity.prepareIntent(getContext(), characterId)));
 
     adapter.setHasStableIds(true);
 
@@ -105,7 +105,7 @@ public class VolumesFragment extends
 
   @Override
   protected int getLayoutRes() {
-    return R.layout.fragment_volumes;
+    return R.layout.fragment_characters;
   }
 
   @Override
@@ -115,38 +115,38 @@ public class VolumesFragment extends
 
   @NonNull
   @Override
-  public VolumesPresenter createPresenter() {
-    return volumesComponent.presenter();
+  public CharactersPresenter createPresenter() {
+    return charactersComponent.presenter();
   }
 
   @Override
   protected void injectDependencies() {
 
-    volumesComponent = ComicserApp.getAppComponent()
+    charactersComponent = ComicserApp.getAppComponent()
         .plusRemoteComponent(new ComicRemoteDataModule())
         .plusLocalComponent(new ComicLocalDataModule())
-        .plusVolumesComponent();
-    volumesComponent.inject(this);
+        .plusCharactersComponent();
+    charactersComponent.inject(this);
   }
 
   // --- MVP VIEW STATE ---
 
   @Override
-  public List<ComicVolumeInfoList> getData() {
-    return adapter == null ? null : adapter.getVolumes();
+  public List<ComicCharacterInfoList> getData() {
+    return adapter == null ? null : adapter.getCharacters();
   }
 
   @NonNull
   @Override
-  public LceViewState<List<ComicVolumeInfoList>, VolumesView> createViewState() {
+  public LceViewState<List<ComicCharacterInfoList>, CharactersView> createViewState() {
     return new RetainingLceViewState<>();
   }
 
   // --- MVP VIEW ---
 
   @Override
-  public void setData(List<ComicVolumeInfoList> data) {
-    adapter.setVolumes(data);
+  public void setData(List<ComicCharacterInfoList> data) {
+    adapter.setCharacters(data);
     adapter.notifyDataSetChanged();
   }
 
@@ -158,7 +158,7 @@ public class VolumesFragment extends
 
   @Override
   public void loadDataByName(String name) {
-    presenter.loadVolumesData(name);
+    presenter.loadCharactersData(name);
   }
 
   private void setUpSearchItem(Menu menu) {
@@ -246,4 +246,5 @@ public class VolumesFragment extends
       supportActionBar.setTitle(title);
     }
   }
+
 }

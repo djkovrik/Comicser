@@ -14,6 +14,7 @@ public abstract class ComicCharacterInfoList {
   public abstract long id();
   @Nullable public abstract String name();
   @Nullable public abstract ComicImages image();
+  @Nullable public abstract ComicPublisherInfo publisher();
 
   public static TypeAdapter<ComicCharacterInfoList> typeAdapter(Gson gson) {
     return new AutoValue_ComicCharacterInfoList.GsonTypeAdapter(gson);

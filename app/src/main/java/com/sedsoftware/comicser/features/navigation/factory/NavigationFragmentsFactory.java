@@ -2,6 +2,8 @@ package com.sedsoftware.comicser.features.navigation.factory;
 
 import android.support.v4.app.FragmentManager;
 import com.sedsoftware.comicser.base.BaseLceFragment;
+import com.sedsoftware.comicser.features.characterslist.CharactersFragment;
+import com.sedsoftware.comicser.features.characterslist.CharactersFragmentBuilder;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
 import com.sedsoftware.comicser.features.volumeslist.VolumesFragment;
@@ -22,6 +24,8 @@ public class NavigationFragmentsFactory {
         return new IssuesFragmentBuilder().build();
       case AppNavigation.VOLUMES:
         return new VolumesFragmentBuilder().build();
+      case AppNavigation.CHARACTERS:
+        return new CharactersFragmentBuilder().build();
       default:
         return null;
     }
@@ -33,6 +37,8 @@ public class NavigationFragmentsFactory {
         return IssuesFragment.class.getSimpleName();
       case AppNavigation.VOLUMES:
         return VolumesFragment.class.getSimpleName();
+      case AppNavigation.CHARACTERS:
+        return CharactersFragment.class.getSimpleName();
       default:
         return "";
     }

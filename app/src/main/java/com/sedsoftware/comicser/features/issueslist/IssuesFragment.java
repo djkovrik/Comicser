@@ -52,7 +52,7 @@ public class IssuesFragment extends
   String emptyViewText;
   @BindString(R.string.issues_title_format)
   String titleFormatString;
-  @BindInt(R.integer.issues_grid_columns_count)
+  @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
 
   @BindView(R.id.emptyView)

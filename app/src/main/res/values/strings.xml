@@ -45,16 +45,34 @@
   <string name="volume_details_other_issues">Other issues in this volume:</string>
   <string name="volume_details_issue_number">Issue #<xliff:g id="number">%d</xliff:g></string>
 
+  <!-- Characters -->
+  <string name="characters_fragment_title">Characters</string>
+  <string name="characters_search_hint">Enter character name here…</string>
+  <string name="characters_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
+
+  <!-- Character details -->
+  <string name="character_details_activity_title">Character details:</string>
+  <string name="character_details_real_name">Real name:</string>
+  <string name="character_details_aliases">Aliases:</string>
+  <string name="character_details_birth">Date of birth:</string>
+  <string name="character_details_origin">Origin:</string>
+  <string name="character_details_gender">Gender:</string>
+  <string name="character_details_gender_male">Male</string>
+  <string name="character_details_gender_female">Female</string>
+  <string name="character_details_gender_unknown">Unknown</string>
+
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
   <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
   <string name="msg_no_issues_today">No available releases found!\nPlease try again later or choose another date.</string>
-  <string name="msg_no_volumes_today">No volumes found! Please choose another name and try again.</string>
+  <string name="msg_no_volumes_found">No volumes found! Please choose another name and try again.</string>
   <string name="msg_volumes_start">Use search button to load volume data.</string>
   <string name="msg_bookmarked">Issue added to collection</string>
   <string name="msg_bookmark_removed">Issue removed from collection</string>
   <string name="msg_tracked">Volume added to tracker</string>
   <string name="msg_track_removed">Volume removed from tracker</string>
+  <string name="msg_no_characters_found">No characters found! Please choose another name and try again.</string>
+  <string name="msg_characters_start">Use search button to load characters data.</string>
 
   <!-- ShowcaseView guide -->
   <!-- Issues -->
@@ -73,13 +91,18 @@
   <string name="dummy_issue_name" translatable="false">Road\'s End</string>
   <string name="dummy_issue_number" translatable="false">168</string>
   <string name="dummy_issue_number_with_text" translatable="false">Issue #168</string>
-  <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
   <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
+  <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
   <string name="dummy_date" translatable="false">Jun 7, 2017</string>
-  <string name="dummy_character_name" translatable="false">Rick Grimes</string>
   <string name="dummy_publisher">by Skybound</string>
+  <string name="dummy_publisher_name">Skybound</string>
   <string name="dummy_issues_count">Issues: 10</string>
   <string name="dummy_year">2007</string>
-  <string name="dummy_publisher_name">Skybound</string>
+  <string name="dummy_character_name" translatable="false">Rick Grimes</string>
+  <string name="dummy_character_real_name" translatable="false">Richard Grimes</string>
+  <string name="dummy_character_aliases">Alias, Alias, Alias</string>
+  <string name="dummy_character_gender">Male</string>
+  <string name="dummy_character_origin">Human</string>
+  <string name="dummy_character_birthdate">Jul 24, 1975</string>
 
 </resources>
