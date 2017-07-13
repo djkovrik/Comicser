@@ -8,9 +8,10 @@ public class AppNavigation {
 
   public static final int ISSUES = 0;
   public static final int VOLUMES = 1;
+  public static final int CHARACTERS = 2;
 
   @Retention(RetentionPolicy.CLASS)
-  @IntDef({ISSUES, VOLUMES})
+  @IntDef({ISSUES, VOLUMES, CHARACTERS})
   public @interface Section {
 
   }

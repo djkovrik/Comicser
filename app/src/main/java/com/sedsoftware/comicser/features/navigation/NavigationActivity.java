@@ -81,7 +81,7 @@ public class NavigationActivity extends
     } else if (chosenMenuItem == R.id.nav_volumes) {
       currentSection = AppNavigation.VOLUMES;
     } else if (chosenMenuItem == R.id.nav_characters) {
-      Toast.makeText(this, "Characters", Toast.LENGTH_SHORT).show();
+      currentSection = AppNavigation.CHARACTERS;
     } else if (chosenMenuItem == R.id.nav_collection) {
       Toast.makeText(this, "Collection", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_tracker) {
