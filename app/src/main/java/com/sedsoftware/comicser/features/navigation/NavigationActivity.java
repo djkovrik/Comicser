@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -85,7 +86,7 @@ public class NavigationActivity extends
     } else if (chosenMenuItem == R.id.nav_collection) {
       Toast.makeText(this, "Collection", Toast.LENGTH_SHORT).show();
     } else if (chosenMenuItem == R.id.nav_tracker) {
-      Toast.makeText(this, "Release tracker", Toast.LENGTH_SHORT).show();
+      currentSection = AppNavigation.TRACKER;
     } else if (chosenMenuItem == R.id.nav_settings) {
       Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
     }
@@ -98,7 +99,7 @@ public class NavigationActivity extends
 
     FragmentManager manager = getSupportFragmentManager();
 
-    BaseLceFragment fragment = NavigationFragmentsFactory.getFragment(manager, currentSection);
+    Fragment fragment = NavigationFragmentsFactory.getFragment(manager, currentSection);
 
     FragmentUtils.replaceFragmentIn(
         manager, fragment, R.id.content_frame,

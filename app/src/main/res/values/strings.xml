@@ -61,6 +61,9 @@
   <string name="character_details_gender_female">Female</string>
   <string name="character_details_gender_unknown">Unknown</string>
 
+  <!-- Volumes tracker -->
+  <string name="volumes_tracker_fragment_title">Volumes tracker</string>
+
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
   <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
