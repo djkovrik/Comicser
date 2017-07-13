@@ -201,6 +201,8 @@ public class VolumesFragment extends
   @Override
   public void showLoading(boolean pullToRefresh) {
     if (pullToRefresh) {
+      errorView.setVisibility(View.GONE);
+      contentView.setVisibility(View.GONE);
       loadingView.setVisibility(View.VISIBLE);
     } else {
       loadingView.setVisibility(View.GONE);
