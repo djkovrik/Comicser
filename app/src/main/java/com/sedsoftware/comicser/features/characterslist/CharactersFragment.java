@@ -26,10 +26,10 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
-import timber.log.Timber;
 
 @FragmentWithArgs
 public class CharactersFragment extends
@@ -65,7 +65,8 @@ public class CharactersFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    adapter = new CharactersAdapter(characterId -> Timber.d("Character clicked: " + characterId));
+    adapter = new CharactersAdapter(characterId ->
+        startActivity(CharacterDetailsActivity.prepareIntent(getContext(), characterId)));
 
     adapter.setHasStableIds(true);
 

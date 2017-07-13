@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.data.source.local.dagger;
 
 import com.sedsoftware.comicser.data.source.local.LocalDataScope;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsComponent;
 import com.sedsoftware.comicser.features.characterslist.CharactersComponent;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsComponent;
 import com.sedsoftware.comicser.features.issueslist.IssuesComponent;
@@ -24,4 +25,5 @@ public interface ComicLocalDataComponent {
   VolumesComponent plusVolumesComponent();
   VolumeDetailsComponent plusVolumeDetailsComponent();
   CharactersComponent plusCharactersComponent();
+  CharacterDetailsComponent plusCharacterDetailsComponent();
 }

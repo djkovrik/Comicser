@@ -46,6 +46,16 @@
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".features.navigation.NavigationActivity"/>
     </activity>
+
+    <activity
+      android:label="@string/character_details_activity_title"
+      android:name=".features.characterdetails.CharacterDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/Details">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
   </application>
 
 </manifest>
