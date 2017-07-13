@@ -166,7 +166,7 @@ public class VolumeDetailsFragment extends
     volumeDetailsComponent = ComicserApp.getAppComponent()
         .plusRemoteComponent(new ComicRemoteDataModule())
         .plusLocalComponent(new ComicLocalDataModule())
-        .plusVolumeDetailsCompnent();
+        .plusVolumeDetailsComponent();
 
     volumeDetailsComponent.inject(this);
   }

@@ -45,16 +45,23 @@
   <string name="volume_details_other_issues">Other issues in this volume:</string>
   <string name="volume_details_issue_number">Issue #<xliff:g id="number">%d</xliff:g></string>
 
+  <!-- Characters -->
+  <string name="characters_fragment_title">Characters</string>
+  <string name="characters_search_hint">Enter character name here…</string>
+  <string name="characters_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
+
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
   <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
   <string name="msg_no_issues_today">No available releases found!\nPlease try again later or choose another date.</string>
-  <string name="msg_no_volumes_today">No volumes found! Please choose another name and try again.</string>
+  <string name="msg_no_volumes_found">No volumes found! Please choose another name and try again.</string>
   <string name="msg_volumes_start">Use search button to load volume data.</string>
   <string name="msg_bookmarked">Issue added to collection</string>
   <string name="msg_bookmark_removed">Issue removed from collection</string>
   <string name="msg_tracked">Volume added to tracker</string>
   <string name="msg_track_removed">Volume removed from tracker</string>
+  <string name="msg_no_characters_found">No characters found! Please choose another name and try again.</string>
+  <string name="msg_characters_start">Use search button to load characters data.</string>
 
   <!-- ShowcaseView guide -->
   <!-- Issues -->
