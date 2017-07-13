@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
-import java.util.List;
 
 /**
  *  Full character info:
@@ -22,12 +21,8 @@ import java.util.List;
 public abstract class ComicCharacterInfo {
   @Nullable public abstract String aliases();
   @Nullable public abstract String birth();
-  @Nullable public abstract List<ComicCharacterInfoShort> character_enemies();
-  @Nullable public abstract List<ComicCharacterInfoShort> character_friends();
   public abstract int count_of_issue_appearances();
-  @Nullable public abstract String deck();
   @Nullable public abstract String description();
-  @Nullable public abstract ComicIssueInfoShort first_appeared_in_issue();
   public abstract int gender();
   public abstract long id();
   @Nullable public abstract ComicImages image();

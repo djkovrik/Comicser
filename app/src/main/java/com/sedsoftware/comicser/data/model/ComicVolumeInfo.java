@@ -22,13 +22,10 @@ import java.util.List;
 public abstract class ComicVolumeInfo {
   @Nullable public abstract List<ComicCharacterInfoShort> characters();
   public abstract int count_of_issues();
-  @Nullable public abstract String deck();
   @Nullable public abstract String description();
-  @Nullable public abstract ComicIssueInfoShort first_issue();
   public abstract long id();
   @Nullable public abstract ComicImages image();
   @Nullable public abstract List<ComicIssueInfoShort> issues();
-  @Nullable public abstract ComicIssueInfoShort last_issue();
   @Nullable public abstract String name();
   @Nullable public abstract ComicPublisherInfo publisher();
   public abstract int start_year();
