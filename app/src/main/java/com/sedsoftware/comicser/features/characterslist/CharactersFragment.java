@@ -179,6 +179,7 @@ public class CharactersFragment extends
         if (chosenName.length() > 0) {
           loadDataByName(chosenName);
           setTitle(chosenName);
+          presenter.logCharacterSearchEvent(chosenName);
         }
         return false;
       }

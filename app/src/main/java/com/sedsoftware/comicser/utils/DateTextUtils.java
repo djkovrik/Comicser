@@ -1,5 +1,6 @@
 package com.sedsoftware.comicser.utils;
 
+import com.google.firebase.crash.FirebaseCrash;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +24,8 @@ public class DateTextUtils {
     try {
       storeDate = oldFormat.parse(rawDate);
     } catch (ParseException e) {
+      FirebaseCrash.log("Date parsing failed! Raw date string: " + rawDate);
+      FirebaseCrash.report(e);
       e.printStackTrace();
     }
 

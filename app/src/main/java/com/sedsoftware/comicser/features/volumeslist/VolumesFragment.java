@@ -179,6 +179,7 @@ public class VolumesFragment extends
         if (chosenName.length() > 0) {
           loadDataByName(chosenName);
           setTitle(chosenName);
+          presenter.logVolumeSearchEvent(chosenName);
         }
         return false;
       }

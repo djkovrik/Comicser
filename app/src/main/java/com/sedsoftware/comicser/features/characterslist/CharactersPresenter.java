@@ -1,6 +1,10 @@
 package com.sedsoftware.comicser.features.characterslist;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import com.google.android.gms.measurement.AppMeasurement.Event;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.analytics.FirebaseAnalytics.Param;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
@@ -12,10 +16,13 @@ import timber.log.Timber;
 
 public class CharactersPresenter extends MvpBasePresenter<CharactersView> {
 
+  final FirebaseAnalytics firebaseAnalytics;
   final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
-  CharactersPresenter(ComicRemoteDataHelper remoteDataHelper) {
+  public CharactersPresenter(FirebaseAnalytics firebaseAnalytics,
+      ComicRemoteDataHelper remoteDataHelper) {
+    this.firebaseAnalytics = firebaseAnalytics;
     this.remoteDataHelper = remoteDataHelper;
   }
 
@@ -24,6 +31,13 @@ public class CharactersPresenter extends MvpBasePresenter<CharactersView> {
     remoteDataHelper
         .getCharactersListByName(characterName)
         .subscribe(getObserver());
+  }
+
+  public void logCharacterSearchEvent(String name) {
+    Bundle bundle = new Bundle();
+    bundle.putString(Param.ITEM_NAME, name);
+    bundle.putString(Param.CONTENT_TYPE, "character");
+    firebaseAnalytics.logEvent(Event.SEARCH, bundle);
   }
 
   private SingleObserver<List<ComicCharacterInfoList>> getObserver() {

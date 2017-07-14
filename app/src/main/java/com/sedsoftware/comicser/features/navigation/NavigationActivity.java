@@ -13,11 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.BindView;
 import com.evernote.android.state.State;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.analytics.FirebaseAnalytics.Event;
+import com.google.firebase.analytics.FirebaseAnalytics.Param;
+import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
 import com.sedsoftware.comicser.utils.FragmentUtils;
+import javax.inject.Inject;
 
 public class NavigationActivity extends
     BaseMvpActivity<NavigationActivityView, NavigationActivityPresenter>
@@ -34,11 +39,18 @@ public class NavigationActivity extends
   @AppNavigation.Section
   int currentSection;
 
+  @Inject
+  FirebaseAnalytics firebaseAnalytics;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_navigation_view);
+
+    ComicserApp
+        .getAppComponent()
+        .inject(this);
 
     setSupportActionBar(toolbar);
     setUpNavigationDrawerParams();
@@ -93,6 +105,8 @@ public class NavigationActivity extends
   @Override
   public void navigateToCurrentSection() {
 
+    logChosenNavigationSection(currentSection);
+
     FragmentManager manager = getSupportFragmentManager();
 
     Fragment fragment = NavigationFragmentsFactory.getFragment(manager, currentSection);
@@ -100,5 +114,40 @@ public class NavigationActivity extends
     FragmentUtils.replaceFragmentIn(
         manager, fragment, R.id.content_frame,
         NavigationFragmentsFactory.getFragmentTag(currentSection));
+  }
+
+  private void logChosenNavigationSection(@AppNavigation.Section int section) {
+
+    Bundle bundle = new Bundle();
+    bundle.putInt(Param.ITEM_ID, section);
+    bundle.putString(Param.ITEM_NAME, getChosenSectionName(section));
+    firebaseAnalytics.logEvent(Event.SELECT_CONTENT, bundle);
+  }
+
+  private String getChosenSectionName(@AppNavigation.Section int section) {
+
+    String chosenSection;
+
+    switch (section) {
+      case AppNavigation.ISSUES:
+        chosenSection = "issues";
+        break;
+      case AppNavigation.VOLUMES:
+        chosenSection = "volumes";
+        break;
+      case AppNavigation.CHARACTERS:
+        chosenSection = "characters";
+        break;
+      case AppNavigation.COLLECTION:
+        chosenSection = "collection";
+        break;
+      case AppNavigation.TRACKER:
+        chosenSection = "tracker";
+        break;
+      default:
+        chosenSection = "unknown";
+        break;
+    }
+    return chosenSection;
   }
 }
