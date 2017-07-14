@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 import butterknife.BindView;
 import com.evernote.android.state.State;
 import com.sedsoftware.comicser.R;
@@ -86,8 +85,6 @@ public class NavigationActivity extends
       currentSection = AppNavigation.COLLECTION;
     } else if (chosenMenuItem == R.id.nav_tracker) {
       currentSection = AppNavigation.TRACKER;
-    } else if (chosenMenuItem == R.id.nav_settings) {
-      Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
     }
 
     navigateToCurrentSection();

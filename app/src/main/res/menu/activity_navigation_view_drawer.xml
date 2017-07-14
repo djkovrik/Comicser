@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <group android:id="@+id/nav_main" android:checkableBehavior="single">
+  <group
+    android:id="@+id/nav_main"
+    android:checkableBehavior="single">
     <item
       android:id="@+id/nav_issues"
       android:icon="@drawable/ic_description_black_24dp"
@@ -14,6 +16,10 @@
       android:id="@+id/nav_characters"
       android:icon="@drawable/ic_face_black_24dp"
       android:title="@string/navigation_characters"/>
+  </group>
+  <group
+    android:id="@+id/nav_additional"
+    android:checkableBehavior="single">
     <item
       android:id="@+id/nav_collection"
       android:icon="@drawable/ic_library_books_black_24dp"
@@ -22,12 +28,5 @@
       android:id="@+id/nav_tracker"
       android:icon="@drawable/ic_track_changes_black_24dp"
       android:title="@string/navigation_tracker"/>
-  </group>
-
-  <group android:id="@+id/nav_additional" android:checkableBehavior="single">
-    <item
-      android:id="@+id/nav_settings"
-      android:icon="@drawable/ic_settings_black_24dp"
-      android:title="@string/navigation_settings"/>
   </group>
 </menu>
