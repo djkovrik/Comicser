@@ -47,6 +47,25 @@ public class ComicLocalDataHelper {
     });
   }
 
+  public Single<List<ComicIssueInfoList>> getOwnedIssuesFromDb() {
+
+    return Single.create(e -> {
+
+      Cursor query = contentResolver
+          .query(IssueEntry.CONTENT_URI_OWNED_ISSUES,
+              null,
+              null,
+              null,
+              IssueEntry.COLUMN_ISSUE_VOLUME_ID + "," + IssueEntry.COLUMN_ISSUE_NUMBER);
+
+      if (query != null) {
+        List<ComicIssueInfoList> list = ContentUtils.issueInfoFromCursor(query);
+        query.close();
+        e.onSuccess(list);
+      }
+    });
+  }
+
   public void removeAllTodayIssuesFromDb() {
     contentResolver.delete(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null);
   }

@@ -15,7 +15,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import com.evernote.android.state.State;
 import com.sedsoftware.comicser.R;
-import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
@@ -84,7 +83,7 @@ public class NavigationActivity extends
     } else if (chosenMenuItem == R.id.nav_characters) {
       currentSection = AppNavigation.CHARACTERS;
     } else if (chosenMenuItem == R.id.nav_collection) {
-      Toast.makeText(this, "Collection", Toast.LENGTH_SHORT).show();
+      currentSection = AppNavigation.COLLECTION;
     } else if (chosenMenuItem == R.id.nav_tracker) {
       currentSection = AppNavigation.TRACKER;
     } else if (chosenMenuItem == R.id.nav_settings) {

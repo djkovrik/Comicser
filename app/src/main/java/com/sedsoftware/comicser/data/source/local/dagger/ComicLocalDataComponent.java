@@ -6,6 +6,7 @@ import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsCompon
 import com.sedsoftware.comicser.features.characterslist.CharactersComponent;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsComponent;
 import com.sedsoftware.comicser.features.issueslist.IssuesComponent;
+import com.sedsoftware.comicser.features.issuesmanager.OwnedIssuesComponent;
 import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsComponent;
 import com.sedsoftware.comicser.features.volumeslist.VolumesComponent;
 import dagger.Subcomponent;
@@ -21,9 +22,16 @@ import dagger.Subcomponent;
 public interface ComicLocalDataComponent {
 
   IssuesComponent plusIssuesComponent();
+
   IssueDetailsComponent plusIssueDetailsComponent();
+
   VolumesComponent plusVolumesComponent();
+
   VolumeDetailsComponent plusVolumeDetailsComponent();
+
   CharactersComponent plusCharactersComponent();
+
   CharacterDetailsComponent plusCharacterDetailsComponent();
+
+  OwnedIssuesComponent plusOwnedIssuesComponent();
 }

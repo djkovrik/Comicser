@@ -6,6 +6,8 @@ import com.sedsoftware.comicser.features.characterslist.CharactersFragment;
 import com.sedsoftware.comicser.features.characterslist.CharactersFragmentBuilder;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragment;
 import com.sedsoftware.comicser.features.issueslist.IssuesFragmentBuilder;
+import com.sedsoftware.comicser.features.issuesmanager.OwnedIssuesFragment;
+import com.sedsoftware.comicser.features.issuesmanager.OwnedIssuesFragmentBuilder;
 import com.sedsoftware.comicser.features.volumeslist.VolumesFragment;
 import com.sedsoftware.comicser.features.volumeslist.VolumesFragmentBuilder;
 import com.sedsoftware.comicser.features.volumestracker.VolumesTrackerFragment;
@@ -28,6 +30,8 @@ public class NavigationFragmentsFactory {
         return new VolumesFragmentBuilder().build();
       case AppNavigation.CHARACTERS:
         return new CharactersFragmentBuilder().build();
+      case AppNavigation.COLLECTION:
+        return new OwnedIssuesFragmentBuilder().build();
       case AppNavigation.TRACKER:
         return new VolumesTrackerFragmentBuilder().build();
       default:
@@ -43,6 +47,8 @@ public class NavigationFragmentsFactory {
         return VolumesFragment.class.getSimpleName();
       case AppNavigation.CHARACTERS:
         return CharactersFragment.class.getSimpleName();
+      case AppNavigation.COLLECTION:
+        return OwnedIssuesFragment.class.getSimpleName();
       case AppNavigation.TRACKER:
         return VolumesTrackerFragment.class.getSimpleName();
       default:
