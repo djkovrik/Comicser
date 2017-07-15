@@ -12,8 +12,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 import butterknife.BindBool;
 import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.sedsoftware.comicser.R;
@@ -33,7 +35,11 @@ public class VolumesTrackerFragment extends BaseFragment
 
   @BindView(R.id.contentView)
   RecyclerView contentView;
+  @BindView(R.id.emptyView)
+  TextView emptyView;
 
+  @BindString(R.string.msg_no_volumes_tracked)
+  String emptyViewText;
   @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
   @BindBool(R.bool.is_tablet_layout)
@@ -56,6 +62,8 @@ public class VolumesTrackerFragment extends BaseFragment
         startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId));
       }
     });
+
+    emptyView.setText(emptyViewText);
 
     adapter.setHasStableIds(true);
 
@@ -94,6 +102,7 @@ public class VolumesTrackerFragment extends BaseFragment
 
       @Override
       protected void onStartLoading() {
+
         if (data != null) {
           deliverResult(data);
         } else {
@@ -118,6 +127,13 @@ public class VolumesTrackerFragment extends BaseFragment
 
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    if (data.getCount() > 0) {
+      emptyView.setVisibility(View.GONE);
+    } else {
+      emptyView.setVisibility(View.VISIBLE);
+    }
+
     adapter.swapCursor(data);
   }
 

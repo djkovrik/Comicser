@@ -43,7 +43,7 @@ public class OwnedIssuesFragment extends
     implements OwnedIssuesView {
 
 
-  @BindString(R.string.msg_no_issues_today)
+  @BindString(R.string.msg_no_issues_owned)
   String emptyViewText;
   @BindString(R.string.issues_title_format)
   String titleFormatString;
