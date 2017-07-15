@@ -18,7 +18,6 @@ import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfo;
 import com.sedsoftware.comicser.data.model.ComicImages;
 import com.sedsoftware.comicser.data.model.ComicOriginInfoShort;
-import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
@@ -86,7 +85,6 @@ public class CharacterDetailsFragment extends
   protected void injectDependencies() {
     characterDetailsComponent = ComicserApp.getAppComponent()
         .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
         .plusCharacterDetailsComponent();
 
     characterDetailsComponent.inject(this);

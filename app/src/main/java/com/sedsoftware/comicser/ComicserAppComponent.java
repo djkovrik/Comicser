@@ -12,8 +12,9 @@ import javax.inject.Singleton;
 @Component(modules = {ComicserAppModule.class})
 public interface ComicserAppComponent {
 
-  ComicRemoteDataComponent plusRemoteComponent(ComicRemoteDataModule module);
   ComicDbHelperComponent plusDbHelperComponent(ComicDbHelperModule module);
+
+  ComicRemoteDataComponent plusRemoteComponent(ComicRemoteDataModule module);
 
   void inject(NavigationActivity activity);
 }

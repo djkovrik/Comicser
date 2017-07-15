@@ -24,7 +24,6 @@ import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
-import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsActivity;
@@ -124,7 +123,6 @@ public class VolumesFragment extends
 
     volumesComponent = ComicserApp.getAppComponent()
         .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
         .plusVolumesComponent();
     volumesComponent.inject(this);
   }

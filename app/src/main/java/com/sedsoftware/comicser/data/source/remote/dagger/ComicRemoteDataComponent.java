@@ -4,6 +4,9 @@ import com.sedsoftware.comicser.data.source.local.dagger.ComicLocalDataComponent
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.RemoteDataScope;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsComponent;
+import com.sedsoftware.comicser.features.characterslist.CharactersComponent;
+import com.sedsoftware.comicser.features.volumeslist.VolumesComponent;
 import dagger.Subcomponent;
 
 /**
@@ -15,5 +18,10 @@ import dagger.Subcomponent;
 public interface ComicRemoteDataComponent {
 
   ComicLocalDataComponent plusLocalComponent(ComicLocalDataModule module);
-  // Other injections here
+
+  VolumesComponent plusVolumesComponent();
+
+  CharactersComponent plusCharactersComponent();
+
+  CharacterDetailsComponent plusCharacterDetailsComponent();
 }

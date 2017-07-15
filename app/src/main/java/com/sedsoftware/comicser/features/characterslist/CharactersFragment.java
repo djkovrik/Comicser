@@ -24,7 +24,6 @@ import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseLceFragment;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
-import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsActivity;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
@@ -124,7 +123,6 @@ public class CharactersFragment extends
 
     charactersComponent = ComicserApp.getAppComponent()
         .plusRemoteComponent(new ComicRemoteDataModule())
-        .plusLocalComponent(new ComicLocalDataModule())
         .plusCharactersComponent();
     charactersComponent.inject(this);
   }
