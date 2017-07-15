@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +34,8 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsActivity;
+import com.sedsoftware.comicser.features.characterdetails.CharacterDetailsFragmentBuilder;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 import com.sedsoftware.comicser.utils.IssueTextUtils;
@@ -68,6 +73,8 @@ public class IssueDetailsFragment
   String messageBookmarked;
   @BindString(R.string.msg_bookmark_removed)
   String messageBookmarkRemoved;
+  @BindBool(R.bool.is_tablet_layout)
+  boolean twoPaneMode;
 
   IssueDetailsComponent issueDetailsComponent;
 
@@ -93,9 +100,17 @@ public class IssueDetailsFragment
 
     charactersList.setDividerHeight(1);
 
-    charactersList.setOnItemClickListener(
-        (parent, view1, position, id) -> startActivity(
-            CharacterDetailsActivity.prepareIntent(getContext(), id)));
+    charactersList.setOnItemClickListener((parent, view1, position, id) -> {
+      if (twoPaneMode) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        Fragment fragment = new CharacterDetailsFragmentBuilder(id).build();
+
+        FragmentUtils.replaceFragmentIn(
+            manager, fragment, R.id.content_frame, "CharacterDetailsFragment", true);
+      } else {
+        startActivity(CharacterDetailsActivity.prepareIntent(getContext(), id));
+      }
+    });
 
     if (savedInstanceState != null) {
       loadData(false);
@@ -238,8 +253,12 @@ public class IssueDetailsFragment
 
     presenter.setUpBookmarkIconState(issueId);
 
+    int parentLayoutId = (twoPaneMode) ?
+        R.id.main_constraint_layout :
+        R.id.issue_details_activity_layout;
+
     Snackbar.make(
-        ButterKnife.findById(getActivity(), R.id.issue_details_activity_layout),
+        ButterKnife.findById(getActivity(), parentLayoutId),
         message,
         Snackbar.LENGTH_SHORT)
         .show();

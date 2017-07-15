@@ -3,6 +3,8 @@ package com.sedsoftware.comicser.features.issuesmanager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -11,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -27,7 +30,9 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
+import com.sedsoftware.comicser.features.issuedetails.IssueDetailsFragmentBuilder;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +49,8 @@ public class OwnedIssuesFragment extends
   String titleFormatString;
   @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
+  @BindBool(R.bool.is_tablet_layout)
+  boolean twoPaneMode;
 
   @BindView(R.id.emptyView)
   TextView emptyView;
@@ -68,9 +75,17 @@ public class OwnedIssuesFragment extends
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
 
-    adapter = new OwnedIssuesAdapter(issueId ->
-        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
-    adapter.setHasStableIds(true);
+    adapter = new OwnedIssuesAdapter(issueId -> {
+      if (twoPaneMode) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        Fragment fragment = new IssueDetailsFragmentBuilder(issueId).build();
+
+        FragmentUtils.replaceFragmentIn(
+            manager, fragment, R.id.content_frame, "IssueDetailsFragment", true);
+      } else {
+        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId));
+      }
+    });
 
     StaggeredGridLayoutManager manager =
         new StaggeredGridLayoutManager(gridColumnsCount, StaggeredGridLayoutManager.VERTICAL);

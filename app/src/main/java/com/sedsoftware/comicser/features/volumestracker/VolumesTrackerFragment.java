@@ -3,6 +3,8 @@ package com.sedsoftware.comicser.features.volumestracker;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.BindView;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
@@ -18,6 +21,8 @@ import com.sedsoftware.comicser.base.BaseFragment;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsActivity;
+import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsFragmentBuilder;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 
 // LOADERS USED BECAUSE OF RUBRIC REQUIREMENT
 @FragmentWithArgs
@@ -31,6 +36,8 @@ public class VolumesTrackerFragment extends BaseFragment
 
   @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
+  @BindBool(R.bool.is_tablet_layout)
+  boolean twoPaneMode;
 
   private VolumesTrackerAdapter adapter;
 
@@ -38,8 +45,17 @@ public class VolumesTrackerFragment extends BaseFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    adapter = new VolumesTrackerAdapter(
-        volumeId -> startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId)));
+    adapter = new VolumesTrackerAdapter(volumeId -> {
+      if (twoPaneMode) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        Fragment fragment = new VolumeDetailsFragmentBuilder(volumeId).build();
+
+        FragmentUtils.replaceFragmentIn(
+            manager, fragment, R.id.content_frame, "VolumeDetailsFragment", true);
+      } else {
+        startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId));
+      }
+    });
 
     adapter.setHasStableIds(true);
 

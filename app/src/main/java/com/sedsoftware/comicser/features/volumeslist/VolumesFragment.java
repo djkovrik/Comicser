@@ -3,6 +3,8 @@ package com.sedsoftware.comicser.features.volumeslist;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -11,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -27,6 +30,8 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoList;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsActivity;
+import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsFragmentBuilder;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 
@@ -43,6 +48,8 @@ public class VolumesFragment extends
   String emptyViewText;
   @BindString(R.string.msg_volumes_start)
   String initialViewText;
+  @BindBool(R.bool.is_tablet_layout)
+  boolean twoPaneMode;
 
   @BindView(R.id.initialView)
   TextView initialView;
@@ -64,8 +71,17 @@ public class VolumesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    adapter = new VolumesAdapter(
-        volumeId -> startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId)));
+    adapter = new VolumesAdapter(volumeId -> {
+      if (twoPaneMode) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        Fragment fragment = new VolumeDetailsFragmentBuilder(volumeId).build();
+
+        FragmentUtils.replaceFragmentIn(
+            manager, fragment, R.id.content_frame, "VolumeDetailsFragment", true);
+      } else {
+        startActivity(VolumeDetailsActivity.prepareIntent(getContext(), volumeId));
+      }
+    });
 
     adapter.setHasStableIds(true);
 

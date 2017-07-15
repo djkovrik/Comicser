@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.features.navigation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import butterknife.BindBool;
 import butterknife.BindView;
 import com.evernote.android.state.State;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -32,8 +34,12 @@ public class NavigationActivity extends
   Toolbar toolbar;
   @BindView(R.id.nav_view)
   NavigationView navigationView;
+  @Nullable
   @BindView(R.id.drawer_layout)
   DrawerLayout drawer;
+
+  @BindBool(R.bool.is_tablet_layout)
+  boolean isTabletLayout;
 
   @State
   @AppNavigation.Section
@@ -59,10 +65,13 @@ public class NavigationActivity extends
   }
 
   private void setUpNavigationDrawerParams() {
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-    drawer.addDrawerListener(toggle);
-    toggle.syncState();
+
+    if (!isTabletLayout) {
+      ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+          this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+      drawer.addDrawerListener(toggle);
+      toggle.syncState();
+    }
 
     navigationView.setNavigationItemSelectedListener(this);
     navigationView.setCheckedItem(R.id.nav_issues);
@@ -73,7 +82,10 @@ public class NavigationActivity extends
     int id = item.getItemId();
     handleChosenNavigationMenuItem(id);
 
-    drawer.closeDrawer(GravityCompat.START);
+    if (!isTabletLayout) {
+      drawer.closeDrawer(GravityCompat.START);
+    }
+
     return true;
   }
 
@@ -113,7 +125,7 @@ public class NavigationActivity extends
 
     FragmentUtils.replaceFragmentIn(
         manager, fragment, R.id.content_frame,
-        NavigationFragmentsFactory.getFragmentTag(currentSection));
+        NavigationFragmentsFactory.getFragmentTag(currentSection), false);
   }
 
   private void logChosenNavigationSection(@AppNavigation.Section int section) {

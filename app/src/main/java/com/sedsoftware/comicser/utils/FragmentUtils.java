@@ -16,9 +16,12 @@ public class FragmentUtils {
   }
 
   public static void replaceFragmentIn(@NonNull FragmentManager fragmentManager,
-      @NonNull Fragment fragment, int frameId, String tag) {
+      @NonNull Fragment fragment, int frameId, String tag, boolean addToBackstack) {
     FragmentTransaction transaction = fragmentManager.beginTransaction();
     transaction.replace(frameId, fragment, tag);
+    if (addToBackstack) {
+      transaction.addToBackStack(tag);
+    }
     transaction.commit();
   }
 }

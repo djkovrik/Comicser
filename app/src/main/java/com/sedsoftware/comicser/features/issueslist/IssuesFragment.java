@@ -3,6 +3,8 @@ package com.sedsoftware.comicser.features.issueslist;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -14,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -32,8 +35,10 @@ import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
+import com.sedsoftware.comicser.features.issuedetails.IssueDetailsFragmentBuilder;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.DateTextUtils;
+import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import com.sedsoftware.comicser.utils.custom.ToolbarActionItemTarget;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -54,6 +59,8 @@ public class IssuesFragment extends
   String titleFormatString;
   @BindInt(R.integer.grid_columns_count)
   int gridColumnsCount;
+  @BindBool(R.bool.is_tablet_layout)
+  boolean twoPaneMode;
 
   @BindView(R.id.emptyView)
   TextView emptyView;
@@ -85,8 +92,17 @@ public class IssuesFragment extends
 
     refreshLayout.setOnRefreshListener(this);
 
-    adapter = new IssuesAdapter(issueId ->
-        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId)));
+    adapter = new IssuesAdapter(issueId -> {
+      if (twoPaneMode) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        Fragment fragment = new IssueDetailsFragmentBuilder(issueId).build();
+
+        FragmentUtils.replaceFragmentIn(
+            manager, fragment, R.id.content_frame, "IssueDetailsFragment", true);
+      } else {
+        startActivity(IssueDetailsActivity.prepareIntent(getContext(), issueId));
+      }
+    });
     adapter.setHasStableIds(true);
 
     StaggeredGridLayoutManager manager =
