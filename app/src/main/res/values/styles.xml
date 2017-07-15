@@ -23,8 +23,6 @@
 
   <!-- Showcase styling -->
   <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
-    <item name="sv_backgroundColor">@color/colorPrimaryDarkTransparent</item>
-    <item name="sv_showcaseColor">@color/colorAccentDark</item>
     <item name="sv_tintButtonColor">true</item>
     <item name="sv_titleTextAppearance">@style/CustomTitle</item>
     <item name="sv_detailTextAppearance">@style/CustomDetails</item>
@@ -36,6 +34,16 @@
 
   <style name="CustomDetails" parent="TextAppearance.ShowcaseView.Detail">
     <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
+  <style name="ShowCaseDarkGreenPopup" parent="CustomShowcaseTheme">
+    <item name="sv_backgroundColor">@color/colorPrimaryDark</item>
+    <item name="sv_showcaseColor">@color/colorAccentDark</item>
+  </style>
+
+  <style name="ShowCaseDarkOrangePopup" parent="CustomShowcaseTheme">
+    <item name="sv_backgroundColor">@color/colorAccentDark</item>
+    <item name="sv_showcaseColor">@color/colorPrimaryDark</item>
   </style>
 
   <!-- Search view styling -->

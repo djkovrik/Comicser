@@ -355,7 +355,7 @@ public class IssuesFragment extends
           .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_choose_date))
           .withMaterialShowcase()
           .hideOnTouchOutside()
-          .setStyle(R.style.CustomShowcaseTheme)
+          .setStyle(R.style.ShowCaseDarkGreenPopup)
           .setContentTitle(R.string.showcase_issues_title)
           .setContentText(R.string.showcase_issues_datepicker)
           .setShowcaseEventListener(new SimpleShowcaseEventListener() {
@@ -367,7 +367,7 @@ public class IssuesFragment extends
                   .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_search))
                   .withMaterialShowcase()
                   .hideOnTouchOutside()
-                  .setStyle(R.style.CustomShowcaseTheme)
+                  .setStyle(R.style.ShowCaseDarkOrangePopup)
                   .setContentTitle(R.string.showcase_issues_title)
                   .setContentText(R.string.showcase_issues_search)
                   .build()
