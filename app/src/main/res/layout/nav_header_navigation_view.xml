@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/nav_header_height"
-  android:paddingTop="@dimen/activity_vertical_margin"
-  android:paddingBottom="@dimen/activity_vertical_margin"
-  android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin"
-  android:background="@color/colorPrimary"
   android:gravity="bottom"
-  android:orientation="vertical"
   android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-</LinearLayout>
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/navbar_header"
+    tools:ignore="ContentDescription"/>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+    android:gravity="start|bottom"
+    android:text="@string/app_name"
+    android:textColor="@color/material_color_white"
+    android:textSize="@dimen/material_card_title_block_large_title_text_size"/>
+
+</FrameLayout>
