@@ -23,6 +23,7 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
+import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 import javax.inject.Inject;
 
@@ -62,6 +63,8 @@ public class NavigationActivity extends
     setUpNavigationDrawerParams();
 
     navigateToCurrentSection();
+
+    ComicSyncManager.createSyncAccount(this);
   }
 
   private void setUpNavigationDrawerParams() {

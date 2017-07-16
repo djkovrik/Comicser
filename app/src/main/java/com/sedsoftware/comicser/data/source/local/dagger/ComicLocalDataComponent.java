@@ -5,6 +5,7 @@ import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataM
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsComponent;
 import com.sedsoftware.comicser.features.issueslist.IssuesComponent;
 import com.sedsoftware.comicser.features.issuesmanager.OwnedIssuesComponent;
+import com.sedsoftware.comicser.features.sync.ComicSyncAdapter;
 import com.sedsoftware.comicser.features.volumedetails.VolumeDetailsComponent;
 import dagger.Subcomponent;
 
@@ -25,4 +26,6 @@ public interface ComicLocalDataComponent {
   VolumeDetailsComponent plusVolumeDetailsComponent();
 
   OwnedIssuesComponent plusOwnedIssuesComponent();
+
+  void inject(ComicSyncAdapter adapter);
 }

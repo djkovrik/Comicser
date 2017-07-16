@@ -47,7 +47,8 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
   public void loadTodayIssues(boolean pullToRefresh) {
 
-    boolean forcedSync = (pullToRefresh || !(currentDate.equals(lastSyncDate)));
+//    boolean forcedSync = (pullToRefresh || !(currentDate.equals(lastSyncDate)));
+    boolean forcedSync = pullToRefresh;
 
     if (forcedSync) {
       Timber.d("Load issues from sever...");
