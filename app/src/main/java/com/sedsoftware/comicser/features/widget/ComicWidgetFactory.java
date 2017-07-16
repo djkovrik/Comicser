@@ -1,15 +1,21 @@
 package com.sedsoftware.comicser.features.widget;
 
-import android.content.Context;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import com.sedsoftware.comicser.ComicserApp;
+import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
+import javax.inject.Inject;
 
 public class ComicWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
-  private final Context context;
+  @Inject
+  ComicLocalDataHelper localDataHelper;
 
-  public ComicWidgetFactory(Context context) {
-    this.context = context;
+  ComicWidgetFactory() {
+    ComicserApp
+        .getAppComponent()
+        .plusWidgetComponent()
+        .inject(this);
   }
 
   @Override
