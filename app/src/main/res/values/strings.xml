@@ -79,6 +79,9 @@
   <string name="msg_no_characters_found">No characters found! Please choose another name and try again.</string>
   <string name="msg_characters_start">Use search button to load characters data.</string>
 
+  <!-- Widget -->
+  <string name="widget_empty_text">No available releases found.</string>
+
   <!-- ShowcaseView guide -->
   <!-- Issues -->
   <string name="showcase_issues_title">Issues view</string>
@@ -98,6 +101,7 @@
   <string name="dummy_issue_number_with_text" translatable="false">Issue #168</string>
   <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
   <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
+  <string name="dummy_volume_name_with_number" translatable="false">The Walking Dead #168</string>
   <string name="dummy_date" translatable="false">Jun 7, 2017</string>
   <string name="dummy_publisher">by Skybound</string>
   <string name="dummy_publisher_name">Skybound</string>
