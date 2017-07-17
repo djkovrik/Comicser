@@ -28,9 +28,9 @@ public class IssueTextUtilsTest {
 
   @Test
   public void testGetFormattedIssueDetailsTitle() {
-    assertEquals("getFormattedIssueDetailsTitle method returned incorrect string!",
+    assertEquals("getFormattedIssueTitle method returned incorrect string!",
         FORMATTED_NAME_SHORT,
-        IssueTextUtils.getFormattedIssueDetailsTitle(VOLUME_NAME, ISSUE_NUMBER));
+        IssueTextUtils.getFormattedIssueTitle(VOLUME_NAME, ISSUE_NUMBER));
   }
 
 }

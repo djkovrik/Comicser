@@ -7,6 +7,6 @@ public class ComicWidgetService extends RemoteViewsService {
 
   @Override
   public RemoteViewsFactory onGetViewFactory(Intent intent) {
-    return new ComicWidgetFactory();
+    return new ComicWidgetFactory(getApplicationContext());
   }
 }

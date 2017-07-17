@@ -17,7 +17,7 @@ public class IssueTextUtils {
     return name;
   }
 
-  public static String getFormattedIssueDetailsTitle(String volume, int number) {
+  public static String getFormattedIssueTitle(String volume, int number) {
     return String.format(Locale.US, "%s #%d", volume, number);
   }
 }
