@@ -290,7 +290,7 @@ public class IssueDetailsFragment
   }
 
   private void setUpHeaderText(TextView textView, String volumeName, int number) {
-    textView.setText(IssueTextUtils.getFormattedIssueDetailsTitle(volumeName, number));
+    textView.setText(IssueTextUtils.getFormattedIssueTitle(volumeName, number));
   }
 
   private void setUpOtherText(TextView textView, String name) {

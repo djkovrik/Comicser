@@ -11,6 +11,12 @@
   <!-- Issue details -->
   <dimen name="issue_details_header_image_height">240dp</dimen>
 
+  <!--Widget-->
+  <dimen name="widget_default_height">180dp</dimen>
+  <dimen name="widget_default_width">250dp</dimen>
+  <dimen name="widget_default_resize_width">180dp</dimen>
+  <dimen name="widget_default_resize_height">110dp</dimen>
+
   <!-- Misc -->
   <dimen name="image_progressbar_padding">64dp</dimen>
 </resources>
