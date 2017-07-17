@@ -86,6 +86,11 @@
   <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
   <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
 
+
+  <!-- Data sync xml settings strings -->
+  <string name="account_type" translatable="false">com.sedsoftware</string>
+  <string name="content_authority" translatable="false">com.sedsoftware.comicser</string>
+
   <!-- DUMMY TEXTS -->
   <string name="lorem_ipsum" translatable="false">
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been

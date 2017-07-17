@@ -57,6 +57,18 @@ public class ContentUtils {
     return values;
   }
 
+  public static ContentValues[] issuesToContentValues(@NonNull List<ComicIssueInfoList> list) {
+
+    ContentValues[] result = new ContentValues[list.size()];
+
+    for (int i = 0; i < list.size(); i++) {
+      ContentValues value = issueInfoToContentValues(list.get(i));
+      result[i] = value;
+    }
+
+    return result;
+  }
+
   public static List<ComicIssueInfoList> issueInfoFromCursor(Cursor cursor) {
 
     List<ComicIssueInfoList> issues = new ArrayList<>();
