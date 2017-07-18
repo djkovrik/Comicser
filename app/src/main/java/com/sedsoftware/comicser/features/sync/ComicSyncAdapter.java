@@ -3,24 +3,26 @@ package com.sedsoftware.comicser.features.sync;
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
-import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import com.sedsoftware.comicser.ComicserApp;
-import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
+import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
 import com.sedsoftware.comicser.data.source.local.dagger.modules.ComicLocalDataModule;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
 import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDataModule;
-import com.sedsoftware.comicser.utils.ContentUtils;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import javax.inject.Inject;
 import timber.log.Timber;
 
 public class ComicSyncAdapter extends AbstractThreadedSyncAdapter {
 
+  public static final String ACTION_DATA_UPDATED =
+      "com.sedsoftware.comicser.ACTION_DATA_UPDATED";
+
   @Inject
-  ContentResolver contentResolver;
+  ComicLocalDataHelper localDataHelper;
 
   @Inject
   ComicRemoteDataHelper remoteDataHelper;
@@ -39,26 +41,29 @@ public class ComicSyncAdapter extends AbstractThreadedSyncAdapter {
   public void onPerformSync(Account account, Bundle extras, String authority,
       ContentProviderClient provider, SyncResult syncResult) {
 
+    Timber.d("Scheduled sync started...");
+
     String date = DateTextUtils.getTodayDateString();
 
-    // TODO() Check how this works with local data helper
     remoteDataHelper
         .getIssuesListByDate(date)
         .subscribe(
             // onSuccess
             list -> {
+              localDataHelper.removeAllTodayIssuesFromDb();
+              localDataHelper.saveTodayIssuesToDb(list);
+              sendDataUpdatedBroadcast();
               Timber.d("Scheduled sync completed.");
-
-              if (list.size() > 0) {
-                contentResolver.delete(IssueEntry.CONTENT_URI_TODAY_ISSUES, null, null);
-                contentResolver.bulkInsert(
-                    IssueEntry.CONTENT_URI_TODAY_ISSUES,
-                    ContentUtils.issuesToContentValues(list));
-              }
             },
             // onError
             throwable ->
                 Timber.d("Scheduled sync error!")
         );
+  }
+
+  private void sendDataUpdatedBroadcast() {
+    Context context = getContext();
+    Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED).setPackage(context.getPackageName());
+    context.sendBroadcast(dataUpdatedIntent);
   }
 }

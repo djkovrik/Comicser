@@ -24,8 +24,6 @@ public class ComicSyncManager {
 
   public static void createSyncAccount(Context context) {
 
-//    boolean newAccount = false;
-
     Account account = getAccount();
     AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
 
@@ -34,26 +32,21 @@ public class ComicSyncManager {
       ContentResolver.setSyncAutomatically(account, CONTENT_AUTHORITY, true);
       ContentResolver.addPeriodicSync(
           account, CONTENT_AUTHORITY, new Bundle(), SYNC_INTERVAL);
-//      newAccount = true;
     }
+  }
 
-//    if (newAccount) {
-//      forcedRefresh();
-//    }
+  public static void syncImmediately() {
+    Bundle bundle = new Bundle();
+    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+    ContentResolver.requestSync(
+        getAccount(),
+        CONTENT_AUTHORITY,
+        bundle);
   }
 
   private static Account getAccount() {
     return new Account(ACCOUNT_NAME, ACCOUNT_TYPE);
   }
-
-//  private static void forcedRefresh() {
-//    Bundle bundle = new Bundle();
-//    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-//    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-//
-//    ContentResolver.requestSync(
-//        getAccount(),
-//        CONTENT_AUTHORITY,
-//        bundle);
-//  }
 }
