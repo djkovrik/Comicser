@@ -26,6 +26,7 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
+import com.sedsoftware.comicser.features.preferences.PreferencesHelper;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 import javax.inject.Inject;
@@ -52,6 +53,9 @@ public class NavigationActivity extends
   @Inject
   FirebaseAnalytics firebaseAnalytics;
 
+  @Inject
+  PreferencesHelper preferencesHelper;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -67,7 +71,8 @@ public class NavigationActivity extends
 
     navigateToCurrentSection();
 
-    ComicSyncManager.createSyncAccount(this);
+    String defaultSyncPeriod = preferencesHelper.getSyncPeriod();
+    ComicSyncManager.createSyncAccount(this, Integer.parseInt(defaultSyncPeriod));
   }
 
   private void setUpNavigationDrawerParams() {
@@ -115,6 +120,8 @@ public class NavigationActivity extends
       currentSection = AppNavigation.COLLECTION;
     } else if (chosenMenuItem == R.id.nav_tracker) {
       currentSection = AppNavigation.TRACKER;
+    } else if (chosenMenuItem == R.id.nav_settings) {
+      currentSection = AppNavigation.SETTINGS;
     }
 
     navigateToCurrentSection();
@@ -163,6 +170,9 @@ public class NavigationActivity extends
         break;
       case AppNavigation.TRACKER:
         chosenSection = "tracker";
+        break;
+      case AppNavigation.SETTINGS:
+        chosenSection = "settings";
         break;
       default:
         chosenSection = "unknown";

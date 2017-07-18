@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import com.sedsoftware.comicser.data.source.local.ComicContract;
+import timber.log.Timber;
 
 public class ComicSyncManager {
 
@@ -15,14 +16,12 @@ public class ComicSyncManager {
   // Sync interval settings
   private static final long SECONDS_PER_MINUTE = 60L;
   private static final long MINUTES_PER_HOUR = 60L;
-  private static final long SYNC_INTERVAL_IN_HOURS = 8L;
-
-  private static final long SYNC_INTERVAL =
-      SECONDS_PER_MINUTE * MINUTES_PER_HOUR * SYNC_INTERVAL_IN_HOURS;
 
   private static final String CONTENT_AUTHORITY = ComicContract.CONTENT_AUTHORITY;
 
-  public static void createSyncAccount(Context context) {
+  public static void createSyncAccount(Context context, int hours) {
+
+    final long syncInterval = SECONDS_PER_MINUTE * MINUTES_PER_HOUR * hours;
 
     Account account = getAccount();
     AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
@@ -31,7 +30,21 @@ public class ComicSyncManager {
       ContentResolver.setIsSyncable(account, CONTENT_AUTHORITY, 1);
       ContentResolver.setSyncAutomatically(account, CONTENT_AUTHORITY, true);
       ContentResolver.addPeriodicSync(
-          account, CONTENT_AUTHORITY, new Bundle(), SYNC_INTERVAL);
+          account, CONTENT_AUTHORITY, new Bundle(), syncInterval);
+    }
+  }
+
+  public static void updateSyncPeriod(Context context, int hours) {
+
+    final long newSyncInterval = SECONDS_PER_MINUTE * MINUTES_PER_HOUR * hours;
+
+    AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
+    Account[] accounts = accountManager.getAccountsByType(ACCOUNT_TYPE);
+
+    if (accounts.length == 1) {
+      Timber.d("New sync period: " + hours + " hours");
+      ContentResolver.addPeriodicSync(
+          accounts[0], CONTENT_AUTHORITY, new Bundle(), newSyncInterval);
     }
   }
 

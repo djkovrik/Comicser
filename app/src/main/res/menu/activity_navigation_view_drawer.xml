@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <group
-    android:id="@+id/nav_main"
+    android:id="@+id/main"
     android:checkableBehavior="single">
     <item
       android:id="@+id/nav_issues"
@@ -18,7 +18,7 @@
       android:title="@string/navigation_characters"/>
   </group>
   <group
-    android:id="@+id/nav_additional"
+    android:id="@+id/additional"
     android:checkableBehavior="single">
     <item
       android:id="@+id/nav_collection"
@@ -28,5 +28,13 @@
       android:id="@+id/nav_tracker"
       android:icon="@drawable/ic_track_changes_black_24dp"
       android:title="@string/navigation_tracker"/>
+  </group>
+  <group
+    android:id="@+id/settings"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_settings"
+      android:icon="@drawable/ic_settings_black_24dp"
+      android:title="@string/navigation_settings"/>
   </group>
 </menu>

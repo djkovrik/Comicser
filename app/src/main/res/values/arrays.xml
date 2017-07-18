@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  // List titles
+  <string-array name="prefs_sync_period_titles">
+    <item>@string/prefs_sync_once</item>
+    <item>@string/prefs_sync_twice</item>
+    <item>@string/prefs_sync_three_times</item>
+    <item>@string/prefs_sync_four_times</item>
+  </string-array>
+
+  // List values
+  <string-array name="prefs_sync_period_values">
+    <item>24</item>
+    <item>12</item>
+    <item>8</item>
+    <item>6</item>
+  </string-array>
+
+</resources>

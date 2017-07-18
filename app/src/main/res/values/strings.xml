@@ -90,6 +90,18 @@
   <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
   <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
 
+  <!-- Settings -->
+  <string name="prefs_category_title">Data persistence</string>
+  <string name="prefs_sync_title">Sync period</string>
+  <string name="prefs_sync_dialog_title">Choose sync period:</string>
+  <string name="prefs_sync_once">Once per day</string>
+  <string name="prefs_sync_twice">Twice per day</string>
+  <string name="prefs_sync_three_times">Three dimes per day</string>
+  <string name="prefs_sync_four_times">Four times per day</string>
+  <string name="prefs_sync_default">24</string>
+  <string name="prefs_file_name" translatable="false">com.sedsoftware.comicser_preferences</string>
+  <string name="prefs_sync_period_key" translatable="false">pref_sync_period_in_hours</string>
+  <string name="prefs_issues_showcased_key" translatable="false">prefs_issues_showcased</string>
 
   <!-- Data sync xml settings strings -->
   <string name="account_type" translatable="false">com.sedsoftware</string>
