@@ -26,7 +26,7 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseMvpActivity;
 import com.sedsoftware.comicser.features.navigation.factory.AppNavigation;
 import com.sedsoftware.comicser.features.navigation.factory.NavigationFragmentsFactory;
-import com.sedsoftware.comicser.features.preferences.PreferencesHelper;
+import com.sedsoftware.comicser.features.preferences.ComicPreferencesHelper;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 import javax.inject.Inject;
@@ -54,7 +54,7 @@ public class NavigationActivity extends
   FirebaseAnalytics firebaseAnalytics;
 
   @Inject
-  PreferencesHelper preferencesHelper;
+  ComicPreferencesHelper comicPreferencesHelper;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class NavigationActivity extends
 
     navigateToCurrentSection();
 
-    String defaultSyncPeriod = preferencesHelper.getSyncPeriod();
+    String defaultSyncPeriod = comicPreferencesHelper.getSyncPeriod();
     ComicSyncManager.createSyncAccount(this, Integer.parseInt(defaultSyncPeriod));
   }
 

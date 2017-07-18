@@ -6,11 +6,11 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
-public class PreferencesHelperModule {
+public class ComicPreferencesHelperModule {
 
   @Provides
   @Singleton
-  PreferencesHelper providePreferencesHelper(Context context) {
-    return new PreferencesHelper(context);
+  ComicPreferencesHelper providePreferencesHelper(Context context) {
+    return new ComicPreferencesHelper(context);
   }
 }

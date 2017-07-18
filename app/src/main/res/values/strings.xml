@@ -100,7 +100,7 @@
   <string name="prefs_sync_four_times">Four times per day</string>
   <string name="prefs_sync_default">24</string>
   <string name="prefs_file_name" translatable="false">com.sedsoftware.comicser_preferences</string>
-  <string name="prefs_sync_period_key" translatable="false">pref_sync_period_in_hours</string>
+  <string name="prefs_sync_period_key" translatable="false">prefs_sync_period_in_hours</string>
   <string name="prefs_issues_showcased_key" translatable="false">prefs_issues_showcased</string>
 
   <!-- Data sync xml settings strings -->

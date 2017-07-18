@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.sedsoftware.comicser.R;
 
-public class PreferencesHelper {
+public class ComicPreferencesHelper {
 
   private final Context context;
   private final SharedPreferences sharedPreferences;
 
-  public PreferencesHelper(Context context) {
+  public ComicPreferencesHelper(Context context) {
     this.context = context;
 
     sharedPreferences = context
