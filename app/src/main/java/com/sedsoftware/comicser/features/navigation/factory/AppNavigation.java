@@ -11,9 +11,10 @@ public class AppNavigation {
   public static final int CHARACTERS = 2;
   public static final int COLLECTION = 3;
   public static final int TRACKER = 4;
+  public static final int SETTINGS = 5;
 
   @Retention(RetentionPolicy.CLASS)
-  @IntDef({ISSUES, VOLUMES, CHARACTERS, COLLECTION, TRACKER})
+  @IntDef({ISSUES, VOLUMES, CHARACTERS, COLLECTION, TRACKER, SETTINGS})
   public @interface Section {
 
   }

@@ -5,7 +5,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
-import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
+import com.sedsoftware.comicser.features.preferences.ComicPreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.DateTextUtils;
@@ -21,29 +21,29 @@ import timber.log.Timber;
 @SuppressWarnings("WeakerAccess")
 public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
 
-  final PreferencesHelper preferencesHelper;
+  final ComicPreferencesHelper comicPreferencesHelper;
   final ComicLocalDataHelper localDataHelper;
   final ComicRemoteDataHelper remoteDataHelper;
   final Context context;
 
   @Inject
   public IssuesPresenter(
-      PreferencesHelper preferencesHelper,
+      ComicPreferencesHelper comicPreferencesHelper,
       ComicLocalDataHelper localDataHelper,
       ComicRemoteDataHelper remoteDataHelper,
       Context context) {
-    this.preferencesHelper = preferencesHelper;
+    this.comicPreferencesHelper = comicPreferencesHelper;
     this.localDataHelper = localDataHelper;
     this.remoteDataHelper = remoteDataHelper;
     this.context = context;
   }
 
   public boolean shouldNotDisplayShowcases() {
-    return preferencesHelper.wasIssuesViewShowcased();
+    return comicPreferencesHelper.wasIssuesViewShowcased();
   }
 
   public void showcaseWasDisplayed() {
-    preferencesHelper.markIssuesViewAsShowcased();
+    comicPreferencesHelper.markIssuesViewAsShowcased();
   }
 
   public void loadTodayIssues(boolean pullToRefresh) {
