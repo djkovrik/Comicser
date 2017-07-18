@@ -1,5 +1,9 @@
 package com.sedsoftware.comicser.features.issueslist;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindBool;
 import butterknife.BindInt;
 import butterknife.BindString;
@@ -37,6 +42,7 @@ import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDat
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsActivity;
 import com.sedsoftware.comicser.features.issuedetails.IssueDetailsFragmentBuilder;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
+import com.sedsoftware.comicser.features.sync.ComicSyncAdapter;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
@@ -45,6 +51,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import timber.log.Timber;
 
 @FragmentWithArgs
 public class IssuesFragment extends
@@ -81,6 +88,9 @@ public class IssuesFragment extends
   IssuesComponent issuesComponent;
   IssuesAdapter adapter;
 
+  UpdatingBroadcastReceiver updatingBroadcastReceiver;
+  IntentFilter updatingIntentFilter;
+
   private Menu currentMenu;
 
   // --- FRAGMENTS LIFECYCLE ---
@@ -91,6 +101,10 @@ public class IssuesFragment extends
     setRetainInstance(true);
 
     refreshLayout.setOnRefreshListener(this);
+
+    updatingBroadcastReceiver = new UpdatingBroadcastReceiver();
+    updatingIntentFilter = new IntentFilter();
+    updatingIntentFilter.addAction(ComicSyncAdapter.ACTION_DATA_UPDATED);
 
     adapter = new IssuesAdapter(issueId -> {
       if (twoPaneMode) {
@@ -121,6 +135,18 @@ public class IssuesFragment extends
     } else if (savedInstanceState != null) {
       loadData(false);
     }
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    getActivity().unregisterReceiver(updatingBroadcastReceiver);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    getActivity().registerReceiver(updatingBroadcastReceiver, updatingIntentFilter);
   }
 
   // --- OPTIONS MENU ---
@@ -229,6 +255,11 @@ public class IssuesFragment extends
     } else {
       emptyView.setVisibility(View.GONE);
     }
+  }
+
+  @Override
+  public void showErrorToast(String message) {
+    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
   }
 
   @Override
@@ -389,5 +420,19 @@ public class IssuesFragment extends
     currentMenu.findItem(R.id.action_choose_date).setVisible(!show);
     currentMenu.findItem(R.id.action_search).setVisible(!show);
     currentMenu.findItem(R.id.action_clear_search_query).setVisible(show);
+  }
+
+  private class UpdatingBroadcastReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+      String action = intent.getAction();
+
+      if (ComicSyncAdapter.ACTION_DATA_UPDATED.equals(action)) {
+        Timber.d("Action received: " + action);
+        presenter.loadTodayIssuesFromDB();
+      }
+    }
   }
 }

@@ -1,11 +1,15 @@
 package com.sedsoftware.comicser.features.issueslist;
 
+import android.content.Context;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
+import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
 import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
+import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.DateTextUtils;
+import com.sedsoftware.comicser.utils.NetworkUtils;
 import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
@@ -20,21 +24,18 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
   final PreferencesHelper preferencesHelper;
   final ComicLocalDataHelper localDataHelper;
   final ComicRemoteDataHelper remoteDataHelper;
-
-  final String currentDate;
-  final String lastSyncDate;
+  final Context context;
 
   @Inject
   public IssuesPresenter(
       PreferencesHelper preferencesHelper,
       ComicLocalDataHelper localDataHelper,
-      ComicRemoteDataHelper remoteDataHelper) {
+      ComicRemoteDataHelper remoteDataHelper,
+      Context context) {
     this.preferencesHelper = preferencesHelper;
     this.localDataHelper = localDataHelper;
     this.remoteDataHelper = remoteDataHelper;
-
-    currentDate = DateTextUtils.getTodayDateString();
-    lastSyncDate = preferencesHelper.getLastSyncDate();
+    this.context = context;
   }
 
   public boolean shouldNotDisplayShowcases() {
@@ -46,21 +47,35 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
   }
 
   public void loadTodayIssues(boolean pullToRefresh) {
-
-//    boolean forcedSync = (pullToRefresh || !(currentDate.equals(lastSyncDate)));
-    boolean forcedSync = pullToRefresh;
-
-    if (forcedSync) {
-      Timber.d("Load issues from sever...");
-      remoteDataHelper
-          .getIssuesListByDate(currentDate)
-          .subscribe(getObserver(true));
+    if (pullToRefresh) {
+      // Sync data with apps sync manager
+      Timber.d("Loading and sync started...");
+      loadTodayIssuesFromServer();
     } else {
-      Timber.d("Load issues from db...");
-      localDataHelper
-          .getTodayIssuesFromDb()
-          .subscribe(getObserver(false));
+      // Load and display issues from db
+      Timber.d("Loading issues from db started...");
+      loadTodayIssuesFromDB();
     }
+  }
+
+  public void loadTodayIssuesFromServer() {
+
+    if (NetworkUtils.isNetworkConnected(context)) {
+      ComicSyncManager.syncImmediately();
+    } else {
+      Timber.d("Network is not available!");
+      if (isViewAttached()) {
+        getView().showLoading(false);
+        getView().showContent();
+        getView().showErrorToast(context.getString(R.string.error_data_not_available_short));
+      }
+    }
+  }
+
+  public void loadTodayIssuesFromDB() {
+    localDataHelper
+        .getTodayIssuesFromDb()
+        .subscribe(getObserver());
   }
 
   public void loadIssuesByDate(String date) {
@@ -81,11 +96,11 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         .subscribe(getObserverFiltered(name, false));
   }
 
-  private SingleObserver<List<ComicIssueInfoList>> getObserver(boolean forcedSync) {
+  private SingleObserver<List<ComicIssueInfoList>> getObserver() {
     return new SingleObserver<List<ComicIssueInfoList>>() {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
-        Timber.d("Data loading started (forcedSync = " + forcedSync + ")");
+        Timber.d("Data loading started...");
         if (isViewAttached()) {
           getView().showEmptyView(false);
           getView().showLoading(true);
@@ -99,13 +114,6 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
           getView().setTitle("Today");
 
           if (list.size() > 0) {
-            // Save data to db
-            if (forcedSync) {
-              Timber.d("Data loaded from server, saving to db...");
-              localDataHelper.removeAllTodayIssuesFromDb();
-              localDataHelper.saveTodayIssuesToDb(list);
-              preferencesHelper.setSyncDate(currentDate);
-            }
             // Display content
             Timber.d("Displaying content...");
             getView().setData(list);
@@ -124,7 +132,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
         Timber.d("Data loading error: " + e.getMessage());
         if (isViewAttached()) {
           Timber.d("Displaying error view...");
-          getView().showError(e, forcedSync);
+          getView().showError(e, false);
         }
       }
     };

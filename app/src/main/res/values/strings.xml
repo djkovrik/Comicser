@@ -66,11 +66,12 @@
 
   <!-- Errors and info messages -->
   <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
+  <string name="error_data_not_available_short">API server is not available!</string>
   <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
   <string name="msg_no_issues_today">No available releases found!\nPlease try again later or choose another date.</string>
   <string name="msg_no_issues_owned">Your collection is empty!\nMark some issues as owned and you will see them here.</string>
   <string name="msg_no_volumes_found">No volumes found! Please choose another name and try again.</string>
-  <string name="msg_no_volumes_tracked">No tracked volumes found!\nMark some volumes as tracked and you will see them here</string>
+  <string name="msg_no_volumes_tracked">No tracked volumes found!\nMark some volumes as tracked and you will see them here.</string>
   <string name="msg_volumes_start">Use search button to load volume data.</string>
   <string name="msg_bookmarked">Issue added to collection</string>
   <string name="msg_bookmark_removed">Issue removed from collection</string>
