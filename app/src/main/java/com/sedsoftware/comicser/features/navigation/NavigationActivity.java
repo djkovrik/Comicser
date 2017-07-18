@@ -3,6 +3,8 @@ package com.sedsoftware.comicser.features.navigation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.BindBool;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.evernote.android.state.State;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.analytics.FirebaseAnalytics.Event;
@@ -129,6 +132,8 @@ public class NavigationActivity extends
     FragmentUtils.replaceFragmentIn(
         manager, fragment, R.id.content_frame,
         NavigationFragmentsFactory.getFragmentTag(currentSection), false);
+
+    restoreAppBarState();
   }
 
   private void logChosenNavigationSection(@AppNavigation.Section int section) {
@@ -164,5 +169,17 @@ public class NavigationActivity extends
         break;
     }
     return chosenSection;
+  }
+
+  private void restoreAppBarState() {
+
+    CoordinatorLayout coordinator = ButterKnife.findById(this, R.id.main_coordinator_layout);
+    AppBarLayout appbar = ButterKnife.findById(this, R.id.appbar);
+    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appbar.getLayoutParams();
+    AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+
+    if (behavior != null) {
+      behavior.onNestedFling(coordinator, appbar, null, 0, -1000, true);
+    }
   }
 }

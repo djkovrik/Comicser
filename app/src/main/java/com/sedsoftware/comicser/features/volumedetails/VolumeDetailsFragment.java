@@ -272,7 +272,7 @@ public class VolumeDetailsFragment extends
     presenter.setUpTrackIconState(volumeId);
 
     int parentLayoutId = (twoPaneMode) ?
-        R.id.main_constraint_layout :
+        R.id.main_coordinator_layout :
         R.id.volume_details_activity_layout;
 
     Snackbar.make(

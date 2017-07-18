@@ -254,7 +254,7 @@ public class IssueDetailsFragment
     presenter.setUpBookmarkIconState(issueId);
 
     int parentLayoutId = (twoPaneMode) ?
-        R.id.main_constraint_layout :
+        R.id.main_coordinator_layout :
         R.id.issue_details_activity_layout;
 
     Snackbar.make(
