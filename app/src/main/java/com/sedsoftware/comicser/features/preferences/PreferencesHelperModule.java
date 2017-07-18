@@ -1,16 +1,15 @@
-package com.sedsoftware.comicser.data.source.local.dagger.modules;
+package com.sedsoftware.comicser.features.preferences;
 
 import android.content.Context;
-import com.sedsoftware.comicser.data.source.local.LocalDataScope;
-import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 @Module
 public class PreferencesHelperModule {
 
   @Provides
-  @LocalDataScope
+  @Singleton
   PreferencesHelper providePreferencesHelper(Context context) {
     return new PreferencesHelper(context);
   }

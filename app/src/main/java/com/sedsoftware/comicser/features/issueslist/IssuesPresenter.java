@@ -5,7 +5,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
-import com.sedsoftware.comicser.data.source.local.PreferencesHelper;
+import com.sedsoftware.comicser.features.preferences.PreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.DateTextUtils;

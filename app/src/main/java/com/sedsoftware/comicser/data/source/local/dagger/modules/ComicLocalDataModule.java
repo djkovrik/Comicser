@@ -6,9 +6,7 @@ import com.sedsoftware.comicser.data.source.local.LocalDataScope;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {
-    ContentResolverModule.class,
-    PreferencesHelperModule.class})
+@Module(includes = {ContentResolverModule.class})
 
 public class ComicLocalDataModule {
 
