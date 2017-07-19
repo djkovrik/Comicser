@@ -65,11 +65,17 @@ public class VolumesFragment extends
   VolumesComponent volumesComponent;
   VolumesAdapter adapter;
 
+  private boolean pendingStartupAnimation;
+
   // --- FRAGMENTS LIFECYCLE ---
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    if (savedInstanceState == null) {
+      pendingStartupAnimation = true;
+    }
 
     adapter = new VolumesAdapter(volumeId -> {
       if (twoPaneMode) {
@@ -112,6 +118,12 @@ public class VolumesFragment extends
     ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
 
     setUpSearchItem(menu);
+
+    if (pendingStartupAnimation) {
+      hideToolbar();
+      pendingStartupAnimation = false;
+      startToolbarAnimation();
+    }
 
     super.onCreateOptionsMenu(menu, inflater);
   }

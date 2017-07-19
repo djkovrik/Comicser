@@ -68,12 +68,18 @@ public class OwnedIssuesFragment extends
 
   private Menu currentMenu;
 
+  private boolean pendingStartupAnimation;
+
   // --- FRAGMENTS LIFECYCLE ---
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
+
+    if (savedInstanceState == null) {
+      pendingStartupAnimation = true;
+    }
 
     adapter = new OwnedIssuesAdapter(issueId -> {
       if (twoPaneMode) {
@@ -127,6 +133,12 @@ public class OwnedIssuesFragment extends
       showClearQueryMenuItem(true);
     } else {
       showClearQueryMenuItem(false);
+    }
+
+    if (pendingStartupAnimation) {
+      hideToolbar();
+      pendingStartupAnimation = false;
+      startToolbarAnimation();
     }
 
     super.onCreateOptionsMenu(menu, inflater);

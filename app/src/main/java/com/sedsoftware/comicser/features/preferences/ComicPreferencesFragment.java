@@ -8,15 +8,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import butterknife.ButterKnife;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.base.BaseFragment;
 import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 
 @FragmentWithArgs
 public class ComicPreferencesFragment extends PreferenceFragmentCompat
     implements OnSharedPreferenceChangeListener {
+
+  Toolbar toolbar;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -26,6 +31,13 @@ public class ComicPreferencesFragment extends PreferenceFragmentCompat
 
     if (supportActionBar != null) {
       supportActionBar.setTitle(R.string.navigation_settings);
+    }
+
+    toolbar = ButterKnife.findById(getActivity(), R.id.toolbar);
+
+    if (savedInstanceState == null) {
+      hideToolbar();
+      startToolbarAnimation();
     }
   }
 
@@ -74,5 +86,17 @@ public class ComicPreferencesFragment extends PreferenceFragmentCompat
     if (prefIndex >= 0) {
       preference.setSummary(listPreference.getEntries()[prefIndex]);
     }
+  }
+
+  private void hideToolbar() {
+    int toolbarSize = toolbar.getHeight();
+    toolbar.setTranslationY(-toolbarSize);
+  }
+
+  private void startToolbarAnimation() {
+    toolbar.animate()
+        .translationY(0)
+        .setDuration(BaseFragment.TOOLBAR_ANIMATION_DURATION)
+        .setStartDelay(BaseFragment.TOOLBAR_ANIMATION_DELAY);
   }
 }

@@ -76,6 +76,8 @@ public class IssuesFragment extends
   @BindView(R.id.contentView)
   RecyclerView contentView;
 
+  private boolean pendingStartupAnimation;
+
   @State
   String title;
 
@@ -99,6 +101,10 @@ public class IssuesFragment extends
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setRetainInstance(true);
+
+    if (savedInstanceState == null) {
+      pendingStartupAnimation = true;
+    }
 
     refreshLayout.setOnRefreshListener(this);
 
@@ -161,12 +167,17 @@ public class IssuesFragment extends
     ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_choose_date, R.color.material_color_white);
 
     setUpSearchItem(menu);
-    showcaseToolbarItems();
 
     if (isNotNullOrEmpty(searchQuery)) {
       showClearQueryMenuItem(true);
     } else {
       showClearQueryMenuItem(false);
+    }
+
+    if (pendingStartupAnimation) {
+      hideToolbar();
+      pendingStartupAnimation = false;
+      startToolbarAnimation();
     }
 
     super.onCreateOptionsMenu(menu, inflater);
@@ -212,6 +223,11 @@ public class IssuesFragment extends
   @Override
   public IssuesPresenter createPresenter() {
     return issuesComponent.presenter();
+  }
+
+  @Override
+  protected void onToolbarAnimationEnd() {
+    showcaseToolbarItems();
   }
 
   @Override
@@ -371,7 +387,7 @@ public class IssuesFragment extends
     }
   }
 
-  private void showcaseToolbarItems() {
+  void showcaseToolbarItems() {
 
     if (presenter.shouldNotDisplayShowcases()) {
       return;

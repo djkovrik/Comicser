@@ -80,6 +80,11 @@ public class VolumesTrackerFragment extends BaseFragment
       supportActionBar.setTitle(R.string.volumes_tracker_fragment_title);
     }
 
+    if (savedInstanceState == null) {
+      hideToolbar();
+      startToolbarAnimation();
+    }
+
     getActivity().getSupportLoaderManager().initLoader(TRACKER_LOADER_ID, null, this);
   }
 
