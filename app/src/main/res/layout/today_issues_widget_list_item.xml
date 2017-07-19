@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
   android:orientation="horizontal">
 
   <TextView
     android:id="@+id/widget_issue_name"
     android:layout_width="match_parent"
-    tools:text="@string/dummy_volume_name_with_number"
-    android:layout_height="wrap_content"/>
+    android:layout_height="@dimen/widget_list_item_height"
+    android:gravity="center_vertical"
+    android:textSize="@dimen/material_list_dense_primary_text_size"
+    tools:text="@string/dummy_volume_name_with_number"/>
 
 </LinearLayout>

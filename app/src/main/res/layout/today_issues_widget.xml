@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="@color/colorMaterialBackground"
+  android:orientation="vertical">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_list_single_line_without_avatar_dense_height"
+    android:paddingStart="@dimen/widget_items_padding"
+    android:paddingEnd="@dimen/widget_items_padding"
+    android:background="@color/colorPrimary"
+    android:gravity="center_vertical"
+    android:text="@string/widget_title"
+    android:textColor="@color/material_color_white"
+    android:textSize="@dimen/material_card_title_block_small_text_size"/>
 
   <ListView
     android:id="@+id/widget_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/widget_items_padding"
+    android:paddingEnd="@dimen/widget_items_padding"
     android:divider="@null"
     android:dividerHeight="0dp"
     android:listSelector="@android:color/transparent"
@@ -20,4 +35,4 @@
     android:gravity="center"
     android:text="@string/widget_empty_text"/>
 
-</FrameLayout>
+</LinearLayout>
