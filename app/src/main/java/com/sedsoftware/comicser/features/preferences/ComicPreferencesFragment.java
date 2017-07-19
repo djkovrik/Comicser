@@ -3,16 +3,31 @@ package com.sedsoftware.comicser.features.preferences;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.view.View;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.sedsoftware.comicser.R;
+import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 
 @FragmentWithArgs
 public class ComicPreferencesFragment extends PreferenceFragmentCompat
     implements OnSharedPreferenceChangeListener {
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    ActionBar supportActionBar = ((NavigationActivity) getActivity()).getSupportActionBar();
+
+    if (supportActionBar != null) {
+      supportActionBar.setTitle(R.string.navigation_settings);
+    }
+  }
 
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
