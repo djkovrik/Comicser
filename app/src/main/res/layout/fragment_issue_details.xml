@@ -39,7 +39,7 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/issue_details_header_image_height"
           android:adjustViewBounds="true"
-          tools:ignore="ContentDescription"
+          android:contentDescription="@string/a11y_issue_cover"
           tools:src="@drawable/dummy_issue_cover"/>
         <!-- Issue info below -->
 

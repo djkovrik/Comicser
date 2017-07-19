@@ -113,6 +113,12 @@
   <string name="account_type" translatable="false">com.sedsoftware</string>
   <string name="content_authority" translatable="false">com.sedsoftware.comicser</string>
 
+  <!-- A11y -->
+  <string name="a11y_widget_refresh">Refresh data</string>
+  <string name="a11y_character_portrait">Character portrait</string>
+  <string name="a11y_issue_cover">Issue cover</string>
+  <string name="a11y_volume_cover">Volume cover</string>
+
   <!-- DUMMY TEXTS -->
   <string name="lorem_ipsum" translatable="false">
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
@@ -133,9 +139,9 @@
   <string name="dummy_year">2007</string>
   <string name="dummy_character_name" translatable="false">Rick Grimes</string>
   <string name="dummy_character_real_name" translatable="false">Richard Grimes</string>
-  <string name="dummy_character_aliases">Alias, Alias, Alias</string>
-  <string name="dummy_character_gender">Male</string>
-  <string name="dummy_character_origin">Human</string>
-  <string name="dummy_character_birthdate">Jul 24, 1975</string>
+  <string name="dummy_character_aliases" translatable="false">Alias, Alias, Alias</string>
+  <string name="dummy_character_gender" translatable="false">Male</string>
+  <string name="dummy_character_origin" translatable="false">Human</string>
+  <string name="dummy_character_birthdate" translatable="false">Jul 24, 1975</string>
 
 </resources>

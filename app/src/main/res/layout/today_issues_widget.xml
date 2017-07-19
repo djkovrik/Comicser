@@ -30,9 +30,9 @@
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
+      android:contentDescription="@string/a11y_widget_refresh"
       android:src="@drawable/ic_refresh_black_24dp"
-      android:tint="@color/material_color_white"
-      tools:ignore="ContentDescription"/>
+      android:tint="@color/material_color_white"/>
 
   </RelativeLayout>
 
