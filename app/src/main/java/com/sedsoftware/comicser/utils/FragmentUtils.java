@@ -19,6 +19,7 @@ public class FragmentUtils {
       @NonNull Fragment fragment, int frameId, String tag, boolean addToBackstack) {
     FragmentTransaction transaction = fragmentManager.beginTransaction();
     transaction.replace(frameId, fragment, tag);
+    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
     if (addToBackstack) {
       transaction.addToBackStack(tag);
     }
