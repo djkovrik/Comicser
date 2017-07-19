@@ -2,6 +2,7 @@ package com.sedsoftware.comicser.features.widget;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
 import android.widget.RemoteViews;
@@ -9,6 +10,7 @@ import android.widget.RemoteViewsService;
 import com.sedsoftware.comicser.ComicserApp;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
+import com.sedsoftware.comicser.features.navigation.NavigationActivity;
 import com.sedsoftware.comicser.utils.IssueTextUtils;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -98,6 +100,9 @@ public class ComicWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     String issueName = IssueTextUtils.getFormattedIssueTitle(volume, issueNumber);
 
     views.setTextViewText(R.id.widget_issue_name, issueName);
+
+    Intent intent = new Intent(context, NavigationActivity.class);
+    views.setOnClickFillInIntent(R.id.widget_list_item, intent);
 
     return views;
   }
