@@ -13,7 +13,9 @@ import com.sedsoftware.comicser.data.model.ComicVolumeInfoShort;
 import com.sedsoftware.comicser.data.source.local.ComicContract.IssueEntry;
 import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEntry;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContentUtils {
 
@@ -57,17 +59,20 @@ public class ContentUtils {
     return values;
   }
 
-//  public static ContentValues[] issuesToContentValues(@NonNull List<ComicIssueInfoList> list) {
-//
-//    ContentValues[] result = new ContentValues[list.size()];
-//
-//    for (int i = 0; i < list.size(); i++) {
-//      ContentValues value = issueInfoToContentValues(list.get(i));
-//      result[i] = value;
-//    }
-//
-//    return result;
-//  }
+  public static Set<Long> getIdsFromCursor(Cursor cursor) {
+
+    Set<Long> result = new HashSet<>(cursor.getCount());
+
+    cursor.moveToPosition(-1);
+
+    while(cursor.moveToNext()) {
+      long id = cursor.getLong(0);
+      result.add(id);
+    }
+
+    return result;
+  }
+
 
   public static List<ComicIssueInfoList> issueInfoFromCursor(Cursor cursor) {
 

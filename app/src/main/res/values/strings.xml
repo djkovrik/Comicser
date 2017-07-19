@@ -90,6 +90,9 @@
   <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
   <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
 
+  <!-- Notifications -->
+  <string name="notification_message_text">Tracked volumes new releases:</string>
+
   <!-- Settings -->
   <string name="prefs_category_title">Data persistence</string>
   <string name="prefs_sync_title">Sync period</string>
@@ -102,6 +105,8 @@
   <string name="prefs_file_name" translatable="false">com.sedsoftware.comicser_preferences</string>
   <string name="prefs_sync_period_key" translatable="false">prefs_sync_period_in_hours</string>
   <string name="prefs_issues_showcased_key" translatable="false">prefs_issues_showcased</string>
+  <string name="prefs_displayed_notifications" translatable="false">prefs_displayed_notifications</string>
+  <string name="prefs_last_sync_date" translatable="false">prefs_last_sync_date</string>
 
   <!-- Data sync xml settings strings -->
   <string name="account_type" translatable="false">com.sedsoftware</string>

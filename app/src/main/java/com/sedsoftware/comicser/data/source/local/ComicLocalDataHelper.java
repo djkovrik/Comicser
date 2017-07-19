@@ -12,6 +12,7 @@ import com.sedsoftware.comicser.data.source.local.ComicContract.TrackedVolumeEnt
 import com.sedsoftware.comicser.utils.ContentUtils;
 import io.reactivex.Single;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 
 public class ComicLocalDataHelper {
@@ -99,6 +100,63 @@ public class ComicLocalDataHelper {
         .buildDetailsUri(IssueEntry.CONTENT_URI_OWNED_ISSUES, issueId);
 
     contentResolver.delete(deletionUri, null, null);
+  }
+
+  public Set<Long> getTodayVolumesIdsFromDb() {
+
+    Set<Long> ids = null;
+
+    Cursor query = contentResolver.query(
+        IssueEntry.CONTENT_URI_TODAY_ISSUES,
+        new String[]{IssueEntry.COLUMN_ISSUE_VOLUME_ID},
+        null,
+        null,
+        null);
+
+    if (query != null) {
+      ids = ContentUtils.getIdsFromCursor(query);
+      query.close();
+    }
+
+    return ids;
+  }
+
+  public Set<Long> getTrackedVolumesIdsFromDb() {
+
+    Set<Long> ids = null;
+
+    Cursor query = contentResolver.query(
+        TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES,
+        new String[]{TrackedVolumeEntry.COLUMN_VOLUME_ID},
+        null,
+        null,
+        null);
+
+    if (query != null) {
+      ids = ContentUtils.getIdsFromCursor(query);
+      query.close();
+    }
+
+    return ids;
+  }
+
+  public String getTrackedVolumeNameById(long volumeId) {
+
+    String result = "";
+
+    Cursor cursor = contentResolver.query(
+        TrackedVolumeEntry.CONTENT_URI_TRACKED_VOLUMES,
+        new String[]{TrackedVolumeEntry.COLUMN_VOLUME_NAME},
+        TrackedVolumeEntry.COLUMN_VOLUME_ID + " = ?",
+        new String[]{String.valueOf(volumeId)},
+        null);
+
+    if (cursor != null && cursor.getCount() > 0) {
+      cursor.moveToFirst();
+      result = cursor.getString(0);
+      cursor.close();
+    }
+    return result;
   }
 
   public boolean isVolumeTracked(long volumeId) {
