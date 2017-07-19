@@ -4,13 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_gravity="center_vertical|center_horizontal">
+  android:layout_gravity="center_vertical">
 
-  <include
-    layout="@layout/lce_loading_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
-
+  <include layout="@layout/lce_loading_view"/>
   <include layout="@layout/lce_error_view"/>
 
   <android.support.v7.widget.CardView
@@ -19,6 +15,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/material_card_edge_margin"
     android:elevation="@dimen/cardview_default_elevation"
+    android:gravity="top"
     android:orientation="vertical"
     tools:targetApi="lollipop">
 

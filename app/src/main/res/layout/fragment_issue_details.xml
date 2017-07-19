@@ -3,22 +3,17 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_gravity="center_vertical|center_horizontal">
+  android:layout_height="match_parent"
+  android:layout_gravity="center_vertical">
 
-  <include
-    layout="@layout/lce_loading_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
-  <include
-    layout="@layout/lce_error_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+  <include layout="@layout/lce_loading_view"/>
+  <include layout="@layout/lce_error_view"/>
 
   <LinearLayout
     android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="top"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
