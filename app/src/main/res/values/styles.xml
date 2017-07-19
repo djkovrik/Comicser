@@ -39,11 +39,11 @@
 
   <style name="ShowCaseDarkGreenPopup" parent="CustomShowcaseTheme">
     <item name="sv_backgroundColor">@color/colorPrimaryDark</item>
-    <item name="sv_showcaseColor">@color/colorAccentDark</item>
+    <item name="sv_showcaseColor">@color/colorAccent</item>
   </style>
 
   <style name="ShowCaseDarkOrangePopup" parent="CustomShowcaseTheme">
-    <item name="sv_backgroundColor">@color/colorAccentDark</item>
+    <item name="sv_backgroundColor">@color/colorAccent</item>
     <item name="sv_showcaseColor">@color/colorPrimaryDark</item>
   </style>
 
