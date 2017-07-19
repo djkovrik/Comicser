@@ -9,13 +9,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:padding="16dp"
-    android:drawablePadding="16dp"
+    android:padding="@dimen/service_views_padding"
+    android:drawablePadding="@dimen/service_views_padding"
     android:drawableTint="@color/colorPrimary"
     android:drawableTop="@drawable/ic_search_for"
     android:gravity="center"
     android:textColor="@color/colorPrimary"
-    android:textSize="20sp"
+    android:textSize="@dimen/service_views_text_size"
     android:visibility="gone"
     tools:targetApi="m"/>
 

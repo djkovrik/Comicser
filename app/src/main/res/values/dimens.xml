@@ -19,4 +19,6 @@
 
   <!-- Misc -->
   <dimen name="image_progressbar_padding">64dp</dimen>
+  <dimen name="service_views_text_size">20sp</dimen>
+  <dimen name="service_views_padding">16dp</dimen>
 </resources>
