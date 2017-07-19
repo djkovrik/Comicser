@@ -90,6 +90,9 @@
   <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
   <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
 
+  <!-- Notifications -->
+  <string name="notification_message_text">Tracked volumes new releases:</string>
+
   <!-- Settings -->
   <string name="prefs_category_title">Data persistence</string>
   <string name="prefs_sync_title">Sync period</string>

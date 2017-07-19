@@ -22,7 +22,7 @@ public class NotificationUtils {
         .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
         .setSmallIcon(R.drawable.ic_library_books_black_24dp)
         .setLargeIcon(largeIcon)
-        .setContentTitle(context.getString(R.string.app_name))
+        .setContentTitle(context.getString(R.string.notification_message_text))
         .setContentText(notificationText)
         .setAutoCancel(true);
 
