@@ -19,7 +19,7 @@
     <android.support.v7.widget.Toolbar
       android:id="@+id/issue_details_toolbar"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
+      android:layout_height="@dimen/action_bar_size"
       android:background="?attr/colorPrimary"
       app:layout_scrollFlags="scroll|enterAlways"
       app:popupTheme="@style/AppTheme.PopupOverlay"/>
