@@ -239,6 +239,10 @@ public class IssueDetailsFragment
   @Override
   public void onBookmarkClick() {
 
+    if (currentIssue == null) {
+      return;
+    }
+
     String message;
 
     boolean isBookmarkedNow = presenter.isCurrentIssueBookmarked(issueId);

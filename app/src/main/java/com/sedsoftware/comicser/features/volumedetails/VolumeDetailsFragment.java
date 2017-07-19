@@ -257,6 +257,11 @@ public class VolumeDetailsFragment extends
 
   @Override
   public void onTrackingClick() {
+
+    if (currentVolumeInfo == null) {
+      return;
+    }
+
     String message;
 
     boolean isTrackedNow = presenter.isCurrentVolumeTracked(volumeId);
