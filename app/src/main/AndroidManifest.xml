@@ -1,15 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.sedsoftware.comicser">
 
-  package="com.sedsoftware.comicser"
-  >
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.READ_SYNC_STATS"/>
+  <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+  <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
+    android:name=".ComicserApp"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    android:fullBackupContent="@xml/backup_descriptor"
+    tools:ignore="GoogleAppIndexingWarning">
+    <provider
+      android:authorities="com.sedsoftware.comicser"
+      android:exported="false"
+      android:name=".data.source.local.ComicProvider"/>
+
+    <activity
+      android:launchMode="singleTop"
+      android:name=".features.navigation.NavigationActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:label="@string/issue_details_activity_title"
+      android:name=".features.issuedetails.IssueDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/Details">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <activity
+      android:label="@string/volume_details_activity_title"
+      android:name=".features.volumedetails.VolumeDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/Details">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <activity
+      android:label="@string/character_details_activity_title"
+      android:name=".features.characterdetails.CharacterDetailsActivity"
+      android:parentActivityName=".features.navigation.NavigationActivity"
+      android:theme="@style/Details">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".features.navigation.NavigationActivity"/>
+    </activity>
+
+    <service
+      android:exported="false"
+      android:name=".features.sync.ComicSyncService"
+      android:process=":sync">
+      <intent-filter>
+        <action android:name="android.content.SyncAdapter"/>
+      </intent-filter>
+      <meta-data
+        android:name="android.content.SyncAdapter"
+        android:resource="@xml/syncadapter"/>
+    </service>
+
+    <service
+      android:exported="false"
+      android:name=".features.sync.ComicAuthenticatorService">
+      <intent-filter>
+        <action android:name="android.accounts.AccountAuthenticator"/>
+      </intent-filter>
+      <meta-data
+        android:name="android.accounts.AccountAuthenticator"
+        android:resource="@xml/authenticator"/>
+    </service>
+
+    <receiver android:name=".features.widget.ComicWidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+        <action android:name="com.sedsoftware.comicser.ACTION_DATA_UPDATED"/>
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/widget_provider"/>
+    </receiver>
+
+    <service
+      android:exported="false"
+      android:name=".features.widget.ComicWidgetService"
+      android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
   </application>
 

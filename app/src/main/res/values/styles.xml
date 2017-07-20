@@ -6,6 +6,65 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+  </style>
+
+  <!-- Main activity theme -->
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <!-- Details activity theme -->
+  <style name="Details" parent="AppTheme.NoActionBar"/>
+
+  <!-- Overlays -->
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+  <!-- Showcase styling -->
+  <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
+    <item name="sv_tintButtonColor">true</item>
+    <item name="sv_titleTextAppearance">@style/CustomTitle</item>
+    <item name="sv_detailTextAppearance">@style/CustomDetails</item>
+  </style>
+
+  <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
+    <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
+  <style name="CustomDetails" parent="TextAppearance.ShowcaseView.Detail">
+    <item name="android:textColor">@color/material_color_white</item>
+  </style>
+
+  <style name="ShowCaseDarkGreenPopup" parent="CustomShowcaseTheme">
+    <item name="sv_backgroundColor">@color/colorPrimaryDark</item>
+    <item name="sv_showcaseColor">@color/colorAccent</item>
+  </style>
+
+  <style name="ShowCaseDarkOrangePopup" parent="CustomShowcaseTheme">
+    <item name="sv_backgroundColor">@color/colorAccent</item>
+    <item name="sv_showcaseColor">@color/colorPrimaryDark</item>
+  </style>
+
+  <!-- Search view styling -->
+  <style name="MaterialSearchViewStyle">
+    <!-- Background for the search bar-->
+    <item name="searchBackground">@color/colorPrimaryDark</item>
+
+    <!-- Change clear text icon-->
+    <item name="searchCloseIcon">@drawable/ic_action_navigation_close_inverted</item>
+
+    <!-- Change up icon-->
+    <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back_inverted</item>
+
+    <item name="android:textColor">@color/material_color_white</item>
+
+    <!-- Change hint text color for edit text-->
+    <item name="android:textColorHint">@color/material_color_grey_400</item>
+
+    <!-- Hint for edit text-->
+    <item name="android:hint">@string/issues_search_hint</item>
   </style>
 
 </resources>

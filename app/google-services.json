@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "859307992164",
+    "firebase_url": "https://comicser-2f915.firebaseio.com",
+    "project_id": "comicser-2f915",
+    "storage_bucket": "comicser-2f915.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859307992164:android:d10a28007fb0789a",
+        "android_client_info": {
+          "package_name": "com.sedsoftware.comicser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859307992164-0pknlu684dcmr3ir2onfpr7h6022oo48.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sedsoftware.comicser",
+            "certificate_hash": "574a9d82b322e5dbe55a6a329bca0950ac82c0d4"
+          }
+        },
+        {
+          "client_id": "859307992164-tdag7pa5uvdk57eemrqv2rclliupgrs5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUARtX2F2f5B4XIGzqd5CYr52pQRAYWIs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "859307992164-tdag7pa5uvdk57eemrqv2rclliupgrs5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

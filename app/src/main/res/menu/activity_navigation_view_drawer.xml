@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group
+    android:id="@+id/main"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_issues"
+      android:icon="@drawable/ic_description_black_24dp"
+      android:title="@string/navigation_issues"/>
+    <item
+      android:id="@+id/nav_volumes"
+      android:icon="@drawable/ic_dashboard_black_24dp"
+      android:title="@string/navigation_volumes"/>
+    <item
+      android:id="@+id/nav_characters"
+      android:icon="@drawable/ic_face_black_24dp"
+      android:title="@string/navigation_characters"/>
+  </group>
+  <group
+    android:id="@+id/additional"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_collection"
+      android:icon="@drawable/ic_library_books_black_24dp"
+      android:title="@string/navigation_collection"/>
+    <item
+      android:id="@+id/nav_tracker"
+      android:icon="@drawable/ic_track_changes_black_24dp"
+      android:title="@string/navigation_tracker"/>
+  </group>
+  <group
+    android:id="@+id/settings"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_settings"
+      android:icon="@drawable/ic_settings_black_24dp"
+      android:title="@string/navigation_settings"/>
+  </group>
+</menu>

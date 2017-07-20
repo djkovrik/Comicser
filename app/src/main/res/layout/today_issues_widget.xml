@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/colorMaterialBackground"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:paddingStart="@dimen/widget_items_padding"
+    android:paddingEnd="@dimen/widget_items_padding"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/material_list_single_line_without_avatar_dense_height"
+      android:layout_alignParentStart="true"
+      android:gravity="center_vertical"
+      android:text="@string/widget_title"
+      android:textColor="@color/material_color_white"
+      android:textSize="@dimen/material_card_title_block_small_text_size"/>
+
+    <ImageView
+      android:id="@+id/widget_refresh_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:contentDescription="@string/a11y_widget_refresh"
+      android:src="@drawable/ic_refresh_black_24dp"
+      android:tint="@color/material_color_white"/>
+
+  </RelativeLayout>
+
+  <ListView
+    android:id="@+id/widget_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/widget_items_padding"
+    android:paddingEnd="@dimen/widget_items_padding"
+    android:divider="@null"
+    android:dividerHeight="0dp"
+    android:listSelector="@android:color/transparent"
+    tools:listitem="@layout/today_issues_widget_list_item"/>
+
+  <TextView
+    android:id="@+id/widget_empty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="@string/widget_empty_text"/>
+
+</LinearLayout>

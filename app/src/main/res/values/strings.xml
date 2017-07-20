@@ -1,3 +1,139 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">Comicser</string>
+
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+
+  <!-- Menu items -->
+  <string name="action_choose_date">Choose date</string>
+  <string name="action_search">Search</string>
+  <string name="action_clear_search_query">Clear search</string>
+  <string name="action_bookmark">Bookmark</string>
+  <string name="action_track">Track</string>
+
+  <!-- Navigation drawer items -->
+  <string name="navigation_issues">Issues</string>
+  <string name="navigation_volumes">Volumes</string>
+  <string name="navigation_characters">Characters</string>
+  <string name="navigation_collection">My collection</string>
+  <string name="navigation_tracker">Release tracker</string>
+  <string name="navigation_settings">Settings</string>
+
+  <!-- Issues -->
+  <string name="issues_title_format">Issues - <xliff:g id="date">%s</xliff:g></string>
+  <string name="issues_search_hint">Enter name here…</string>
+
+  <!-- Issue details -->
+  <string name="issue_details_activity_title">Issue details:</string>
+  <string name="issue_details_cover_date">Cover date:</string>
+  <string name="issue_details_store_date">Store date:</string>
+  <string name="issue_details_characters">Characters:</string>
+
+  <!-- Volumes -->
+  <string name="volumes_fragment_title">Volumes</string>
+  <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
+  <string name="volumes_count_text">Issues: <xliff:g id="count">%d</xliff:g></string>
+
+  <!-- Volume details -->
+  <string name="volume_details_activity_title">Volume details:</string>
+  <string name="volume_details_publisher">Publisher:</string>
+  <string name="volume_details_year">Year:</string>
+  <string name="volume_details_other_issues">Other issues in this volume:</string>
+  <string name="volume_details_issue_number">Issue #<xliff:g id="number">%d</xliff:g></string>
+
+  <!-- Characters -->
+  <string name="characters_fragment_title">Characters</string>
+
+  <!-- Character details -->
+  <string name="character_details_activity_title">Character details:</string>
+  <string name="character_details_real_name">Real name:</string>
+  <string name="character_details_aliases">Aliases:</string>
+  <string name="character_details_birth">Date of birth:</string>
+  <string name="character_details_origin">Origin:</string>
+  <string name="character_details_gender">Gender:</string>
+  <string name="character_details_gender_male">Male</string>
+  <string name="character_details_gender_female">Female</string>
+  <string name="character_details_gender_unknown">Unknown</string>
+
+  <!-- Volumes tracker -->
+  <string name="volumes_tracker_fragment_title">Volumes tracker</string>
+
+  <!-- Errors and info messages -->
+  <string name="error_data_not_available">API server is not available!\nPlease check your internet connection and try again.</string>
+  <string name="error_data_not_available_short">API server is not available!</string>
+  <string name="error_issue_not_available">Issue data is not available!\nPlease check your internet connection and try again.</string>
+  <string name="msg_no_issues_today">No available releases found!\nPlease try again later or choose another date.</string>
+  <string name="msg_no_issues_owned">Your collection is empty!\nMark some issues as owned and you will see them here.</string>
+  <string name="msg_no_volumes_found">No volumes found! Please choose another name and try again.</string>
+  <string name="msg_no_volumes_tracked">No tracked volumes found!\nMark some volumes as tracked and you will see them here.</string>
+  <string name="msg_volumes_start">Use search button to load volume data.</string>
+  <string name="msg_bookmarked">Issue added to collection</string>
+  <string name="msg_bookmark_removed">Issue removed from collection</string>
+  <string name="msg_tracked">Volume added to tracker</string>
+  <string name="msg_track_removed">Volume removed from tracker</string>
+  <string name="msg_no_characters_found">No characters found! Please choose another name and try again.</string>
+  <string name="msg_characters_start">Use search button to load characters data.</string>
+
+  <!-- Widget -->
+  <string name="widget_title">Today\'s releases:</string>
+  <string name="widget_empty_text">No available releases found.</string>
+
+  <!-- ShowcaseView guide -->
+  <!-- Issues -->
+  <string name="showcase_issues_title">Issues view</string>
+  <string name="showcase_issues_datepicker">Here you can choose a specific date so Comicser will load all issue releases for that date.</string>
+  <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
+
+  <!-- Notifications -->
+  <string name="notification_message_text">Tracked volumes new releases:</string>
+
+  <!-- Settings -->
+  <string name="prefs_category_title">Data persistence</string>
+  <string name="prefs_sync_title">Sync period</string>
+  <string name="prefs_sync_dialog_title">Choose sync period:</string>
+  <string name="prefs_sync_once">Once per day</string>
+  <string name="prefs_sync_twice">Twice per day</string>
+  <string name="prefs_sync_three_times">Three dimes per day</string>
+  <string name="prefs_sync_four_times">Four times per day</string>
+  <string name="prefs_sync_default">24</string>
+  <string name="prefs_file_name" translatable="false">com.sedsoftware.comicser_preferences</string>
+  <string name="prefs_sync_period_key" translatable="false">prefs_sync_period_in_hours</string>
+  <string name="prefs_issues_showcased_key" translatable="false">prefs_issues_showcased</string>
+  <string name="prefs_displayed_notifications" translatable="false">prefs_displayed_notifications</string>
+  <string name="prefs_last_sync_date" translatable="false">prefs_last_sync_date</string>
+
+  <!-- Data sync xml settings strings -->
+  <string name="account_type" translatable="false">com.sedsoftware</string>
+  <string name="content_authority" translatable="false">com.sedsoftware.comicser</string>
+
+  <!-- A11y -->
+  <string name="a11y_widget_refresh">Refresh data</string>
+  <string name="a11y_character_portrait">Character portrait</string>
+  <string name="a11y_issue_cover">Issue cover</string>
+  <string name="a11y_volume_cover">Volume cover</string>
+
+  <!-- DUMMY TEXTS -->
+  <string name="lorem_ipsum" translatable="false">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+    the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of
+    type and scrambled it to make a type specimen book.
+  </string>
+
+  <string name="dummy_issue_name" translatable="false">Road\'s End</string>
+  <string name="dummy_issue_number_with_text" translatable="false">Issue #168</string>
+  <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
+  <string name="dummy_volume_name" translatable="false">The Walking Dead</string>
+  <string name="dummy_volume_name_with_number" translatable="false">The Walking Dead #168</string>
+  <string name="dummy_date" translatable="false">Jun 7, 2017</string>
+  <string name="dummy_publisher">by Skybound</string>
+  <string name="dummy_publisher_name">Skybound</string>
+  <string name="dummy_issues_count">Issues: 10</string>
+  <string name="dummy_year">2007</string>
+  <string name="dummy_character_name" translatable="false">Rick Grimes</string>
+  <string name="dummy_character_real_name" translatable="false">Richard Grimes</string>
+  <string name="dummy_character_aliases" translatable="false">Alias, Alias, Alias</string>
+  <string name="dummy_character_gender" translatable="false">Male</string>
+  <string name="dummy_character_origin" translatable="false">Human</string>
+  <string name="dummy_character_birthdate" translatable="false">Jul 24, 1975</string>
+
 </resources>
