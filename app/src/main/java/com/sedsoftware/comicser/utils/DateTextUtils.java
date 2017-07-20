@@ -33,4 +33,8 @@ public class DateTextUtils {
 
     return newFormat.format(storeDate);
   }
+
+  public static String getFormattedDateToday() {
+    return getFormattedDate(getTodayDateString(), "MMM d, yyyy");
+  }
 }

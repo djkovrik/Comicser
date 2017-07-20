@@ -5,8 +5,8 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.data.model.ComicIssueInfoList;
 import com.sedsoftware.comicser.data.source.local.ComicLocalDataHelper;
-import com.sedsoftware.comicser.features.preferences.ComicPreferencesHelper;
 import com.sedsoftware.comicser.data.source.remote.ComicRemoteDataHelper;
+import com.sedsoftware.comicser.features.preferences.ComicPreferencesHelper;
 import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 import com.sedsoftware.comicser.utils.DateTextUtils;
 import com.sedsoftware.comicser.utils.NetworkUtils;
@@ -111,7 +111,7 @@ public class IssuesPresenter extends MvpBasePresenter<IssuesView> {
       public void onSuccess(@NonNull List<ComicIssueInfoList> list) {
 
         if (isViewAttached()) {
-          getView().setTitle("Today");
+          getView().setTitle(DateTextUtils.getFormattedDateToday());
 
           if (list.size() > 0) {
             // Display content
