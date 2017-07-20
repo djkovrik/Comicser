@@ -22,6 +22,7 @@ import com.sedsoftware.comicser.data.source.remote.dagger.modules.ComicRemoteDat
 import com.sedsoftware.comicser.utils.HtmlUtils;
 import com.sedsoftware.comicser.utils.ImageUtils;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class CharacterDetailsFragment extends
     BaseLceFragment<CardView, ComicCharacterInfo, CharacterDetailsView, CharacterDetailsPresenter>
@@ -47,7 +48,7 @@ public class CharacterDetailsFragment extends
   @BindView(R.id.character_details_description)
   TextView characterDescription;
 
-  CharacterDetailsComponent characterDetailsComponent;
+  private CharacterDetailsComponent characterDetailsComponent;
   private ComicCharacterInfo currentCharacterInfo;
 
   // --- FRAGMENT LIFECYCLE ---

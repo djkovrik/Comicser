@@ -12,9 +12,10 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseActivity;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class CharacterDetailsActivity extends BaseActivity {
 
-  public static String EXTRA_CHARACTER_ID_ARG = "current_character_id";
+  private static final String EXTRA_CHARACTER_ID_ARG = "current_character_id";
 
   @State
   long chosenCharacterId;

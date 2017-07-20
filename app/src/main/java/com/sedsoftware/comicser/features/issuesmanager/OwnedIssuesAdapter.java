@@ -17,10 +17,11 @@ import com.sedsoftware.comicser.utils.IssueTextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 class OwnedIssuesAdapter extends RecyclerView.Adapter<OwnedIssueViewHolder> {
 
   private List<ComicIssueInfoList> issues;
-  private final OnIssueClickListener listener;
+  final OnIssueClickListener listener;
 
   OwnedIssuesAdapter(OnIssueClickListener listener) {
     issues = new ArrayList<>();

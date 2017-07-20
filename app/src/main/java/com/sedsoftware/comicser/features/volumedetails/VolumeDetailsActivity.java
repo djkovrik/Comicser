@@ -12,9 +12,10 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseActivity;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class VolumeDetailsActivity extends BaseActivity {
 
-  public static String EXTRA_VOLUME_ID_ARG = "current_volume_id";
+  private static final String EXTRA_VOLUME_ID_ARG = "current_volume_id";
 
   @State
   long chosenVolumeId;

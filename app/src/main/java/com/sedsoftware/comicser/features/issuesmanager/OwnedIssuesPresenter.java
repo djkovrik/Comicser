@@ -13,20 +13,20 @@ import timber.log.Timber;
 
 public class OwnedIssuesPresenter extends MvpBasePresenter<OwnedIssuesView> {
 
-  final ComicLocalDataHelper localDataHelper;
+  private final ComicLocalDataHelper localDataHelper;
 
   @Inject
-  public OwnedIssuesPresenter(ComicLocalDataHelper localDataHelper) {
+  OwnedIssuesPresenter(ComicLocalDataHelper localDataHelper) {
     this.localDataHelper = localDataHelper;
   }
 
-  public void loadOwnedIssues() {
+  void loadOwnedIssues() {
     localDataHelper
         .getOwnedIssuesFromDb()
         .subscribe(getObserver());
   }
 
-  public void loadOwnedIssuesFilteredByName(String name) {
+  void loadOwnedIssuesFilteredByName(String name) {
     localDataHelper
         .getOwnedIssuesFromDb()
         .flatMapObservable(Observable::fromIterable)

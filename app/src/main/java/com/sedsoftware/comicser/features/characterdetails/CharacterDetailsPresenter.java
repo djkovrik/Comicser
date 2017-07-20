@@ -11,10 +11,10 @@ import timber.log.Timber;
 
 public class CharacterDetailsPresenter extends MvpBasePresenter<CharacterDetailsView> {
 
-  final ComicRemoteDataHelper remoteDataHelper;
+  private final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
-  public CharacterDetailsPresenter(ComicRemoteDataHelper remoteDataHelper) {
+  CharacterDetailsPresenter(ComicRemoteDataHelper remoteDataHelper) {
     this.remoteDataHelper = remoteDataHelper;
   }
 

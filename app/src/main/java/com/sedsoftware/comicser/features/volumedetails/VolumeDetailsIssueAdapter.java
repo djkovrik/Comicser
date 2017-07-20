@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("WeakerAccess")
 class VolumeDetailsIssueAdapter extends
     RecyclerView.Adapter<VolumeDetailsIssueAdapter.IssueViewHolder> {
 

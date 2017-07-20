@@ -37,6 +37,7 @@ import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class OwnedIssuesFragment extends
     BaseLceFragment<RecyclerView, List<ComicIssueInfoList>, OwnedIssuesView, OwnedIssuesPresenter>
@@ -63,11 +64,9 @@ public class OwnedIssuesFragment extends
   @State
   String searchQuery;
 
-  OwnedIssuesComponent ownedIssuesComponent;
-  OwnedIssuesAdapter adapter;
-
+  private OwnedIssuesComponent ownedIssuesComponent;
+  private OwnedIssuesAdapter adapter;
   private Menu currentMenu;
-
   private boolean pendingStartupAnimation;
 
   // --- FRAGMENTS LIFECYCLE ---

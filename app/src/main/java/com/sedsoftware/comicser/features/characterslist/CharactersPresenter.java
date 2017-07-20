@@ -14,26 +14,27 @@ import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+@SuppressWarnings("WeakerAccess")
 public class CharactersPresenter extends MvpBasePresenter<CharactersView> {
 
   final FirebaseAnalytics firebaseAnalytics;
   final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
-  public CharactersPresenter(FirebaseAnalytics firebaseAnalytics,
+  CharactersPresenter(FirebaseAnalytics firebaseAnalytics,
       ComicRemoteDataHelper remoteDataHelper) {
     this.firebaseAnalytics = firebaseAnalytics;
     this.remoteDataHelper = remoteDataHelper;
   }
 
-  public void loadCharactersData(String characterName) {
+  void loadCharactersData(String characterName) {
     Timber.d("Load characters by name: " + characterName);
     remoteDataHelper
         .getCharactersListByName(characterName)
         .subscribe(getObserver());
   }
 
-  public void logCharacterSearchEvent(String name) {
+  void logCharacterSearchEvent(String name) {
     Bundle bundle = new Bundle();
     bundle.putString(Param.ITEM_NAME, name);
     bundle.putString(Param.CONTENT_TYPE, "character");

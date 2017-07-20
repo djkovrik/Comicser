@@ -3,7 +3,7 @@ package com.sedsoftware.comicser.features.characterdetails;
 import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfo;
 
-public interface CharacterDetailsView extends MvpLceView<ComicCharacterInfo> {
+interface CharacterDetailsView extends MvpLceView<ComicCharacterInfo> {
 //  Already defined by Mosby:
 //  void showLoading(boolean pullToRefresh);
 //  void showContent();

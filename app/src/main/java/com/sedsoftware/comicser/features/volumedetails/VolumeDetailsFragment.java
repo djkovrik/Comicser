@@ -43,6 +43,7 @@ import com.sedsoftware.comicser.utils.ImageUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class VolumeDetailsFragment extends
     BaseLceFragment<LinearLayout, ComicVolumeInfo, VolumeDetailsView, VolumeDetailsPresenter>
@@ -73,8 +74,7 @@ public class VolumeDetailsFragment extends
   @BindBool(R.bool.is_tablet_layout)
   boolean twoPaneMode;
 
-  VolumeDetailsComponent volumeDetailsComponent;
-
+  private VolumeDetailsComponent volumeDetailsComponent;
   private ComicVolumeInfo currentVolumeInfo;
   private VolumeDetailsIssueAdapter issuesAdapter;
   private Menu currentMenu;

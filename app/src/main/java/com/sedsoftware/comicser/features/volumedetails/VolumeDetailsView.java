@@ -3,7 +3,7 @@ package com.sedsoftware.comicser.features.volumedetails;
 import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 import com.sedsoftware.comicser.data.model.ComicVolumeInfo;
 
-public interface VolumeDetailsView extends MvpLceView<ComicVolumeInfo> {
+interface VolumeDetailsView extends MvpLceView<ComicVolumeInfo> {
 //  Already defined by Mosby:
 //  void showLoading(boolean pullToRefresh);
 //  void showContent();

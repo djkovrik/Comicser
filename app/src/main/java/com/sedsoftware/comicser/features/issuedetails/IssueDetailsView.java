@@ -3,7 +3,7 @@ package com.sedsoftware.comicser.features.issuedetails;
 import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 import com.sedsoftware.comicser.data.model.ComicIssueInfo;
 
-public interface IssueDetailsView extends MvpLceView<ComicIssueInfo> {
+interface IssueDetailsView extends MvpLceView<ComicIssueInfo> {
 
   //  Already defined by Mosby:
 //  void showLoading(boolean pullToRefresh);

@@ -19,6 +19,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+@SuppressWarnings("WeakerAccess")
 public class ComicSyncAdapter extends AbstractThreadedSyncAdapter {
 
   public static final String ACTION_DATA_UPDATED =
@@ -33,7 +34,7 @@ public class ComicSyncAdapter extends AbstractThreadedSyncAdapter {
   @Inject
   ComicRemoteDataHelper remoteDataHelper;
 
-  public ComicSyncAdapter(Context context) {
+  ComicSyncAdapter(Context context) {
     super(context, true);
 
     ComicserApp

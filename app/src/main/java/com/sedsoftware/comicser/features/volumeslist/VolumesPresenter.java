@@ -16,25 +16,25 @@ import timber.log.Timber;
 
 public class VolumesPresenter extends MvpBasePresenter<VolumesView> {
 
-  final FirebaseAnalytics firebaseAnalytics;
-  final ComicRemoteDataHelper remoteDataHelper;
+  private final FirebaseAnalytics firebaseAnalytics;
+  private final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
-  public VolumesPresenter(FirebaseAnalytics firebaseAnalytics,
+  VolumesPresenter(FirebaseAnalytics firebaseAnalytics,
       ComicRemoteDataHelper remoteDataHelper) {
     this.firebaseAnalytics = firebaseAnalytics;
     this.remoteDataHelper = remoteDataHelper;
   }
 
 
-  public void loadVolumesData(String volumeName) {
+  void loadVolumesData(String volumeName) {
     Timber.d("Load volumes by name: " + volumeName);
     remoteDataHelper
         .getVolumesListByName(volumeName)
         .subscribe(getObserver());
   }
 
-  public void logVolumeSearchEvent(String name) {
+  void logVolumeSearchEvent(String name) {
     Bundle bundle = new Bundle();
     bundle.putString(Param.ITEM_NAME, name);
     bundle.putString(Param.CONTENT_TYPE, "volume");

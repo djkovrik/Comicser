@@ -7,6 +7,7 @@ import org.jsoup.safety.Whitelist;
 
 public class HtmlUtils {
 
+  @SuppressWarnings("deprecation")
   public static Spanned parseHtmlText(String htmlText) {
 
     Spanned result;

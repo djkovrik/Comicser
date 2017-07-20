@@ -20,7 +20,7 @@ public class ComicRemoteDataHelper {
 
   private static final String API_KEY = BuildConfig.COMICVINE_API_KEY;
 
-  ComicVineService comicVineService;
+  private final ComicVineService comicVineService;
 
   @Inject
   public ComicRemoteDataHelper(ComicVineService comicVineService) {

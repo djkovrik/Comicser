@@ -1,11 +1,14 @@
 package com.sedsoftware.comicser.base;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import com.evernote.android.state.StateSaver;
 
+@SuppressWarnings({"WeakerAccess", "EmptyMethod"})
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
   @Override

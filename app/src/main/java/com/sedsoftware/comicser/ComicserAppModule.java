@@ -8,12 +8,12 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
-public class ComicserAppModule {
+class ComicserAppModule {
 
   @NonNull
   private final ComicserApp app;
 
-  public ComicserAppModule(@NonNull ComicserApp app) {
+  ComicserAppModule(@NonNull ComicserApp app) {
     this.app = app;
   }
 

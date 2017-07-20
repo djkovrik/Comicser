@@ -3,15 +3,16 @@ package com.sedsoftware.comicser.data.source.local;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+@SuppressWarnings("WeakerAccess")
 public class ComicContract {
 
   public static final String CONTENT_AUTHORITY = "com.sedsoftware.comicser";
   static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
   // Data paths
-  public static final String PATH_TODAY_ISSUES = "today_issues";
-  public static final String PATH_OWNED_ISSUES = "owned_issues";
-  public static final String PATH_TRACKED_VOLUMES = "tracked_volumes";
+  static final String PATH_TODAY_ISSUES = "today_issues";
+  static final String PATH_OWNED_ISSUES = "owned_issues";
+  static final String PATH_TRACKED_VOLUMES = "tracked_volumes";
 
   // Issue info record
   public static final class IssueEntry implements BaseColumns {
@@ -20,7 +21,7 @@ public class ComicContract {
         .appendPath(PATH_TODAY_ISSUES)
         .build();
 
-    public static final String TABLE_NAME_TODAY_ISSUES = "today_issues";
+    static final String TABLE_NAME_TODAY_ISSUES = "today_issues";
     public static final String COLUMN_ISSUE_ID = "issue_id";
     public static final String COLUMN_ISSUE_NAME = "issue_name";
     public static final String COLUMN_ISSUE_NUMBER = "issue_number";
@@ -33,9 +34,9 @@ public class ComicContract {
     public static final String COLUMN_ISSUE_VOLUME_NAME = "volume_name";
 
     // Owned issue record (same columns)
-    public static final String TABLE_NAME_OWNED_ISSUES = "owned_issues";
+    static final String TABLE_NAME_OWNED_ISSUES = "owned_issues";
 
-    public static final Uri CONTENT_URI_OWNED_ISSUES = BASE_CONTENT_URI.buildUpon()
+    static final Uri CONTENT_URI_OWNED_ISSUES = BASE_CONTENT_URI.buildUpon()
         .appendPath(PATH_OWNED_ISSUES)
         .build();
   }
@@ -47,7 +48,7 @@ public class ComicContract {
         .appendPath(PATH_TRACKED_VOLUMES)
         .build();
 
-    public static final String TABLE_NAME_TRACKED_VOLUMES = "tracked_volumes";
+    static final String TABLE_NAME_TRACKED_VOLUMES = "tracked_volumes";
     public static final String COLUMN_VOLUME_ID = "volume_id";
     public static final String COLUMN_VOLUME_NAME = "volume_name";
     public static final String COLUMN_VOLUME_ISSUES_COUNT = "volume_issues_count";

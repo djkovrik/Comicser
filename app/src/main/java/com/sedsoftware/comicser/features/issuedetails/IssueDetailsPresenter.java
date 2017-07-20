@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+@SuppressWarnings("WeakerAccess")
 public class IssueDetailsPresenter extends MvpBasePresenter<IssueDetailsView> {
 
   final ComicLocalDataHelper localDataHelper;

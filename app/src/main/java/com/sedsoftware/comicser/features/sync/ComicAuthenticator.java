@@ -7,9 +7,9 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.Bundle;
 
-public class ComicAuthenticator extends AbstractAccountAuthenticator {
+class ComicAuthenticator extends AbstractAccountAuthenticator {
 
-  public ComicAuthenticator(Context context) {
+  ComicAuthenticator(Context context) {
     super(context);
   }
 

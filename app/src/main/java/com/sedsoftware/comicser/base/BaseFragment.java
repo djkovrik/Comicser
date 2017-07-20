@@ -14,12 +14,13 @@ import com.evernote.android.state.StateSaver;
 import com.hannesdorfmann.fragmentargs.FragmentArgs;
 import com.sedsoftware.comicser.R;
 
+@SuppressWarnings({"WeakerAccess", "EmptyMethod", "SameReturnValue"})
 public abstract class BaseFragment extends Fragment {
 
   public static final long TOOLBAR_ANIMATION_DURATION = 200;
   public static final long TOOLBAR_ANIMATION_DELAY = 200;
 
-  Toolbar toolbar;
+  private Toolbar toolbar;
   private Unbinder unbinder;
 
   @LayoutRes

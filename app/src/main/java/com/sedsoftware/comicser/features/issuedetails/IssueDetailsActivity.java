@@ -12,9 +12,10 @@ import com.sedsoftware.comicser.R;
 import com.sedsoftware.comicser.base.BaseActivity;
 import com.sedsoftware.comicser.utils.FragmentUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class IssueDetailsActivity extends BaseActivity {
 
-  public static String EXTRA_ISSUE_ID_ARG = "current_issue_id";
+  private static final String EXTRA_ISSUE_ID_ARG = "current_issue_id";
 
   @State
   long chosenIssueId;

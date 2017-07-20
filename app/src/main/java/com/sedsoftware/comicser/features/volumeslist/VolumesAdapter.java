@@ -21,12 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("WeakerAccess")
 class VolumesAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
 
   private List<ComicVolumeInfoList> volumes;
-  private final OnVolumeClickListener listener;
+  final OnVolumeClickListener listener;
 
-  public VolumesAdapter(OnVolumeClickListener listener) {
+  VolumesAdapter(OnVolumeClickListener listener) {
     volumes = new ArrayList<>(0);
     this.listener = listener;
   }

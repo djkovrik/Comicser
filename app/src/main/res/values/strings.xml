@@ -21,20 +21,16 @@
 
   <!-- Issues -->
   <string name="issues_title_format">Issues - <xliff:g id="date">%s</xliff:g></string>
-  <string name="issues_search_hint">Enter issue name here…</string>
+  <string name="issues_search_hint">Enter name here…</string>
 
   <!-- Issue details -->
   <string name="issue_details_activity_title">Issue details:</string>
-  <string name="issue_details_name">Name:</string>
-  <string name="issue_details_volume_name">Volume:</string>
-  <string name="issue_details_number">Number:</string>
   <string name="issue_details_cover_date">Cover date:</string>
   <string name="issue_details_store_date">Store date:</string>
   <string name="issue_details_characters">Characters:</string>
 
   <!-- Volumes -->
   <string name="volumes_fragment_title">Volumes</string>
-  <string name="volumes_search_hint">Enter volume name here…</string>
   <string name="volumes_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
   <string name="volumes_count_text">Issues: <xliff:g id="count">%d</xliff:g></string>
 
@@ -47,8 +43,6 @@
 
   <!-- Characters -->
   <string name="characters_fragment_title">Characters</string>
-  <string name="characters_search_hint">Enter character name here…</string>
-  <string name="characters_publisher_text">by <xliff:g id="publisher">%s</xliff:g></string>
 
   <!-- Character details -->
   <string name="character_details_activity_title">Character details:</string>
@@ -89,7 +83,6 @@
   <string name="showcase_issues_title">Issues view</string>
   <string name="showcase_issues_datepicker">Here you can choose a specific date so Comicser will load all issue releases for that date.</string>
   <string name="showcase_issues_search">Use search to find all issues with certain volume name for currently displayed list.</string>
-  <string name="showcase_issues_drawer">Also you can use this button of left swipe for navigation drawer access.</string>
 
   <!-- Notifications -->
   <string name="notification_message_text">Tracked volumes new releases:</string>
@@ -127,7 +120,6 @@
   </string>
 
   <string name="dummy_issue_name" translatable="false">Road\'s End</string>
-  <string name="dummy_issue_number" translatable="false">168</string>
   <string name="dummy_issue_number_with_text" translatable="false">Issue #168</string>
   <string name="dummy_issue_details_header" translatable="false">The Walking Dead #168</string>
   <string name="dummy_volume_name" translatable="false">The Walking Dead</string>

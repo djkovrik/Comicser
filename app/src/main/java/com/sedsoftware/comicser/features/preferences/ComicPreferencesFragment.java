@@ -21,7 +21,7 @@ import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 public class ComicPreferencesFragment extends PreferenceFragmentCompat
     implements OnSharedPreferenceChangeListener {
 
-  Toolbar toolbar;
+  private Toolbar toolbar;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

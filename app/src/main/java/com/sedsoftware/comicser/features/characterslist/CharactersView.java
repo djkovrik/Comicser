@@ -4,7 +4,7 @@ import com.hannesdorfmann.mosby3.mvp.lce.MvpLceView;
 import com.sedsoftware.comicser.data.model.ComicCharacterInfoList;
 import java.util.List;
 
-public interface CharactersView extends MvpLceView<List<ComicCharacterInfoList>> {
+interface CharactersView extends MvpLceView<List<ComicCharacterInfoList>> {
 
 //  Already defined by Mosby:
 //  void showLoading(boolean pullToRefresh);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.sedsoftware.comicser">
 
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -16,7 +17,9 @@
     android:name=".ComicserApp"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    android:fullBackupContent="@xml/backup_descriptor"
+    tools:ignore="GoogleAppIndexingWarning">
     <provider
       android:authorities="com.sedsoftware.comicser"
       android:exported="false"
@@ -63,7 +66,7 @@
     </activity>
 
     <service
-      android:exported="true"
+      android:exported="false"
       android:name=".features.sync.ComicSyncService"
       android:process=":sync">
       <intent-filter>
@@ -75,6 +78,7 @@
     </service>
 
     <service
+      android:exported="false"
       android:name=".features.sync.ComicAuthenticatorService">
       <intent-filter>
         <action android:name="android.accounts.AccountAuthenticator"/>

@@ -21,12 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CharactersAdapter extends RecyclerView.Adapter<CharacterViewHolder>{
+@SuppressWarnings("WeakerAccess")
+class CharactersAdapter extends RecyclerView.Adapter<CharacterViewHolder>{
 
   private List<ComicCharacterInfoList> characters;
-  private final OnVolumeClickListener listener;
+  final OnVolumeClickListener listener;
 
-  public CharactersAdapter(OnVolumeClickListener listener) {
+  CharactersAdapter(OnVolumeClickListener listener) {
     characters = new ArrayList<>(0);
     this.listener = listener;
   }

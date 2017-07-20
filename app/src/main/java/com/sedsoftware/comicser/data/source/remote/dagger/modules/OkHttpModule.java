@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 
+@SuppressWarnings("WeakerAccess")
 @Module
 public class OkHttpModule {
 

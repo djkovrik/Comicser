@@ -48,7 +48,7 @@ public class ComicPreferencesHelper {
         .apply();
   }
 
-  public String getLastSyncDate() {
+  private String getLastSyncDate() {
     return sharedPreferences.getString(context.getString(R.string.prefs_last_sync_date), "");
   }
 

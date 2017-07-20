@@ -35,6 +35,7 @@ import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class VolumesFragment extends
     BaseLceFragment<RecyclerView, List<ComicVolumeInfoList>, VolumesView, VolumesPresenter>
@@ -62,9 +63,8 @@ public class VolumesFragment extends
   @State
   String title;
 
-  VolumesComponent volumesComponent;
-  VolumesAdapter adapter;
-
+  private VolumesComponent volumesComponent;
+  private VolumesAdapter adapter;
   private boolean pendingStartupAnimation;
 
   // --- FRAGMENTS LIFECYCLE ---

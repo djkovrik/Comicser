@@ -43,7 +43,7 @@ import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class IssueDetailsFragment
     extends BaseLceFragment<LinearLayout, ComicIssueInfo, IssueDetailsView, IssueDetailsPresenter>
@@ -76,8 +76,7 @@ public class IssueDetailsFragment
   @BindBool(R.bool.is_tablet_layout)
   boolean twoPaneMode;
 
-  IssueDetailsComponent issueDetailsComponent;
-
+  private IssueDetailsComponent issueDetailsComponent;
   private ComicIssueInfo currentIssue;
   private IssueDetailsCharacterAdapter listAdapter;
   private Menu currentMenu;

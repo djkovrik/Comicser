@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class IssuesFragment extends
     BaseLceFragment<SwipeRefreshLayout, List<ComicIssueInfoList>, IssuesView, IssuesPresenter>
@@ -87,11 +88,10 @@ public class IssuesFragment extends
   @State
   String searchQuery;
 
-  IssuesComponent issuesComponent;
-  IssuesAdapter adapter;
-
-  UpdatingBroadcastReceiver updatingBroadcastReceiver;
-  IntentFilter updatingIntentFilter;
+  private IssuesComponent issuesComponent;
+  private IssuesAdapter adapter;
+  private UpdatingBroadcastReceiver updatingBroadcastReceiver;
+  private IntentFilter updatingIntentFilter;
 
   private Menu currentMenu;
 
@@ -439,6 +439,9 @@ public class IssuesFragment extends
   }
 
   private class UpdatingBroadcastReceiver extends BroadcastReceiver {
+
+    UpdatingBroadcastReceiver() {
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -35,6 +35,7 @@ import com.sedsoftware.comicser.utils.FragmentUtils;
 import com.sedsoftware.comicser.utils.ViewUtils;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 @FragmentWithArgs
 public class CharactersFragment extends
     BaseLceFragment<RecyclerView, List<ComicCharacterInfoList>, CharactersView, CharactersPresenter>
@@ -62,9 +63,8 @@ public class CharactersFragment extends
   @State
   String title;
 
-  CharactersComponent charactersComponent;
-  CharactersAdapter adapter;
-
+  private CharactersComponent charactersComponent;
+  private CharactersAdapter adapter;
   private boolean pendingStartupAnimation;
 
   // --- FRAGMENTS LIFECYCLE ---
@@ -113,7 +113,7 @@ public class CharactersFragment extends
 
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.fragment_volume_list, menu);
+    inflater.inflate(R.menu.fragment_character_list, menu);
 
     ViewUtils.tintMenuIcon(getContext(), menu, R.id.action_search, R.color.material_color_white);
 

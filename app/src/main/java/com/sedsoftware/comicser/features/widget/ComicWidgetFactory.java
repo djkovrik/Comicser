@@ -15,6 +15,7 @@ import com.sedsoftware.comicser.utils.IssueTextUtils;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+@SuppressWarnings("WeakerAccess")
 public class ComicWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
   // Query projection
@@ -30,7 +31,7 @@ public class ComicWidgetFactory implements RemoteViewsService.RemoteViewsFactory
   @Inject
   ContentResolver contentResolver;
 
-  private Context context;
+  private final Context context;
   private Cursor cursor;
 
   ComicWidgetFactory(Context context) {

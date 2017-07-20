@@ -14,7 +14,7 @@ import com.sedsoftware.comicser.features.sync.ComicSyncManager;
 
 public class ComicWidgetProvider extends AppWidgetProvider {
 
-  public static final String ACTION_CLICK_REFRESH_BUTTON = "ACTION_CLICK_REFRESH_BUTTON";
+  private static final String ACTION_CLICK_REFRESH_BUTTON = "ACTION_CLICK_REFRESH_BUTTON";
 
   @Override
   public void onReceive(Context context, Intent intent) {

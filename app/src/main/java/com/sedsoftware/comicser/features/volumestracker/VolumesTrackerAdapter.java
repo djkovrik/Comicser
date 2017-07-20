@@ -16,12 +16,13 @@ import com.sedsoftware.comicser.features.volumestracker.VolumesTrackerAdapter.Vo
 import com.sedsoftware.comicser.utils.ImageUtils;
 import timber.log.Timber;
 
-public class VolumesTrackerAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
+@SuppressWarnings("WeakerAccess")
+class VolumesTrackerAdapter extends RecyclerView.Adapter<VolumeViewHolder> {
 
-  private OnVolumeClickListener listener;
+  final OnVolumeClickListener listener;
   Cursor cursor;
 
-  public VolumesTrackerAdapter(OnVolumeClickListener listener) {
+  VolumesTrackerAdapter(OnVolumeClickListener listener) {
     this.listener = listener;
   }
 
@@ -44,7 +45,8 @@ public class VolumesTrackerAdapter extends RecyclerView.Adapter<VolumeViewHolder
     return (cursor != null) ? cursor.getCount() : 0;
   }
 
-  public Cursor swapCursor(Cursor data) {
+  @SuppressWarnings("UnusedReturnValue")
+  Cursor swapCursor(Cursor data) {
 
     Timber.d("Swapping cursor...");
 

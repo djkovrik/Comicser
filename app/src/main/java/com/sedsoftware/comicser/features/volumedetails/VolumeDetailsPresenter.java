@@ -13,8 +13,8 @@ import timber.log.Timber;
 
 public class VolumeDetailsPresenter extends MvpBasePresenter<VolumeDetailsView> {
 
-  final ComicLocalDataHelper localDataHelper;
-  final ComicRemoteDataHelper remoteDataHelper;
+  private final ComicLocalDataHelper localDataHelper;
+  private final ComicRemoteDataHelper remoteDataHelper;
 
   @Inject
   VolumeDetailsPresenter(
