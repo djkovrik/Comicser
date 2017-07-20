@@ -1,5 +1,14 @@
 ## Udacity Android Developer Nanodegree Program - Capstone project
 
+A pocket helper for all comic lovers! The application contains a plenty of features which can help users to manage their personal comic collection, browse the latest published issues and track the release dates of all favorite volumes. Also Comicser has a built-in search feature which allows users to load and browse some additional comic info like volume descriptions and character profiles.
+
+All comic related data provided by [Comic Vine API](https://comicvine.gamespot.com/api/).
+
+### Installation instructions
+* Clone this repository using `git clone git@github.com:djkovrik/Comicser.git` command
+* Add **API_KEY** into your *gradle.properties* file (you can obtain a new API key [here](https://comicvine.gamespot.com/api/))
+* Now you can build and install release version of the app using `installRelease` gradle task
+
 ### Rubric
 
 #### Common Project Requirements
