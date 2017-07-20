@@ -69,7 +69,9 @@ public class NavigationActivity extends
     setSupportActionBar(toolbar);
     setUpNavigationDrawerParams();
 
-    navigateToCurrentSection();
+    if (savedInstanceState == null) {
+      navigateToCurrentSection();
+    }
 
     String defaultSyncPeriod = comicPreferencesHelper.getSyncPeriod();
     ComicSyncManager.createSyncAccount(this, Integer.parseInt(defaultSyncPeriod));
@@ -106,7 +108,6 @@ public class NavigationActivity extends
     return new NavigationActivityPresenter();
   }
 
-  @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public void handleChosenNavigationMenuItem(int chosenMenuItem) {
 
