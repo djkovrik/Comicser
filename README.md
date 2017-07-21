@@ -4,6 +4,8 @@ A pocket helper for all comic lovers! The application contains a plenty of featu
 
 All comic related data provided by [Comic Vine API](https://comicvine.gamespot.com/api/).
 
+![Screen](https://raw.githubusercontent.com/djkovrik/Comicser/master/images/poster.jpg)
+
 ### Installation instructions
 * Clone this repository using `git clone git@github.com:djkovrik/Comicser.git` command
 * Add **API_KEY** into your *gradle.properties* file (you can obtain a new API key [here](https://comicvine.gamespot.com/api/))
